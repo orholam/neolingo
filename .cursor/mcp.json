@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "supabase-josiahaccess": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp"
+    }
+  }
+}

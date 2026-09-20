@@ -1,0 +1,8 @@
+ETL_scripts
+.env
+.env.*
+*.local
+dist
+scripts
+agent-transcripts
+.cursor
