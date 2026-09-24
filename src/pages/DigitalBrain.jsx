@@ -4,16 +4,31 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Line } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
-import Header from '../components/Header'
 import BrainViewToggle from '../components/BrainViewToggle'
-import { dadjoDictionary } from '../data/dadjoDictionary'
-import { sumerianDictionary } from '../data/sumerianDictionary'
+import BrainCanvasFrame from '../components/BrainCanvasFrame'
+import { COURSES, getLanguageId } from '../data/courses'
 import { useWordMastery } from '../hooks/useWordMastery'
+import {
+  BrainCamera,
+  BRAIN_CANVAS_GL,
+  BRAIN_DPR,
+  computeCameraDistance,
+  computeSphereRadius,
+} from '../utils/brainScene'
 
-const COURSES = {
-  dadjo: { id: 'dadjo', label: 'Dadjo', emoji: '🌍', dictionary: dadjoDictionary, accent: '#f59e0b', accentDim: '#78350f' },
-  sumerian: { id: 'sumerian', label: 'Ancient Sumerian', emoji: '𒀭', dictionary: sumerianDictionary, accent: '#a78bfa', accentDim: '#4c1d95' },
-}
+const BRAIN_COURSES = Object.fromEntries(
+  Object.entries(COURSES).map(([id, course]) => [
+    id,
+    {
+      id: course.id,
+      label: course.label,
+      emoji: course.emoji,
+      dictionary: course.dictionary,
+      accent: course.accent,
+      accentDim: course.accentDim,
+    },
+  ])
+)
 
 // Fibonacci-sphere layout — evenly distributes n points on a sphere
 function spherePoints(n, radius) {
@@ -130,7 +145,7 @@ function BrainGraph({ positions, edgePairs, nodeColor, lineColor, isDark }) {
           key={idx}
           points={[positions[i], positions[j]]}
           color={lineColor}
-          lineWidth={0.6}
+          lineWidth={2}
         />
       ))}
       {positions.map((pos, i) => (
@@ -142,8 +157,7 @@ function BrainGraph({ positions, edgePairs, nodeColor, lineColor, isDark }) {
 
 function Scene({ masteredItems, langConfig, isDark }) {
   const n = masteredItems.length
-  // Radius grows with sqrt so the sphere scales nicely
-  const radius = Math.max(2.5, 1.4 * Math.sqrt(n))
+  const radius = computeSphereRadius(n)
 
   const { positions, edgePairs } = useMemo(() => {
     const positions = spherePoints(n, radius)
@@ -153,14 +167,16 @@ function Scene({ masteredItems, langConfig, isDark }) {
   }, [n, radius])
 
   const nodeColor = langConfig.accent
-  // In light mode use a dark slate edge so they're visible against the pale bg
-  const lineColor = isDark ? '#334155' : '#64748b'
+  const lineColor = isDark ? '#475569' : '#64748b'
+  const orbitMin = Math.max(2, radius * 0.45)
+  const orbitMax = Math.max(30, radius * 4.5)
 
   return (
     <>
-      <ambientLight intensity={isDark ? 0.15 : 0.8} />
-      <pointLight position={[6, 6, 6]} intensity={isDark ? 1.0 : 1.2} />
-      <pointLight position={[-5, -3, 3]} intensity={0.4} color={nodeColor} />
+      <BrainCamera radius={radius} />
+      <ambientLight intensity={isDark ? 0.25 : 0.85} />
+      <pointLight position={[6, 6, 6]} intensity={isDark ? 1.2 : 1.3} />
+      <pointLight position={[-5, -3, 3]} intensity={0.45} color={nodeColor} />
       <BrainGraph
         positions={positions}
         edgePairs={edgePairs}
@@ -168,14 +184,22 @@ function Scene({ masteredItems, langConfig, isDark }) {
         lineColor={lineColor}
         isDark={isDark}
       />
-      <OrbitControls enablePan enableZoom enableRotate minDistance={2} maxDistance={30} />
-      {/* Only bloom in dark mode — in light mode it washes everything out */}
+      <OrbitControls
+        enablePan
+        enableZoom
+        enableRotate
+        enableDamping
+        dampingFactor={0.08}
+        minDistance={orbitMin}
+        maxDistance={orbitMax}
+        target={[0, 0, 0]}
+      />
       {isDark && (
-        <EffectComposer>
+        <EffectComposer multisampling={0}>
           <Bloom
-            luminanceThreshold={0.2}
-            luminanceSmoothing={0.85}
-            intensity={2.2}
+            luminanceThreshold={0.25}
+            luminanceSmoothing={0.9}
+            intensity={1.4}
             mipmapBlur
           />
         </EffectComposer>
@@ -200,27 +224,23 @@ function DigitalBrain() {
     return () => obs.disconnect()
   }, [])
 
-  const course = COURSES[langId] || null
+  const course = BRAIN_COURSES[langId] || null
   const dictionary = course?.dictionary || []
-  const languageId = course?.id === 'sumerian' ? 'Sumerian' : 'Dadjo'
+  const languageId = course ? getLanguageId(course.id) : 'Dadjo'
   const { getUniversalMasteredWords } = useWordMastery(languageId, dictionary)
   const masteredItems = getUniversalMasteredWords()
 
   if (!course) {
     return (
-      <div className="h-screen bg-gray-900 flex flex-col">
-        <Header variant="main" />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-gray-400 mb-4">Language not found.</p>
-            <button
-              onClick={() => navigate('/home')}
-              className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200"
-            >
-              Home
-            </button>
-          </div>
-        </div>
+      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 text-center">
+        <p className="text-gray-500 dark:text-gray-400 mb-4">Language not found.</p>
+        <button
+          type="button"
+          onClick={() => navigate('/home')}
+          className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold"
+        >
+          Go to dashboard
+        </button>
       </div>
     )
   }
@@ -228,11 +248,11 @@ function DigitalBrain() {
   const bgColor = isDark ? '#0f172a' : '#e2e8f0'
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col" style={{ background: bgColor }}>
-      <Header variant="main" />
-
-      {/* Canvas fills all remaining height */}
-      <div className="flex-1 relative min-h-0 pt-20">
+    <div
+      className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
+      style={{ background: bgColor }}
+    >
+      <BrainCanvasFrame embedded>
         {masteredItems.length === 0 ? (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center max-w-md px-6">
@@ -244,24 +264,20 @@ function DigitalBrain() {
                 Your digital brain grows as you master words. Complete flashcard sessions to see them here.
               </p>
               <button
-                onClick={() => navigate('/flashcards')}
-                className="px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
+                type="button"
+                onClick={() => navigate('/flashcards/new')}
+                className="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 transition-colors"
               >
-                Go to flashcards
-              </button>
-              <button
-                onClick={() => navigate('/mastered')}
-                className="ml-3 px-5 py-2.5 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600"
-              >
-                Mastered words
+                Start flashcards
               </button>
             </div>
           </div>
         ) : (
           <Canvas
-            style={{ width: '100%', height: '100%', display: 'block' }}
-            camera={{ position: [0, 0, 12], fov: 50 }}
-            gl={{ antialias: true }}
+            key={langId}
+            dpr={BRAIN_DPR}
+            gl={BRAIN_CANVAS_GL}
+            camera={{ position: [0, 0, computeCameraDistance(computeSphereRadius(masteredItems.length))], fov: 45, near: 0.1, far: 200 }}
           >
             <color attach="background" args={[bgColor]} />
             <Suspense fallback={null}>
@@ -271,7 +287,7 @@ function DigitalBrain() {
         )}
 
         {/* Info overlay — bottom-left */}
-        <div className="absolute bottom-6 left-6 pointer-events-none select-none">
+        <div className="absolute bottom-6 left-6 pointer-events-none select-none z-10">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-2xl">{course.emoji}</span>
             <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
@@ -284,17 +300,11 @@ function DigitalBrain() {
           </p>
         </div>
 
-        {/* Nav — top-right of canvas, sits just below the fixed header */}
-        <div className="absolute top-[88px] right-4 flex items-center gap-2 z-10">
+        {/* View toggle — top-right */}
+        <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
           <BrainViewToggle current="brain" langId={langId} />
-          <button
-            onClick={() => navigate('/mastered')}
-            className="px-4 py-2 rounded-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-white dark:hover:bg-gray-800 transition-colors"
-          >
-            Mastered words
-          </button>
         </div>
-      </div>
+      </BrainCanvasFrame>
     </div>
   )
 }

@@ -26,3 +26,4 @@ dist-ssr
 # Env
 .env
 .vercel
+ETL_scripts/

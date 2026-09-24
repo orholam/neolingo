@@ -57,3 +57,10 @@ button {
 .animate-word {
   animation: word-fade 2.8s ease-in-out forwards;
 }
+
+/* App shell: reserve space for mobile bottom tab bar */
+@layer utilities {
+  .pb-tab-bar {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+  }
+}

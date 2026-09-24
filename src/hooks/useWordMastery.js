@@ -65,7 +65,8 @@ function pickSessionWords(dictionaryEntries, masteredIds) {
   return shuffled.slice(0, SESSION_SIZE)
 }
 
-export function useWordMastery(languageId, dictionaryEntries) {
+export function useWordMastery(languageId, dictionaryEntries, options = {}) {
+  const { onWordCompleted, reviewSessionSize = SESSION_SIZE } = options
   const [masteredState, setMasteredState] = useState(() => loadMastered())
   const masteredForLang = masteredState[languageId] || []
   const masteredIds = useMemo(() => new Set(masteredForLang), [masteredForLang])
@@ -82,6 +83,29 @@ export function useWordMastery(languageId, dictionaryEntries) {
 
   const [lastWordId, setLastWordId] = useState(null)
   const initialized = useRef(false)
+  const languageIdRef = useRef(languageId)
+
+  // Reset session when the active language changes
+  useEffect(() => {
+    if (languageIdRef.current === languageId) return
+    languageIdRef.current = languageId
+    initialized.current = false
+
+    if (!Array.isArray(dictionaryEntries) || !dictionaryEntries.length) {
+      setSessionWords({})
+      setLastWordId(null)
+      return
+    }
+
+    const ids = new Set(masteredState[languageId] || [])
+    const picks = pickSessionWords(dictionaryEntries, ids)
+    const words = {}
+    picks.forEach((p) => {
+      words[p.id] = { mastery: 0, correctCount: 0, incorrectCount: 0, index: p.index }
+    })
+    setSessionWords(words)
+    setLastWordId(null)
+  }, [languageId, dictionaryEntries, masteredState])
 
   useEffect(() => {
     if (initialized.current) return
@@ -99,6 +123,30 @@ export function useWordMastery(languageId, dictionaryEntries) {
   useEffect(() => {
     saveMastered(masteredState)
   }, [masteredState])
+
+  // Fire onWordCompleted exactly once per word, the moment its session
+  // mastery crosses from <5 into >=5 (i.e. the word is "done" for this
+  // session, whether it took one try or several).
+  const onWordCompletedRef = useRef(onWordCompleted)
+  useEffect(() => {
+    onWordCompletedRef.current = onWordCompleted
+  }, [onWordCompleted])
+
+  const prevSessionWordsRef = useRef(sessionWords)
+  useEffect(() => {
+    const prev = prevSessionWordsRef.current
+    if (prev !== sessionWords) {
+      Object.keys(sessionWords).forEach((wordId) => {
+        const prevWord = prev[wordId]
+        const currWord = sessionWords[wordId]
+        const prevMastery = prevWord ? prevWord.mastery : 0
+        if (currWord.mastery >= 5 && prevMastery < 5) {
+          onWordCompletedRef.current?.(wordId, { incorrectCount: currWord.incorrectCount || 0 })
+        }
+      })
+      prevSessionWordsRef.current = sessionWords
+    }
+  }, [sessionWords])
 
   const activeWordEntries = useMemo(() => {
     if (!Array.isArray(dictionaryEntries)) return []
@@ -196,7 +244,7 @@ export function useWordMastery(languageId, dictionaryEntries) {
         newMasteredIds.push(wordId)
       }
     })
-    if (!newMasteredIds.length) return
+    if (!newMasteredIds.length) return []
 
     setMasteredState((prev) => {
       const existing = new Set(prev[languageId] || [])
@@ -205,6 +253,8 @@ export function useWordMastery(languageId, dictionaryEntries) {
       saveMastered(next)
       return next
     })
+
+    return newMasteredIds
   }, [sessionWords, languageId])
 
   const startNewSession = useCallback(() => {
@@ -233,14 +283,14 @@ export function useWordMastery(languageId, dictionaryEntries) {
       candidates.push({ id, entry, index })
     })
     const shuffled = shuffleArray(candidates)
-    const picks = shuffled.slice(0, SESSION_SIZE)
+    const picks = shuffled.slice(0, reviewSessionSize)
     const words = {}
     picks.forEach((p) => {
       words[p.id] = { mastery: 0, correctCount: 0, incorrectCount: 0, index: p.index }
     })
     setSessionWords(words)
     setLastWordId(null)
-  }, [dictionaryEntries, languageId])
+  }, [dictionaryEntries, languageId, reviewSessionSize])
 
   const getActiveWords = useCallback(
     () =>

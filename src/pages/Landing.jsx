@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ThemeToggle from '../components/ThemeToggle'
+import AccountMenu from '../components/AccountMenu'
 import { LANGUAGES } from '../data/languages'
 
 const ROTATING_WORDS = ['rarest', 'forgotten', 'endangered', 'ancient', 'dying', 'constructed']
@@ -98,7 +99,10 @@ export default function Landing() {
             Neo<span className="text-indigo-500">Lingo</span>
           </span>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <AccountMenu />
+          <ThemeToggle />
+        </div>
       </nav>
 
       {/* ── Hero ── */}

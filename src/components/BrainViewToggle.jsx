@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 
 /**
- * Segmented pill toggle for switching between the Neural Brain and Semantic Map views.
- * `current` — either 'brain' or 'map'
+ * Segmented pill toggle for switching between the Neural Brain, Semantic Map,
+ * and Memory Map views.
+ * `current` — one of 'brain', 'map', 'memory'
  * `langId`  — the language route param (e.g. 'dadjo', 'sumerian')
  */
 export default function BrainViewToggle({ current, langId }) {
@@ -34,6 +35,19 @@ export default function BrainViewToggle({ current, langId }) {
       >
         <span className="text-base leading-none">🗺</span>
         <span>Semantic Map</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => current !== 'memory' && navigate(`/memory-map/${langId}`)}
+        className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-sm font-semibold transition-all duration-200 select-none ${
+          current === 'memory'
+            ? 'bg-indigo-600 text-white shadow-sm'
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer'
+        }`}
+      >
+        <span className="text-base leading-none">🌱</span>
+        <span>Memory Map</span>
       </button>
     </div>
   )

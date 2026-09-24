@@ -4,25 +4,18 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Line } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
-import Header from '../components/Header'
 import BrainViewToggle from '../components/BrainViewToggle'
-import { dadjoDictionary } from '../data/dadjoDictionary'
-import { sumerianDictionary } from '../data/sumerianDictionary'
+import BrainCanvasFrame from '../components/BrainCanvasFrame'
+import { COURSES, getLanguageId } from '../data/courses'
 import { useWordMastery } from '../hooks/useWordMastery'
 import { buildGraph, MIN_WORDS } from '../utils/semanticMapGraph'
-
-const COURSES = {
-  dadjo: {
-    id: 'dadjo', label: 'Dadjo', emoji: '🌍',
-    dictionary: dadjoDictionary,
-    embeddingsPath: () => import('../data/dadjoEmbeddings.json'),
-  },
-  sumerian: {
-    id: 'sumerian', label: 'Ancient Sumerian', emoji: '𒀭',
-    dictionary: sumerianDictionary,
-    embeddingsPath: () => import('../data/sumerianEmbeddings.json'),
-  },
-}
+import {
+  BrainCamera,
+  BRAIN_CANVAS_GL,
+  BRAIN_DPR,
+  computeCameraDistance,
+  computeGraphRadius,
+} from '../utils/brainScene'
 
 const CACHE_KEY_PREFIX = 'neolingo-semantic-map'
 const CLUSTER_TITLE_CACHE_PREFIX = 'neolingo-semantic-cluster-title'
@@ -117,7 +110,7 @@ function Edges({ nodes, edges, isDark }) {
       color={isDark
         ? (intraCluster ? nodes[i].color : '#334155')
         : (intraCluster ? nodes[i].color : '#94a3b8')}
-      lineWidth={intraCluster ? 0.9 : 0.3}
+      lineWidth={intraCluster ? 2.5 : 1.2}
       transparent
       opacity={intraCluster ? (isDark ? 0.55 : 0.6) : (isDark ? 0.08 : 0.12)}
     />
@@ -143,17 +136,30 @@ function BrainScene({ nodes, edges, isDark, onHover }) {
   )
 }
 
-function Scene({ nodes, edges, isDark, onHover }) {
+function Scene({ nodes, edges, isDark, onHover, radius }) {
+  const orbitMin = Math.max(2, radius * 0.45)
+  const orbitMax = Math.max(30, radius * 4.5)
+
   return (
     <>
-      <ambientLight intensity={isDark ? 0.15 : 0.85} />
-      <pointLight position={[6, 6, 6]} intensity={isDark ? 1.0 : 1.2} />
+      <BrainCamera radius={radius} />
+      <ambientLight intensity={isDark ? 0.25 : 0.9} />
+      <pointLight position={[6, 6, 6]} intensity={isDark ? 1.2 : 1.3} />
       <pointLight position={[-5, -3, 3]} intensity={0.5} color="#a78bfa" />
       <BrainScene nodes={nodes} edges={edges} isDark={isDark} onHover={onHover} />
-      <OrbitControls enablePan enableZoom enableRotate minDistance={2} maxDistance={30} />
+      <OrbitControls
+        enablePan
+        enableZoom
+        enableRotate
+        enableDamping
+        dampingFactor={0.08}
+        minDistance={orbitMin}
+        maxDistance={orbitMax}
+        target={[0, 0, 0]}
+      />
       {isDark && (
-        <EffectComposer>
-          <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.85} intensity={2.0} mipmapBlur />
+        <EffectComposer multisampling={0}>
+          <Bloom luminanceThreshold={0.25} luminanceSmoothing={0.9} intensity={1.4} mipmapBlur />
         </EffectComposer>
       )}
     </>
@@ -223,7 +229,7 @@ export default function SemanticBrainMap() {
 
   const course = COURSES[langId] || null
   const dictionary = course?.dictionary || []
-  const languageId = course?.id === 'sumerian' ? 'Sumerian' : 'Dadjo'
+  const languageId = course ? getLanguageId(course.id) : 'Dadjo'
   const { getUniversalMasteredWords } = useWordMastery(languageId, dictionary)
   const masteredItems = getUniversalMasteredWords()
   const masteredSignature = useMemo(
@@ -232,8 +238,17 @@ export default function SemanticBrainMap() {
   )
 
   useEffect(() => {
-    if (!course || !masteredItems.length) { setLoading(false); return }
+    setGraphData(null)
+    setClusterTitles({})
+    setHovered(null)
+    setError(null)
 
+    if (!course || !masteredItems.length) {
+      setLoading(false)
+      return
+    }
+
+    setLoading(true)
     const cacheKey = `${CACHE_KEY_PREFIX}:${langId}:${masteredSignature}`
 
     try {
@@ -243,14 +258,15 @@ export default function SemanticBrainMap() {
         if (parsed?.nodes?.length >= MIN_WORDS) {
           setGraphData(parsed)
           setLoading(false)
-          setError(null)
           return
         }
       }
     } catch (_) { /* ignore stale or invalid cache */ }
 
+    let cancelled = false
     course.embeddingsPath()
       .then(mod => {
+        if (cancelled) return
         const embeddingsMap = mod.default
         const result = buildGraph(masteredItems, embeddingsMap)
         if (result.error) {
@@ -264,13 +280,15 @@ export default function SemanticBrainMap() {
         } catch (_) { /* quota or disabled */ }
         setGraphData(result)
         setLoading(false)
-        setError(null)
       })
       .catch(err => {
+        if (cancelled) return
         console.error(err)
         setError(err.message || 'Failed to load embeddings.')
         setLoading(false)
       })
+
+    return () => { cancelled = true }
   }, [langId, masteredSignature])
 
   // When graph has clusters, ensure each has a title: use cache or fetch from LLM (needs VITE_OPENAI_API_KEY in .env)
@@ -284,25 +302,32 @@ export default function SemanticBrainMap() {
   }, [graphData])
 
   const bgColor = isDark ? '#0f172a' : '#e2e8f0'
+  const graphRadius = useMemo(
+    () => (graphData?.nodes ? computeGraphRadius(graphData.nodes) : 4),
+    [graphData]
+  )
 
   if (!course) {
     return (
-      <div className="h-screen bg-gray-950 flex flex-col">
-        <Header variant="main" />
-        <div className="flex-1 flex items-center justify-center">
-          <p className="text-gray-400">Language not found.</p>
-        </div>
+      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 text-center">
+        <p className="text-gray-500 dark:text-gray-400 mb-4">Language not found.</p>
+        <button
+          type="button"
+          onClick={() => navigate('/home')}
+          className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold"
+        >
+          Go to dashboard
+        </button>
       </div>
     )
   }
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col" style={{ background: bgColor }}>
-      <Header variant="main" />
-
-      <div className="flex-1 relative min-h-0 pt-20">
-
-        {/* ── No mastered words ── */}
+    <div
+      className="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
+      style={{ background: bgColor }}
+    >
+      <BrainCanvasFrame embedded>
         {!loading && masteredItems.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center max-w-md px-6">
@@ -314,8 +339,9 @@ export default function SemanticBrainMap() {
                 Master some words via flashcards and come back to see your semantic map.
               </p>
               <button
+                type="button"
                 onClick={() => navigate('/flashcards')}
-                className="px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
+                className="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 transition-colors"
               >
                 Go to flashcards
               </button>
@@ -323,7 +349,6 @@ export default function SemanticBrainMap() {
           </div>
         )}
 
-        {/* ── Loading ── */}
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -335,7 +360,6 @@ export default function SemanticBrainMap() {
           </div>
         )}
 
-        {/* ── Error ── */}
         {error && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center max-w-sm px-6">
@@ -346,16 +370,26 @@ export default function SemanticBrainMap() {
           </div>
         )}
 
-        {/* ── 3D canvas ── */}
         {graphData && !loading && (
           <Canvas
-            style={{ width: '100%', height: '100%', display: 'block' }}
-            camera={{ position: [0, 0, 14], fov: 50 }}
-            gl={{ antialias: true }}
+            dpr={BRAIN_DPR}
+            gl={BRAIN_CANVAS_GL}
+            camera={{
+              position: [0, 0, computeCameraDistance(graphRadius)],
+              fov: 45,
+              near: 0.1,
+              far: 200,
+            }}
           >
             <color attach="background" args={[bgColor]} />
             <Suspense fallback={null}>
-              <Scene nodes={graphData.nodes} edges={graphData.edges} isDark={isDark} onHover={setHovered} />
+              <Scene
+                nodes={graphData.nodes}
+                edges={graphData.edges}
+                isDark={isDark}
+                onHover={setHovered}
+                radius={graphRadius}
+              />
             </Suspense>
           </Canvas>
         )}
@@ -363,8 +397,7 @@ export default function SemanticBrainMap() {
         <Tooltip hovered={hovered} />
         {graphData && <ClusterLegend clusters={graphData.clusters} clusterTitles={clusterTitles} />}
 
-        {/* ── Bottom-left info ── */}
-        <div className="absolute bottom-6 left-6 pointer-events-none select-none">
+        <div className="absolute bottom-6 left-6 pointer-events-none select-none z-10">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-2xl">{course.emoji}</span>
             <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
@@ -380,11 +413,10 @@ export default function SemanticBrainMap() {
           )}
         </div>
 
-        {/* ── Top-right nav, sits just below the fixed header ── */}
-        <div className="absolute top-[88px] right-4 flex items-center gap-2 z-10">
+        <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
           <BrainViewToggle current="map" langId={langId} />
         </div>
-      </div>
+      </BrainCanvasFrame>
     </div>
   )
 }

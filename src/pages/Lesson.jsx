@@ -5,7 +5,7 @@ import { useProgress } from '../hooks/useProgress'
 import { useStreak } from '../hooks/useStreak'
 import { useHearts } from '../hooks/useHearts'
 import { useGems } from '../hooks/useGems'
-import Header from '../components/Header'
+import FocusHeader from '../components/FocusHeader'
 import { getExerciseComponent } from '../utils/exerciseFactory'
 import { validateAnswer, getFeedbackMessage } from '../utils/validation'
 
@@ -106,15 +106,15 @@ function Lesson() {
                 className="w-full bg-duo-green hover:bg-duo-green-dark text-white font-bold py-4 rounded-lg transition-colors">
                 Refill Hearts (100 💎)
               </button>
-              <button onClick={() => navigate('/home')}
+              <button onClick={() => navigate('/practice')}
                 className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-4 rounded-lg transition-colors">
-                Return to Home
+                Back to lessons
               </button>
             </div>
           ) : (
-            <button onClick={() => navigate('/home')}
+            <button onClick={() => navigate('/practice')}
               className="w-full bg-duo-green hover:bg-duo-green-dark text-white font-bold py-4 rounded-lg transition-colors">
-              Return to Home
+              Back to lessons
             </button>
           )}
         </div>
@@ -133,7 +133,7 @@ function Lesson() {
             <div className="text-4xl font-bold text-duo-green mb-2">+{xp} XP</div>
             <p className="text-gray-600 dark:text-gray-400">Great job!</p>
           </div>
-          <button onClick={() => navigate('/home')}
+          <button onClick={() => navigate('/practice')}
             className="w-full bg-duo-green hover:bg-duo-green-dark text-white font-bold py-4 rounded-lg transition-colors shadow-lg">
             Continue
           </button>
@@ -154,9 +154,16 @@ function Lesson() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header variant="simple" showHearts hearts={hearts} maxHearts={5} />
+      <FocusHeader
+        title={lessonName}
+        backLabel="← Back to Lessons"
+        backPath="/practice"
+        showHearts
+        hearts={hearts}
+        maxHearts={5}
+      />
 
-      <div className="max-w-4xl mx-auto px-4 pt-24 pb-8">
+      <div className="max-w-4xl mx-auto px-4 pt-20 pb-8">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-gray-600 dark:text-gray-400">

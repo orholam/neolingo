@@ -107,6 +107,11 @@ async function main() {
       jsonl: resolve(root, 'src/data/sumerianDictionary.jsonl'),
       out: resolve(root, 'src/data/sumerianEmbeddings.json'),
     },
+    {
+      name: 'Korean',
+      jsonl: resolve(root, 'src/data/koreanDictionary.jsonl'),
+      out: resolve(root, 'src/data/koreanEmbeddings.json'),
+    },
   ]
 
   for (const { name, jsonl, out } of datasets) {

@@ -9,9 +9,9 @@ export const LANGUAGES = [
     status: 'available',
     defaultEnabled: true,
     flag: '🐏',
-    tagline: 'Nilo-Saharan language of the Daju people',
+    tagline: 'A living language with almost no textbooks',
     description:
-      'A Nilo-Saharan language of the Daju people — rich oral tradition, unique tonal structure, rarely documented.',
+      'Spoken by ~50,000 people across Chad and Sudan, Dadjo is a tonal Nilo-Saharan language with rich oral poetry, yet almost none of it exists in print. You are learning a tongue that dictionaries are still being built for.',
     cardAccent: 'from-amber-400 to-orange-500',
     cardTagLabel: 'AVAILABLE NOW',
     cardTagColor:
@@ -27,10 +27,28 @@ export const LANGUAGES = [
     status: 'available',
     defaultEnabled: true,
     flag: '🏺',
-    tagline: "The world's oldest written language",
+    tagline: 'Readable after 4,000 years of silence',
     description:
-      "The world's oldest written language — cuneiform tablets, mythology, and the foundation of all writing.",
+      'Sumerian is a language isolate, related to nothing living, yet we can still read Gilgamesh in the original cuneiform. It invented writing itself, and words like “beer” and “freedom” first appear on its clay tablets.',
     cardAccent: 'from-violet-400 to-purple-500',
+    cardTagLabel: 'AVAILABLE NOW',
+    cardTagColor:
+      'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
+  },
+  {
+    id: 'korean',
+    code: 'korean',
+    name: 'Korean',
+    nativeName: '한국어',
+    region: 'Korea',
+    speakers: '~80 million speakers',
+    status: 'available',
+    defaultEnabled: true,
+    flag: '🇰🇷',
+    tagline: 'The script with a known inventor',
+    description:
+      'Hangul is the only widely used writing system whose creator, date, and design goals are fully documented. King Sejong published it in 1443 so that “even a fool could learn it in ten days.”',
+    cardAccent: 'from-red-400 to-rose-500',
     cardTagLabel: 'AVAILABLE NOW',
     cardTagColor:
       'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
@@ -45,9 +63,9 @@ export const LANGUAGES = [
     status: 'coming-soon',
     defaultEnabled: false,
     flag: '🗺️',
-    tagline: 'Cornish, Aramaic, Elfdalian and others',
+    tagline: 'Languages on the edge of forgetting',
     description:
-      'Cornish, Aramaic, Elfdalian and others are being researched and added to the platform.',
+      'Cornish was extinct and came back. Aramaic was Jesus’s everyday language. Elfdalian has fewer than 3,000 speakers. We are building courses for tongues the world is at risk of losing.',
     cardAccent: 'from-gray-300 to-gray-400',
     cardTagLabel: 'COMING SOON',
     cardTagColor:

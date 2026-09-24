@@ -4,35 +4,16 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Line } from '@react-three/drei'
 import * as THREE from 'three'
 import { buildGraph, MIN_WORDS } from '../utils/semanticMapGraph'
+import { COURSES, getLanguageId } from '../data/courses'
+import { useWordMastery } from '../hooks/useWordMastery'
+import { BrainCamera, BRAIN_CANVAS_GL, BRAIN_DPR, computeGraphRadius } from '../utils/brainScene'
 
 const CACHE_KEY_PREFIX = 'neolingo-semantic-map'
 
 // Module-level in-memory cache — survives component remounts within the same browser session.
-// Key: `${courseId}:${masteredSignature}` → graphData
 const graphMemoryCache = new Map()
 
-import { dadjoDictionary } from '../data/dadjoDictionary'
-import { sumerianDictionary } from '../data/sumerianDictionary'
-import { useWordMastery } from '../hooks/useWordMastery'
-
-const COURSES = {
-  dadjo: {
-    id: 'dadjo',
-    label: 'Dadjo',
-    emoji: '🌍',
-    dictionary: dadjoDictionary,
-    embeddingsPath: () => import('../data/dadjoEmbeddings.json'),
-  },
-  sumerian: {
-    id: 'sumerian',
-    label: 'Ancient Sumerian',
-    emoji: '𒀭',
-    dictionary: sumerianDictionary,
-    embeddingsPath: () => import('../data/sumerianEmbeddings.json'),
-  },
-}
-
-// Minimal 3D scene for the widget (same graph data as full page, smaller viewport): smaller nodes, no hover, auto-rotate only.
+// Minimal 3D scene for the widget
 function MiniWordNode({ position, color, index, isDark }) {
   const meshRef = useRef()
   const haloRef = useRef()
@@ -97,7 +78,7 @@ function MiniEdges({ nodes, edges, isDark }) {
             ? nodes[i].color
             : '#94a3b8'
       }
-      lineWidth={intraCluster ? 0.7 : 0.25}
+      lineWidth={intraCluster ? 2 : 1}
       transparent
       opacity={
         intraCluster ? (isDark ? 0.5 : 0.55) : isDark ? 0.06 : 0.1
@@ -131,11 +112,14 @@ function MiniBrainScene({ nodes, edges, isDark }) {
 }
 
 function MiniScene({ nodes, edges, isDark }) {
+  const radius = computeGraphRadius(nodes)
+
   return (
     <>
-      <ambientLight intensity={isDark ? 0.18 : 0.85} />
-      <pointLight position={[6, 6, 6]} intensity={isDark ? 1.0 : 1.2} />
-      <pointLight position={[-5, -3, 3]} intensity={0.5} color="#a78bfa" />
+      <BrainCamera radius={radius} />
+      <ambientLight intensity={isDark ? 0.22 : 0.9} />
+      <pointLight position={[6, 6, 6]} intensity={isDark ? 1.1 : 1.2} />
+      <pointLight position={[-5, -3, 3]} intensity={0.45} color="#a78bfa" />
       <MiniBrainScene nodes={nodes} edges={edges} isDark={isDark} />
     </>
   )
@@ -148,7 +132,7 @@ export default function MiniSemanticMap({ courseId }) {
   // check the module-level memory cache synchronously on every mount.
   const course = COURSES[courseId] || COURSES.dadjo
   const dictionary = course?.dictionary || []
-  const languageId = course?.id === 'sumerian' ? 'Sumerian' : 'Dadjo'
+  const languageId = getLanguageId(course.id)
   const { getUniversalMasteredWords } = useWordMastery(languageId, dictionary)
   const masteredItems = getUniversalMasteredWords()
   const masteredSignature = useMemo(
@@ -329,9 +313,9 @@ export default function MiniSemanticMap({ courseId }) {
 
         {graphData && !loading && (
           <Canvas
-            style={{ width: '100%', height: '100%', display: 'block' }}
-            camera={{ position: [0, 0, 9.5], fov: 52 }}
-            gl={{ antialias: true }}
+            dpr={BRAIN_DPR}
+            gl={BRAIN_CANVAS_GL}
+            camera={{ position: [0, 0, 11], fov: 48, near: 0.1, far: 100 }}
           >
             <color attach="background" args={[bgColor]} />
             <Suspense fallback={null}>

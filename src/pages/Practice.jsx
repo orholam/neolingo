@@ -4,6 +4,7 @@ import { useProgress } from '../hooks/useProgress'
 import { useGems } from '../hooks/useGems'
 import { courseData, isLessonUnlocked, getAllLessons } from '../data/courseData'
 import { sumerianData } from '../data/sumerianCourseData'
+import { koreanData } from '../data/koreanCourseData'
 import { useSelectedLanguage } from '../contexts/LanguageContext'
 
 const COURSE_CONFIG = {
@@ -13,6 +14,10 @@ const COURSE_CONFIG = {
     icon: '🌍',
     color: 'from-blue-500 to-purple-500',
     data: courseData,
+    description: 'Dar Daju Daju — spoken in Sudan & Chad',
+    dictRoute: '/dictionary',
+    dictLabel: '📚 Dadjo dictionary',
+    borderColor: 'border-blue-400 hover:border-blue-500',
   },
   sumerian: {
     id: 'sumerian',
@@ -20,6 +25,21 @@ const COURSE_CONFIG = {
     icon: '𒀭',
     color: 'from-amber-500 to-orange-600',
     data: sumerianData,
+    description: sumerianData.description,
+    dictRoute: '/sumerian-dictionary',
+    dictLabel: '📜 Sumerian dictionary',
+    borderColor: 'border-amber-400 hover:border-amber-500',
+  },
+  korean: {
+    id: 'korean',
+    label: 'Korean',
+    icon: '🇰🇷',
+    color: 'from-red-500 to-rose-600',
+    data: koreanData,
+    description: koreanData.description,
+    dictRoute: '/korean-dictionary',
+    dictLabel: '🇰🇷 Korean dictionary',
+    borderColor: 'border-red-400 hover:border-red-500',
   },
 }
 
@@ -72,35 +92,11 @@ function Practice() {
     <div className="max-w-2xl mx-auto pb-8">
       {/* Course banner */}
       <div className={`mb-6 p-4 rounded-2xl bg-gradient-to-r ${selectedCourse.color} text-white shadow-md`}>
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-4xl leading-none">{selectedCourse.icon}</span>
-            <div>
-              <h2 className="font-bold text-lg leading-tight">{selectedCourse.label}</h2>
-              <p className="text-white/80 text-sm">
-                {selectedCourse.id === 'sumerian'
-                  ? sumerianData.description
-                  : 'Dar Daju Daju — spoken in Sudan & Chad'}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {selectedCourseId === 'dadjo' && (
-              <button
-                onClick={() => navigate('/dictionary')}
-                className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/30 transition-colors"
-              >
-                📚 Dadjo dictionary
-              </button>
-            )}
-            {selectedCourseId === 'sumerian' && (
-              <button
-                onClick={() => navigate('/sumerian-dictionary')}
-                className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/30 transition-colors"
-              >
-                📜 Sumerian dictionary
-              </button>
-            )}
+        <div className="flex items-center gap-3">
+          <span className="text-4xl leading-none">{selectedCourse.icon}</span>
+          <div>
+            <h2 className="font-bold text-lg leading-tight">{selectedCourse.label}</h2>
+            <p className="text-white/80 text-sm">{selectedCourse.description}</p>
           </div>
         </div>
       </div>
@@ -125,9 +121,7 @@ function Practice() {
                       ? 'bg-gray-100 dark:bg-gray-700 opacity-60 cursor-not-allowed border-2 border-gray-300 dark:border-gray-600'
                       : status === 'completed'
                       ? `${background} border-4 border-purple-500 hover:border-purple-600`
-                      : selectedCourse.id === 'sumerian'
-                      ? `${background} border-4 border-amber-400 hover:border-amber-500`
-                      : `${background} border-4 border-blue-400 hover:border-blue-500`
+                      : `${background} border-4 ${selectedCourse.borderColor}`
                   }`}
                 >
                   <span className={`relative z-10 ${isLocked ? 'opacity-50' : ''}`}>{icon}</span>

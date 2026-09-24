@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useStreak } from '../hooks/useStreak'
 import { useGems } from '../hooks/useGems'
 import { useLanguagePlan } from '../hooks/useLanguagePlan'
-import { useSelectedLanguage } from '../contexts/LanguageContext'
+import { useLanguageSwitch } from '../hooks/useLanguageSwitch'
 import HeartsDisplay from './HeartsDisplay'
 import ThemeToggle from './ThemeToggle'
 
@@ -21,7 +21,7 @@ function Header({
   const { streak } = useStreak()
   const { gems } = useGems()
   const { enabledLanguages } = useLanguagePlan()
-  const { selectedCourseId, setSelectedCourseId } = useSelectedLanguage()
+  const { selectedCourseId, switchLanguage, setSelectedCourseId } = useLanguageSwitch()
   const [hoveredLangId, setHoveredLangId] = useState(null)
 
   useEffect(() => {
@@ -37,6 +37,7 @@ function Header({
 
   const isBrainView = location.pathname.startsWith('/brain')
     || location.pathname.startsWith('/brain-map')
+    || location.pathname.startsWith('/memory-map')
 
   const handleGoToLearning = () => {
     if (!location.pathname.startsWith('/home')) {
@@ -49,10 +50,8 @@ function Header({
   }
 
   const handleSelectLanguage = (langId) => {
-    setSelectedCourseId(langId)
-    if (location.pathname.startsWith('/brain')) {
-      navigate(`/brain/${langId}`)
-    } else if (location.pathname.startsWith('/languages')) {
+    switchLanguage(langId)
+    if (location.pathname.startsWith('/languages')) {
       navigate('/home')
     }
   }
