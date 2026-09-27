@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth, POST_AUTH_HOME_KEY } from './AuthContext'
-import { registerLearningSyncHandlers } from '../lib/learningSyncBridge'
+import { registerLearningSyncHandlers, setLearningHydrating } from '../lib/learningSyncBridge'
 import {
   SYNC_KEY_SET,
   hasMeaningfulProgress,
@@ -94,8 +94,32 @@ export function LearningSyncProvider({ children }) {
   }, [flushNow])
 
   useEffect(() => {
-    registerLearningSyncHandlers({ prepareLogout })
-    return () => registerLearningSyncHandlers({ prepareLogout: async () => {} })
+    registerLearningSyncHandlers({
+      prepareLogout,
+      requestSync: () => {
+        if (!userIdRef.current || !syncReadyRef.current) return
+        clearTimeout(timerRef.current)
+        timerRef.current = setTimeout(() => {
+          const userId = userIdRef.current
+          if (!userId || !syncReadyRef.current) return
+          upsertState(userId, readLocalSnapshot())
+            .then(() => {
+              setStatus('synced')
+              setLastError(null)
+            })
+            .catch((err) => {
+              console.error('Failed to save learning state', err)
+              setLastError(err.message || 'Sync failed')
+              setStatus('error')
+            })
+        }, 500)
+      },
+    })
+    return () =>
+      registerLearningSyncHandlers({
+        prepareLogout: async () => {},
+        requestSync: () => {},
+      })
   }, [prepareLogout])
 
   useEffect(() => {
@@ -103,14 +127,21 @@ export function LearningSyncProvider({ children }) {
 
     if (!supabase || !user) {
       syncReadyRef.current = false
+      setLearningHydrating(false)
       setStatus('idle')
       return undefined
     }
 
     let cancelled = false
     syncReadyRef.current = false
+    setLearningHydrating(true)
     setStatus('syncing')
     setLastError(null)
+
+    // Snapshot BEFORE awaiting the network. While we fetch, React children can
+    // mount and backfill empty memory stubs into localStorage; merging those
+    // stubs would wipe real cloud review history.
+    const localAtStart = readLocalSnapshot()
 
     const scheduleUpsert = () => {
       clearTimeout(timerRef.current)
@@ -170,7 +201,7 @@ export function LearningSyncProvider({ children }) {
         if (error) throw error
         if (cancelled) return
 
-        const local = readLocalSnapshot()
+        const local = localAtStart
         const cloud = snapshotFromRow(data)
         const localHas = hasMeaningfulProgress(local)
         const cloudHas = hasMeaningfulProgress(cloud)
@@ -183,6 +214,7 @@ export function LearningSyncProvider({ children }) {
           sessionStorage.setItem(HYDRATE_FLAG, user.id)
           if (!cancelled) setStatus('imported')
           syncReadyRef.current = true
+          setLearningHydrating(false)
           return
         }
 
@@ -191,6 +223,7 @@ export function LearningSyncProvider({ children }) {
           sessionStorage.setItem(HYDRATE_FLAG, user.id)
           if (!cancelled) setStatus('synced')
           syncReadyRef.current = true
+          setLearningHydrating(false)
           return
         }
 
@@ -211,6 +244,8 @@ export function LearningSyncProvider({ children }) {
             bypassSyncRef.current = false
           }
           sessionStorage.setItem(HYDRATE_FLAG, user.id)
+          syncReadyRef.current = true
+          setLearningHydrating(false)
           if (!cancelled) {
             reloadAfterHydrate()
           }
@@ -220,6 +255,7 @@ export function LearningSyncProvider({ children }) {
         sessionStorage.setItem(HYDRATE_FLAG, user.id)
         if (!cancelled) setStatus('synced')
         syncReadyRef.current = true
+        setLearningHydrating(false)
       } catch (err) {
         console.error('Failed to sync learning state', err)
         if (!cancelled) {
@@ -227,6 +263,7 @@ export function LearningSyncProvider({ children }) {
           setStatus('error')
         }
         syncReadyRef.current = true
+        setLearningHydrating(false)
       }
     })()
 
@@ -239,6 +276,7 @@ export function LearningSyncProvider({ children }) {
         localStorage.setItem = originalSetItemRef.current
       }
       syncReadyRef.current = false
+      setLearningHydrating(false)
     }
   }, [user])
 

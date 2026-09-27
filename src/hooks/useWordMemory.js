@@ -5,6 +5,7 @@ import {
   applyReviewCompletion,
   computeShortTermMemory,
 } from '../utils/wordMemory'
+import { isLearningHydrating, requestLearningSync } from '../lib/learningSyncBridge'
 
 // v2: earlier versions incorrectly backfilled every pre-existing mastered
 // word as "just reviewed" (STM=10). Bumping the key discards that bad data
@@ -27,8 +28,12 @@ function loadMemory() {
 
 function saveMemory(data) {
   if (typeof localStorage === 'undefined') return
+  // During cloud hydrate, skip persisting auto-backfill stubs — they would
+  // race the sync merge and erase real lastReviewedAt history.
+  if (isLearningHydrating()) return
   try {
     localStorage.setItem(MEMORY_KEY, JSON.stringify(data))
+    requestLearningSync()
   } catch (e) {
     console.error('Error saving word memory:', e)
   }

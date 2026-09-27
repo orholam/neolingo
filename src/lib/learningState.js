@@ -158,6 +158,34 @@ function mergeLangIdArrays(local = {}, cloud = {}) {
   return out
 }
 
+function entryFreshnessScore(entry) {
+  if (!entry || typeof entry !== 'object') return -1
+
+  // Flashcard / mastery drill shape
+  const masteryScore =
+    (Number(entry.mastery) || 0) +
+    (Number(entry.correctCount) || 0) +
+    (Number(entry.exposures) || 0) +
+    (Number(entry.level) || 0)
+
+  // Forgetting-curve memory shape (languageWordMemory_v2)
+  const reviewedRaw = entry.lastReviewedAt
+  const reviewed =
+    reviewedRaw == null || reviewedRaw === ''
+      ? 0
+      : Number(reviewedRaw) || 0
+  const memoryScore =
+    (reviewed > 0 ? 1e15 : 0) +
+    reviewed +
+    (Number(entry.reviewCount) || 0) * 1e11 +
+    (Number(entry.longTermMemory) || 0) * 1e8
+
+  // Flashcard session shape
+  const sessionScore = Array.isArray(entry.passes) ? entry.passes.length * 1e6 + (entry.updatedAt || 0) : 0
+
+  return Math.max(masteryScore, memoryScore, sessionScore)
+}
+
 function mergeWordRecords(a = {}, b = {}) {
   const keys = new Set([...Object.keys(a), ...Object.keys(b)])
   const out = {}
@@ -173,10 +201,10 @@ function mergeWordRecords(a = {}, b = {}) {
       continue
     }
     if (typeof left === 'object' && typeof right === 'object') {
-      const leftScore =
-        (left.mastery || 0) + (left.correctCount || 0) + (left.exposures || 0) + (left.level || 0)
-      const rightScore =
-        (right.mastery || 0) + (right.correctCount || 0) + (right.exposures || 0) + (right.level || 0)
+      const leftScore = entryFreshnessScore(left)
+      const rightScore = entryFreshnessScore(right)
+      // Prefer the richer/newer record. Never let an empty backfill
+      // (no lastReviewedAt / reviewCount) clobber a real review history.
       out[key] = leftScore >= rightScore ? { ...right, ...left } : { ...left, ...right }
     } else {
       out[key] = left ?? right
