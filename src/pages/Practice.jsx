@@ -5,6 +5,7 @@ import { useGems } from '../hooks/useGems'
 import { courseData, isLessonUnlocked, getAllLessons } from '../data/courseData'
 import { sumerianData } from '../data/sumerianCourseData'
 import { koreanData } from '../data/koreanCourseData'
+import { frenchData } from '../data/frenchCourseData'
 import { useSelectedLanguage } from '../contexts/LanguageContext'
 
 const COURSE_CONFIG = {
@@ -40,6 +41,17 @@ const COURSE_CONFIG = {
     dictRoute: '/korean-dictionary',
     dictLabel: '🇰🇷 Korean dictionary',
     borderColor: 'border-red-400 hover:border-red-500',
+  },
+  french: {
+    id: 'french',
+    label: 'French',
+    icon: '🇫🇷',
+    color: 'from-blue-500 to-indigo-600',
+    data: frenchData,
+    description: frenchData.description,
+    dictRoute: '/french-dictionary',
+    dictLabel: '🇫🇷 French dictionary',
+    borderColor: 'border-blue-400 hover:border-blue-500',
   },
 }
 

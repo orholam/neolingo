@@ -13,6 +13,11 @@ const ACCENT = {
     pos: 'text-red-600 dark:text-red-400',
     ring: 'focus:ring-red-500 focus:border-red-500',
   },
+  french: {
+    iconBg: 'bg-blue-100 dark:bg-blue-900/40',
+    pos: 'text-blue-600 dark:text-blue-400',
+    ring: 'focus:ring-blue-500 focus:border-blue-500',
+  },
   sumerian: {
     iconBg: 'bg-amber-100 dark:bg-amber-900/40',
     pos: 'text-amber-600 dark:text-amber-400',
@@ -65,10 +70,10 @@ function DictionaryEntryRow({ entry, index, variant }) {
               ))}
             </div>
           )}
-          {variant === 'korean' && entry.category && (
+          {(variant === 'korean' || variant === 'french') && entry.category && (
             <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">{entry.category}</p>
           )}
-          {variant === 'sumerian' && entry.notes && (
+          {(variant === 'sumerian' || variant === 'french') && entry.notes && (
             <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">{entry.notes}</p>
           )}
         </div>

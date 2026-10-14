@@ -24,6 +24,8 @@ export function useRouteLanguageSync() {
       routeCourseId = 'sumerian'
     } else if (path === '/korean-dictionary') {
       routeCourseId = 'korean'
+    } else if (path === '/french-dictionary') {
+      routeCourseId = 'french'
     }
 
     if (routeCourseId && COURSES[routeCourseId] && routeCourseId !== selectedCourseId) {

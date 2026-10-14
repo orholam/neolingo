@@ -2,6 +2,7 @@
 // Languages: Dadjo (Dar Daju Daju) and Ancient Sumerian
 
 import { sumerianExerciseTemplates } from './sumerianExerciseData'
+import { frenchExerciseTemplates } from './frenchExerciseData'
 
 // Exercise type definitions
 export const exerciseTypes = {
@@ -17,9 +18,10 @@ export const exerciseTypes = {
   READ_SELECT: 'read-select',
 }
 
-// Exercise templates by lesson ID (Dadjo: 1–10, Ancient Sumerian: 101–103)
+// Exercise templates by lesson ID (Dadjo: 1–10, Ancient Sumerian: 101–103, French: 301–304)
 export const exerciseTemplates = {
   ...sumerianExerciseTemplates,
+  ...frenchExerciseTemplates,
   // Basics 1 - Lesson 1
   1: [
     {

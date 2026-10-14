@@ -42,6 +42,7 @@ export const PAGE_TITLES = {
   '/dictionary': 'Dictionary',
   '/sumerian-dictionary': 'Dictionary',
   '/korean-dictionary': 'Dictionary',
+  '/french-dictionary': 'Dictionary',
 }
 
 export const ROUTES_WITH_SIDEBAR_PANEL = new Set(['/practice', '/flashcards'])

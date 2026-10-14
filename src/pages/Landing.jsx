@@ -190,7 +190,7 @@ export default function Landing() {
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-12 text-center">
             Pick a language, start today.
           </h2>
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {LANGUAGES.map(
               ({
                 id,

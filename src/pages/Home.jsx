@@ -6,11 +6,13 @@ import { getCourse } from '../data/courses'
 import { courseData, isLessonUnlocked, getAllLessons } from '../data/courseData'
 import { sumerianData } from '../data/sumerianCourseData'
 import { koreanData } from '../data/koreanCourseData'
+import { frenchData } from '../data/frenchCourseData'
 
 const COURSE_LESSONS = {
   dadjo: courseData,
   sumerian: sumerianData,
   korean: koreanData,
+  french: frenchData,
 }
 
 function Home() {

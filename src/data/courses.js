@@ -1,6 +1,7 @@
 import { dadjoDictionary } from './dadjoDictionary'
 import { sumerianDictionary } from './sumerianDictionary'
 import { koreanDictionary } from './koreanDictionary'
+import { frenchDictionary } from './frenchDictionary'
 
 export const COURSES = {
   dadjo: {
@@ -35,6 +36,17 @@ export const COURSES = {
     accent: '#ef4444',
     accentDim: '#7f1d1d',
     embeddingsPath: () => import('./koreanEmbeddings.json'),
+  },
+  french: {
+    id: 'french',
+    label: 'French',
+    emoji: '🇫🇷',
+    languageId: 'French',
+    dictionary: frenchDictionary,
+    dictRoute: '/french-dictionary',
+    accent: '#2563eb',
+    accentDim: '#1e3a8a',
+    embeddingsPath: () => import('./frenchEmbeddings.json'),
   },
 }
 

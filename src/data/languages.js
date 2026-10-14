@@ -54,6 +54,24 @@ export const LANGUAGES = [
       'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
   },
   {
+    id: 'french',
+    code: 'french',
+    name: 'French',
+    nativeName: 'français',
+    region: 'France & worldwide',
+    speakers: '~300 million speakers',
+    status: 'available',
+    defaultEnabled: false,
+    flag: '🇫🇷',
+    tagline: 'Start with a core word list you can opt into',
+    description:
+      'French is spoken on five continents, from Paris to Dakar to Montréal. Add it to your plan when you want it: a searchable word list for flashcards, plus short lessons for greetings, être and avoir, time, and the café.',
+    cardAccent: 'from-blue-500 to-indigo-600',
+    cardTagLabel: 'AVAILABLE NOW',
+    cardTagColor:
+      'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400',
+  },
+  {
     id: 'more-coming',
     code: 'more-coming',
     name: 'More coming',
