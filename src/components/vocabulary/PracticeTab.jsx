@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom'
+import { loadPlacement } from '../../utils/placementCheck'
 
 export default function PracticeTab({ course, stats }) {
   const navigate = useNavigate()
   const masteredCount = stats.totalUniversalMastered
+  const placement = loadPlacement(course.languageId)
+  const wordCheckOpen = placement.status !== 'completed'
 
   return (
     <div className="space-y-4">
@@ -46,6 +49,21 @@ export default function PracticeTab({ course, stats }) {
           </p>
         </button>
       </div>
+
+      {wordCheckOpen && (
+        <button
+          type="button"
+          onClick={() => navigate('/placement')}
+          className="w-full text-left rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-white dark:bg-gray-900 p-5 hover:border-emerald-400 dark:hover:border-emerald-700 transition-colors"
+        >
+          <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-1">
+            Check what you already know
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Mark familiar words and add them to your brain before you start studying.
+          </p>
+        </button>
+      )}
     </div>
   )
 }

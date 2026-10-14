@@ -59,6 +59,7 @@ export function resolveNavPath(item, courseId = 'dadjo') {
 export function isFocusRoute(pathname) {
   if (pathname.startsWith('/lesson')) return true
   if (pathname === '/flashcards/new') return true
+  if (pathname === '/placement') return true
   if (/^\/flashcards\/[^/]+$/.test(pathname) && pathname !== '/flashcards/new') return true
   return false
 }
@@ -95,6 +96,9 @@ export function getFocusBackTarget(pathname, langId = 'dadjo') {
   if (pathname.startsWith('/lesson')) {
     return { path: '/practice', label: '← Back to Lessons' }
   }
+  if (pathname === '/placement') {
+    return { path: '/home', label: '← Back to Dashboard' }
+  }
   if (pathname === '/flashcards/new' || /^\/flashcards\/[^/]+$/.test(pathname)) {
     const tab = typeof window !== 'undefined'
       ? new URLSearchParams(window.location.search).get('tab')
@@ -108,6 +112,7 @@ export function getFocusBackTarget(pathname, langId = 'dadjo') {
 export function getFocusPageTitle(pathname, lessonName) {
   if (pathname.startsWith('/lesson')) return lessonName || 'Lesson'
   if (pathname === '/flashcards/new') return 'New flashcard session'
+  if (pathname === '/placement') return 'Word check'
   if (/^\/flashcards\/[^/]+$/.test(pathname)) return 'Flashcard practice'
   return 'NeoLingo'
 }

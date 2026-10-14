@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProgress } from '../hooks/useProgress'
 import { useSelectedLanguage } from '../contexts/LanguageContext'
@@ -7,6 +8,7 @@ import { courseData, isLessonUnlocked, getAllLessons } from '../data/courseData'
 import { sumerianData } from '../data/sumerianCourseData'
 import { koreanData } from '../data/koreanCourseData'
 import { frenchData } from '../data/frenchCourseData'
+import { dismissPlacement, loadPlacement } from '../utils/placementCheck'
 
 const COURSE_LESSONS = {
   dadjo: courseData,
@@ -26,6 +28,16 @@ function Home() {
 
   const { stats: masteryStats } = useWordMastery(course.languageId, course.dictionary)
   const masteredCount = masteryStats.totalUniversalMastered
+  const loadedPlacement = loadPlacement(course.languageId)
+  const [placementOverride, setPlacementOverride] = useState(null)
+  const placement =
+    placementOverride?.languageId === course.languageId
+      ? placementOverride.data
+      : loadedPlacement
+  const showWordCheck =
+    placement.status !== 'completed' &&
+    placement.status !== 'dismissed' &&
+    (masteredCount === 0 || placement.answered.length > 0)
 
   const dailyGoal = 20
   const currentXP = progress.dailyXP || 0
@@ -82,6 +94,42 @@ function Home() {
           {nextLesson ? `Continue: ${nextLesson.name}` : 'View lesson path'}
         </button>
       </div>
+
+      {showWordCheck && (
+        <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/80 dark:bg-emerald-950/30 p-5">
+          <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">
+            Just starting
+          </p>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">
+            {placement.answered.length > 0 ? 'Continue your word check' : `Already know some ${course.label}?`}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            Go through the word list. The ones you already know are added to your brain right away.
+            {placement.answered.length > 0
+              ? ` ${placement.known} saved so far.`
+              : ` ${course.dictionary.length.toLocaleString()} words.`}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <button
+              type="button"
+              onClick={() => navigate('/placement')}
+              className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-500"
+            >
+              {placement.answered.length > 0 ? 'Continue word check' : 'Check what I know'}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const data = dismissPlacement(course.languageId)
+                setPlacementOverride({ languageId: course.languageId, data })
+              }}
+              className="px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-900"
+            >
+              Not now
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-3 gap-3">
         <button

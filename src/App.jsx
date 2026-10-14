@@ -16,6 +16,7 @@ import DigitalBrain from './pages/DigitalBrain'
 import SemanticBrainMap from './pages/SemanticBrainMap'
 import MemoryMap from './pages/MemoryMap'
 import Languages from './pages/Languages'
+import PlacementTest from './pages/PlacementTest'
 import AppShell from './components/AppShell'
 import FocusLayout from './components/FocusLayout'
 
@@ -44,6 +45,7 @@ function App() {
       <Route element={<FocusLayout />}>
         <Route path="/lesson" element={<Lesson />} />
         <Route path="/flashcards/new" element={<Flashcards />} />
+        <Route path="/placement" element={<PlacementTest />} />
         <Route path="/flashcards/:sessionId" element={<FlashcardSessionPractice />} />
       </Route>
     </Routes>

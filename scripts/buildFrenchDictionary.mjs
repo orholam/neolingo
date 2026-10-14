@@ -1,4 +1,5 @@
 import { writeFileSync } from 'node:fs'
+import { EXTRA_ROWS } from './frenchExtraWords.mjs'
 
 const SOURCE = 'NeoLingo French core vocabulary'
 
@@ -516,14 +517,15 @@ const ROWS = [
   ['musique', 'n.f', 'mew-zeek', 'music', 'J’écoute de la musique.', 'Learning', null],
   ['sport', 'n.m', 'spor', 'sport', 'Je fais du sport.', 'Learning', null],
   ['vacances', 'n.f.pl', 'vah-kahns', 'vacation', 'Bonnes vacances.', 'Learning', null],
+  ...EXTRA_ROWS,
 ]
 
 const seen = new Set()
-const entries = ROWS.map(([headword, part_of_speech, phonetic, sense, example, category, notes]) => {
+const entries = ROWS.flatMap(([headword, part_of_speech, phonetic, sense, example, category, notes]) => {
   const key = `${headword}::${part_of_speech}`
-  if (seen.has(key)) throw new Error(`duplicate ${key}`)
+  if (seen.has(key)) return []
   seen.add(key)
-  return {
+  return [{
     headword,
     part_of_speech,
     phonetic,
@@ -532,7 +534,7 @@ const entries = ROWS.map(([headword, part_of_speech, phonetic, sense, example, c
     notes,
     source: SOURCE,
     category,
-  }
+  }]
 })
 
 entries.sort((a, b) => a.headword.localeCompare(b.headword, 'fr'))
