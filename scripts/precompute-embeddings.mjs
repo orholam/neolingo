@@ -112,9 +112,20 @@ async function main() {
       jsonl: resolve(root, 'src/data/koreanDictionary.jsonl'),
       out: resolve(root, 'src/data/koreanEmbeddings.json'),
     },
+    {
+      name: 'French',
+      jsonl: resolve(root, 'src/data/frenchDictionary.jsonl'),
+      out: resolve(root, 'src/data/frenchEmbeddings.json'),
+    },
   ]
 
-  for (const { name, jsonl, out } of datasets) {
+  const only = process.argv[2]?.toLowerCase()
+  const selected = only ? datasets.filter((d) => d.name.toLowerCase() === only) : datasets
+  if (!selected.length) {
+    throw new Error(`Unknown language "${process.argv[2]}". Use one of: ${datasets.map((d) => d.name).join(', ')}`)
+  }
+
+  for (const { name, jsonl, out } of selected) {
     console.log(`\n── ${name} ──`)
     const entries = loadJsonl(jsonl)
     console.log(`  ${entries.length} entries`)
