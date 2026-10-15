@@ -22,6 +22,7 @@ export default function FlashcardSessionLayout({
   onReviewAgain,
   onLearnNew,
   onStartNew,
+  brainPowerChange = null,
   overflowItems = [],
 }) {
   return (
@@ -44,6 +45,7 @@ export default function FlashcardSessionLayout({
           onReviewAgain={onReviewAgain}
           onLearnNew={onLearnNew}
           onStartNew={onStartNew}
+          brainPowerChange={brainPowerChange}
           overflowItems={overflowItems}
         />
 

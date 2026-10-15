@@ -8,6 +8,7 @@ import { getWordId, useWordMastery } from '../hooks/useWordMastery'
 import { useWordMemory } from '../hooks/useWordMemory'
 import { getPhonetic, getPrimaryGloss } from '../utils/dictionaryEntry'
 import { loadPlacement, savePlacement } from '../utils/placementCheck'
+import { brainPowerForLanguage, displayDelta, formatBrainPowerChange } from '../utils/brainPower'
 
 export default function PlacementTest() {
   const navigate = useNavigate()
@@ -22,6 +23,18 @@ export default function PlacementTest() {
 
   const [placement, setPlacement] = useState(() => loadPlacement(languageId))
   const [revealed, setRevealed] = useState(false)
+  const [visitStart, setVisitStart] = useState(() => ({
+    languageId,
+    score: brainPowerForLanguage(languageId),
+    known: loadPlacement(languageId).known,
+  }))
+  if (visitStart.languageId !== languageId) {
+    setVisitStart({
+      languageId,
+      score: brainPowerForLanguage(languageId),
+      known: loadPlacement(languageId).known,
+    })
+  }
 
   const answered = useMemo(() => new Set(placement.answered), [placement.answered])
 
@@ -53,7 +66,7 @@ export default function PlacementTest() {
       })
       if (known) {
         addMastered(current.id)
-        memory.markFresh(current.id)
+        memory.markPermanent(current.id)
       }
       setPlacement(next)
       setRevealed(false)
@@ -81,6 +94,13 @@ export default function PlacementTest() {
     return () => window.removeEventListener('keydown', onKey)
   }, [current, record])
 
+  const addedThisVisit =
+    visitStart.languageId === languageId ? placement.known - visitStart.known : 0
+  const powerChange =
+    addedThisVisit > 0
+      ? displayDelta(visitStart.score, brainPowerForLanguage(languageId))
+      : null
+
   const gloss = current ? getPrimaryGloss(current.entry) : ''
   const phonetic = current ? getPhonetic(current.entry) : ''
 
@@ -94,7 +114,10 @@ export default function PlacementTest() {
               <span>
                 {doneCount.toLocaleString()} / {total.toLocaleString()}
               </span>
-              <span>{placement.known.toLocaleString()} in your brain</span>
+              <span>
+                {placement.known.toLocaleString()} in your brain
+                {powerChange != null ? ` · ${formatBrainPowerChange(powerChange)}` : ''}
+              </span>
             </div>
             <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
               <div
@@ -110,10 +133,17 @@ export default function PlacementTest() {
               <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">
                 Word check complete
               </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-                {placement.known.toLocaleString()} word{placement.known === 1 ? '' : 's'} you already
-                knew {placement.known === 1 ? 'is' : 'are'} in your {course.label} brain.
-              </p>
+              <div className="mb-6">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {placement.known.toLocaleString()} word{placement.known === 1 ? '' : 's'} you already
+                  knew {placement.known === 1 ? 'is' : 'are'} in your {course.label} brain.
+                </p>
+                {powerChange != null && (
+                  <p className="mt-2 text-xl font-bold tabular-nums text-indigo-600 dark:text-indigo-400">
+                    {formatBrainPowerChange(powerChange)}
+                  </p>
+                )}
+              </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <button
                   type="button"

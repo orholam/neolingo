@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProgress } from '../hooks/useProgress'
 import { useSelectedLanguage } from '../contexts/LanguageContext'
@@ -9,6 +9,7 @@ import { sumerianData } from '../data/sumerianCourseData'
 import { koreanData } from '../data/koreanCourseData'
 import { frenchData } from '../data/frenchCourseData'
 import { dismissPlacement, loadPlacement } from '../utils/placementCheck'
+import BrainPowerScore from '../components/BrainPowerScore'
 
 const COURSE_LESSONS = {
   dadjo: courseData,
@@ -26,8 +27,15 @@ function Home() {
   const allLessons = getAllLessons(lessonData)
   const completedLessons = progress.completedLessons || []
 
-  const { stats: masteryStats } = useWordMastery(course.languageId, course.dictionary)
+  const { stats: masteryStats, getUniversalMasteredWords } = useWordMastery(
+    course.languageId,
+    course.dictionary
+  )
   const masteredCount = masteryStats.totalUniversalMastered
+  const masteredIds = useMemo(
+    () => getUniversalMasteredWords().map((word) => word.id),
+    [getUniversalMasteredWords]
+  )
   const loadedPlacement = loadPlacement(course.languageId)
   const [placementOverride, setPlacementOverride] = useState(null)
   const placement =
@@ -130,6 +138,12 @@ function Home() {
           </div>
         </div>
       )}
+
+      <BrainPowerScore
+        key={course.languageId}
+        languageId={course.languageId}
+        masteredIds={masteredIds}
+      />
 
       <div className="grid grid-cols-3 gap-3">
         <button

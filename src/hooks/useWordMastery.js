@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
+import { permanentWordIds } from '../utils/wordMemory'
 
 const MASTERED_KEY = 'languageMasteredWords'
 const SESSION_SIZE = 20
@@ -132,6 +133,23 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
     onWordCompletedRef.current = onWordCompleted
   }, [onWordCompleted])
 
+  const persistMasteredIds = useCallback((ids) => {
+    if (!languageId || !ids?.length) return
+    setMasteredState((prev) => {
+      const existing = new Set(prev[languageId] || [])
+      let changed = false
+      ids.forEach((id) => {
+        if (existing.has(id)) return
+        existing.add(id)
+        changed = true
+      })
+      if (!changed) return prev
+      const next = { ...prev, [languageId]: Array.from(existing) }
+      saveMastered(next)
+      return next
+    })
+  }, [languageId])
+
   const prevSessionWordsRef = useRef(sessionWords)
   useEffect(() => {
     const prev = prevSessionWordsRef.current
@@ -211,30 +229,33 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
     return { id: chosen.id, entry: chosen.entry, mastery: chosen.mastery }
   }, [activeWordEntries, lastWordId])
 
+  const sessionWordsRef = useRef(sessionWords)
+  sessionWordsRef.current = sessionWords
+
   const recordResult = useCallback(
     (wordId, wasCorrect) => {
-      setSessionWords((prev) => {
-        const prevWordState = prev[wordId]
-        if (!prevWordState) return prev
-        let newMastery
-        if (wasCorrect) {
-          newMastery = Math.min(5, (prevWordState.mastery || 0) + 1)
-        } else {
-          newMastery = -1
-        }
-        return {
-          ...prev,
-          [wordId]: {
-            ...prevWordState,
-            mastery: newMastery,
-            correctCount: wasCorrect ? (prevWordState.correctCount || 0) + 1 : prevWordState.correctCount || 0,
-            incorrectCount: !wasCorrect ? (prevWordState.incorrectCount || 0) + 1 : prevWordState.incorrectCount || 0,
-          },
-        }
-      })
+      const current = sessionWordsRef.current
+      const prevWordState = current[wordId]
+      if (!prevWordState) return
+      const prevMastery = prevWordState.mastery || 0
+      const newMastery = wasCorrect ? Math.min(5, prevMastery + 1) : -1
+      const next = {
+        ...current,
+        [wordId]: {
+          ...prevWordState,
+          mastery: newMastery,
+          correctCount: wasCorrect ? (prevWordState.correctCount || 0) + 1 : prevWordState.correctCount || 0,
+          incorrectCount: !wasCorrect ? (prevWordState.incorrectCount || 0) + 1 : prevWordState.incorrectCount || 0,
+        },
+      }
+      sessionWordsRef.current = next
+      setSessionWords(next)
+      // Score 5 means the word is learned. Save it now so leaving the
+      // session still keeps it in the mastered list.
+      if (newMastery >= 5 && prevMastery < 5) persistMasteredIds([wordId])
       setLastWordId(wordId)
     },
-    []
+    [persistMasteredIds]
   )
 
   const commitMastered = useCallback(() => {
@@ -245,17 +266,9 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
       }
     })
     if (!newMasteredIds.length) return []
-
-    setMasteredState((prev) => {
-      const existing = new Set(prev[languageId] || [])
-      newMasteredIds.forEach((id) => existing.add(id))
-      const next = { ...prev, [languageId]: Array.from(existing) }
-      saveMastered(next)
-      return next
-    })
-
+    persistMasteredIds(newMasteredIds)
     return newMasteredIds
-  }, [sessionWords, languageId])
+  }, [sessionWords, persistMasteredIds])
 
   const startNewSession = useCallback(() => {
     if (!Array.isArray(dictionaryEntries) || !dictionaryEntries.length) return
@@ -276,10 +289,11 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
     const latestIds = new Set(latestMastered[languageId] || [])
     if (latestIds.size === 0) return
 
+    const permanentIds = permanentWordIds(languageId)
     const candidates = []
     dictionaryEntries.forEach((entry, index) => {
       const id = getWordId(entry, index)
-      if (!latestIds.has(id)) return
+      if (!latestIds.has(id) || permanentIds.has(id)) return
       candidates.push({ id, entry, index })
     })
     const shuffled = shuffleArray(candidates)
@@ -298,6 +312,7 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
         id: item.id,
         entry: item.entry,
         mastery: item.state.mastery,
+        incorrectCount: item.state.incorrectCount || 0,
       })),
     [activeWordEntries]
   )
@@ -316,16 +331,9 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
 
   const addMastered = useCallback(
     (wordId) => {
-      setMasteredState((prev) => {
-        const existing = new Set(prev[languageId] || [])
-        if (existing.has(wordId)) return prev
-        existing.add(wordId)
-        const next = { ...prev, [languageId]: Array.from(existing) }
-        saveMastered(next)
-        return next
-      })
+      persistMasteredIds([wordId])
     },
-    [languageId]
+    [persistMasteredIds]
   )
 
   const removeMastered = useCallback(

@@ -35,6 +35,7 @@ export default function FlashcardDrill({
   onReviewAgain,
   onLearnNew,
   onStartNew,
+  brainPowerChange = null,
   overflowItems = [],
 }) {
   const entry = currentCard?.entry
@@ -84,15 +85,20 @@ export default function FlashcardDrill({
             reviewMode={reviewMode}
             replayMode={replayMode}
             totalWords={stats.totalActive}
+            brainPowerChange={replayMode ? null : brainPowerChange}
             onPrimary={onCompletePrimary}
             onReviewAgain={onReviewAgain}
             onLearnNew={onLearnNew}
           />
         ) : !entry ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
-            <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">No words available</p>
+            <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">
+              {reviewMode ? 'Nothing left to review' : 'No words available'}
+            </p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Start a new session from Vocabulary.
+              {reviewMode
+                ? 'Words already at 10/10 stay out of review.'
+                : 'Start a new session from Vocabulary.'}
             </p>
             {onStartNew && (
               <button

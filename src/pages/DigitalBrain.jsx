@@ -15,6 +15,7 @@ import {
   computeCameraDistance,
   computeSphereRadius,
 } from '../utils/brainScene'
+import BrainPowerScore from '../components/BrainPowerScore'
 
 const BRAIN_COURSES = Object.fromEntries(
   Object.entries(COURSES).map(([id, course]) => [
@@ -229,6 +230,10 @@ function DigitalBrain() {
   const languageId = course ? getLanguageId(course.id) : 'Dadjo'
   const { getUniversalMasteredWords } = useWordMastery(languageId, dictionary)
   const masteredItems = getUniversalMasteredWords()
+  const masteredIds = useMemo(
+    () => getUniversalMasteredWords().map((item) => item.id),
+    [getUniversalMasteredWords]
+  )
 
   if (!course) {
     return (
@@ -287,8 +292,14 @@ function DigitalBrain() {
         )}
 
         {/* Info overlay — bottom-left */}
-        <div className="absolute bottom-6 left-6 pointer-events-none select-none z-10">
-          <div className="flex items-center gap-3 mb-1">
+        <div className="absolute bottom-6 left-6 z-10 pointer-events-none rounded-2xl bg-white/80 dark:bg-gray-950/70 backdrop-blur-sm px-4 py-3 border border-white/60 dark:border-gray-800">
+          <BrainPowerScore
+            key={languageId}
+            languageId={languageId}
+            masteredIds={masteredIds}
+            variant="overlay"
+          />
+          <div className="flex items-center gap-3 mb-1 mt-3">
             <span className="text-2xl">{course.emoji}</span>
             <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
               {course.label} — Digital Brain

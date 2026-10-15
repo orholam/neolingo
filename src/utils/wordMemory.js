@@ -15,6 +15,7 @@
 export const MIN_MEMORY = 1
 export const MAX_MEMORY = 10
 export const INITIAL_LONG_TERM_MEMORY = 1
+export const MEMORY_STORAGE_KEY = 'languageWordMemory_v2'
 
 // Tunable: characteristic decay time (in days) contributed by each LTM point.
 // At LTM 1, recall fades to a coin-flip within about a day; at LTM 10, it
@@ -49,6 +50,42 @@ export function createInitialMemory(now = Date.now()) {
     firstLearnedAt: now,
     reviewCount: 0,
   }
+}
+
+/** Already known before study: lodged at the ceiling, so review can leave it alone. */
+export function createPermanentMemory(now = Date.now()) {
+  return {
+    longTermMemory: MAX_MEMORY,
+    lastReviewedAt: now,
+    lastOccasionDate: todayKey(new Date(now)),
+    firstLearnedAt: now,
+    reviewCount: 0,
+  }
+}
+
+export function isPermanentMemory(entry) {
+  return clampMemory(entry?.longTermMemory ?? 0) >= MAX_MEMORY
+}
+
+export function readStoredMemory() {
+  if (typeof localStorage === 'undefined') return {}
+  try {
+    const stored = localStorage.getItem(MEMORY_STORAGE_KEY)
+    if (!stored) return {}
+    const parsed = JSON.parse(stored)
+    return parsed && typeof parsed === 'object' ? parsed : {}
+  } catch {
+    return {}
+  }
+}
+
+export function permanentWordIds(languageId, memoryState = readStoredMemory()) {
+  const lang = memoryState?.[languageId] || {}
+  const ids = new Set()
+  Object.entries(lang).forEach(([id, entry]) => {
+    if (isPermanentMemory(entry)) ids.add(id)
+  })
+  return ids
 }
 
 /**

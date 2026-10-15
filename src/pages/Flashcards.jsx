@@ -8,6 +8,14 @@ import { useSelectedLanguage } from '../contexts/LanguageContext'
 import { useWordMastery } from '../hooks/useWordMastery'
 import { useWordMemory } from '../hooks/useWordMemory'
 import { saveSession } from '../utils/flashcardSessions'
+import {
+  brainPowerForLanguage,
+  clearBrainPowerAnchor,
+  computeBrainPower,
+  displayDelta,
+  projectSessionMemory,
+} from '../utils/brainPower'
+import { readStoredMemory } from '../utils/wordMemory'
 
 function Flashcards() {
   const navigate = useNavigate()
@@ -25,6 +33,8 @@ function Flashcards() {
   // Debug control: how many words a review session pulls in. Defaults to 20
   // to match the normal review session size.
   const [reviewSessionSize, setReviewSessionSize] = useState(20)
+  const [sessionEpoch, setSessionEpoch] = useState(0)
+  const [baselineState, setBaselineState] = useState({ key: null, score: null })
 
   const languageId = getLanguageId(course.id)
   const dictionary = course.dictionary || []
@@ -46,6 +56,8 @@ function Flashcards() {
     onWordCompleted: (wordId, { incorrectCount }) => {
       if (reviewMode) {
         memory.recordReviewCompletion(wordId, { struggled: incorrectCount > 0 })
+      } else {
+        memory.markFresh(wordId)
       }
     },
     reviewSessionSize,
@@ -53,6 +65,8 @@ function Flashcards() {
 
   const masteredWordIds = getUniversalMasteredWords().map((w) => w.id)
   const memory = useWordMemory(languageId, masteredWordIds)
+  const sessionKey = `${languageId}:${reviewMode}:${sessionEpoch}`
+  const brainBaseline = baselineState.key === sessionKey ? baselineState.score : null
 
   useEffect(() => {
     setInitialized(false)
@@ -60,7 +74,13 @@ function Flashcards() {
     setShowAnswer(false)
     setHistory([])
     setAnswerCount(0)
+    setSessionEpoch((epoch) => epoch + 1)
   }, [selectedCourseId, reviewMode])
+
+  useEffect(() => {
+    if (!initialized) return
+    setBaselineState({ key: sessionKey, score: brainPowerForLanguage(languageId) })
+  }, [initialized, sessionKey, languageId])
 
   useEffect(() => {
     if (!dictionary.length || initialized) return
@@ -86,6 +106,7 @@ function Flashcards() {
     setCurrentCard(null)
     setShowAnswer(false)
     startReviewSession()
+    setSessionEpoch((epoch) => epoch + 1)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewSessionSize])
 
@@ -99,6 +120,15 @@ function Flashcards() {
   }, [initialized, stats.totalActive, currentCard, getNextWord])
 
   const activeWords = getActiveWords()
+  const brainPowerChange =
+    brainBaseline == null || !stats.allSessionMastered
+      ? null
+      : displayDelta(
+          brainBaseline,
+          computeBrainPower(
+            projectSessionMemory(readStoredMemory()[languageId], activeWords, { review: reviewMode })
+          )
+        )
   const masteredInSession = activeWords.filter((w) => (w.mastery ?? 0) >= 5).length
   const sCount = activeWords.filter((w) => (w.mastery ?? 0) < 0).length
   const pCount = activeWords.filter((w) => {
@@ -146,21 +176,35 @@ function Flashcards() {
     setShowAnswer(false)
   }
 
+  const sessionRecordedRef = useRef(false)
+
+  const recordFinishedSession = () => {
+    if (reviewMode || sessionRecordedRef.current || stats.totalActive === 0) return
+    sessionRecordedRef.current = true
+    const active = getActiveWords()
+    const wordIndices = active
+      .map((w) => (w.entry && typeof w.entry.__index === 'number' ? w.entry.__index : null))
+      .filter((idx) => idx !== null)
+    saveSession(languageId, {
+      id: sessionId,
+      languageId,
+      createdAt: Date.now(),
+      wordIndices,
+      history,
+      passes: answerCount,
+    })
+  }
+
+  useEffect(() => {
+    if (!stats.allSessionMastered) return
+    recordFinishedSession()
+    // Words are already in the mastered list; this only keeps the history entry
+    // if the learner leaves without starting another session.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stats.allSessionMastered])
+
   const handleCommitAndNewSession = () => {
-    if (!reviewMode && stats.totalActive > 0) {
-      const active = getActiveWords()
-      const wordIndices = active
-        .map((w) => (w.entry && typeof w.entry.__index === 'number' ? w.entry.__index : null))
-        .filter((idx) => idx !== null)
-      saveSession(languageId, {
-        id: sessionId,
-        languageId,
-        createdAt: Date.now(),
-        wordIndices,
-        history,
-        passes: answerCount,
-      })
-    }
+    recordFinishedSession()
     const newlyMasteredIds = commitMastered()
     if (newlyMasteredIds && newlyMasteredIds.length) {
       memory.markFresh(newlyMasteredIds)
@@ -169,6 +213,8 @@ function Flashcards() {
     setAnswerCount(0)
     setCurrentCard(null)
     setShowAnswer(false)
+    sessionRecordedRef.current = false
+    setSessionEpoch((epoch) => epoch + 1)
     startNewSession()
     navigate('/flashcards/new', { replace: true })
   }
@@ -178,6 +224,7 @@ function Flashcards() {
     setAnswerCount(0)
     setCurrentCard(null)
     setShowAnswer(false)
+    setSessionEpoch((epoch) => epoch + 1)
     startReviewSession()
     const next = getNextWord()
     if (next) setCurrentCard(next)
@@ -195,6 +242,8 @@ function Flashcards() {
   const handleResetMastered = () => {
     if (!window.confirm('Clear ALL mastered words for this language? This cannot be undone.')) return
     resetMastered()
+    memory.clearLanguage()
+    clearBrainPowerAnchor(languageId)
     navigate('/flashcards')
   }
 
@@ -279,6 +328,7 @@ function Flashcards() {
           onReviewAgain={handleReviewAgain}
           onLearnNew={handleLearnNew}
           onStartNew={() => startNewSession()}
+          brainPowerChange={brainPowerChange}
           overflowItems={overflowItems}
         />
       </FocusPageContent>

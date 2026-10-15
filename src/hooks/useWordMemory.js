@@ -1,16 +1,49 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import {
   createInitialMemory,
+  createPermanentMemory,
   createBackfilledMemory,
+  isPermanentMemory,
   applyReviewCompletion,
   computeShortTermMemory,
+  MEMORY_STORAGE_KEY,
 } from '../utils/wordMemory'
 import { isLearningHydrating, requestLearningSync } from '../lib/learningSyncBridge'
+import { anchorBrainPower } from '../utils/brainPower'
 
 // v2: earlier versions incorrectly backfilled every pre-existing mastered
 // word as "just reviewed" (STM=10). Bumping the key discards that bad data
 // so everything re-initializes under the corrected backfill logic below.
-const MEMORY_KEY = 'languageWordMemory_v2'
+const MEMORY_KEY = MEMORY_STORAGE_KEY
+
+const FRENCH_KNOWN_PROMOTED_KEY = 'frenchKnownWordsPromoted_v1'
+
+function promoteExistingFrenchKnown(data) {
+  if (typeof localStorage === 'undefined') return data
+  if (localStorage.getItem(FRENCH_KNOWN_PROMOTED_KEY)) return data
+  localStorage.setItem(FRENCH_KNOWN_PROMOTED_KEY, '1')
+
+  const french = data.French
+  if (!french || typeof french !== 'object') return data
+
+  const now = Date.now()
+  let changed = false
+  const nextFrench = {}
+  Object.entries(french).forEach(([id, entry]) => {
+    if (isPermanentMemory(entry)) {
+      nextFrench[id] = entry
+      return
+    }
+    changed = true
+    nextFrench[id] = {
+      ...createPermanentMemory(now),
+      reviewCount: entry?.reviewCount || 0,
+      firstLearnedAt: entry?.firstLearnedAt || now,
+    }
+  })
+  if (!changed) return data
+  return { ...data, French: nextFrench }
+}
 
 function loadMemory() {
   if (typeof localStorage === 'undefined') return {}
@@ -18,7 +51,15 @@ function loadMemory() {
     const stored = localStorage.getItem(MEMORY_KEY)
     if (stored) {
       const parsed = JSON.parse(stored)
-      if (parsed && typeof parsed === 'object') return parsed
+      if (parsed && typeof parsed === 'object') {
+        const promoted = promoteExistingFrenchKnown(parsed)
+        if (promoted !== parsed) {
+          localStorage.setItem(MEMORY_KEY, JSON.stringify(promoted))
+        }
+        return promoted
+      }
+    } else {
+      promoteExistingFrenchKnown({})
     }
   } catch (e) {
     console.error('Error loading word memory:', e)
@@ -37,6 +78,15 @@ function saveMemory(data) {
   } catch (e) {
     console.error('Error saving word memory:', e)
   }
+}
+
+function commitPractice(prev, languageId, nextForLang, now = Date.now()) {
+  const next = { ...prev, [languageId]: nextForLang }
+  saveMemory(next)
+  // Backfill and cloud hydrate are not practice. Only real learn/review/
+  // already-knew updates should move the "last practiced" anchor.
+  if (!isLearningHydrating()) anchorBrainPower(languageId, nextForLang, now)
+  return next
 }
 
 /**
@@ -94,6 +144,33 @@ export function useWordMemory(languageId, masteredIds) {
     })
   }, [languageId, masteredIdList])
 
+  /** Words the learner already knew: LTM and STM sit at 10, and review skips them. */
+  const markPermanent = useCallback(
+    (wordIds) => {
+      const ids = Array.isArray(wordIds) ? wordIds : [wordIds]
+      if (!ids.length) return
+      setMemoryState((prev) => {
+        const existingForLang = prev[languageId] || {}
+        const nextForLang = { ...existingForLang }
+        const now = Date.now()
+        let changed = false
+        ids.forEach((id) => {
+          if (isPermanentMemory(nextForLang[id])) return
+          const existing = nextForLang[id]
+          nextForLang[id] = {
+            ...createPermanentMemory(now),
+            reviewCount: existing?.reviewCount || 0,
+            firstLearnedAt: existing?.firstLearnedAt || now,
+          }
+          changed = true
+        })
+        if (!changed) return prev
+        return commitPractice(prev, languageId, nextForLang, now)
+      })
+    },
+    [languageId]
+  )
+
   /** Mark word(s) as *just* learned right now: LTM=1, STM at its peak. */
   const markFresh = useCallback(
     (wordIds) => {
@@ -103,27 +180,38 @@ export function useWordMemory(languageId, masteredIds) {
         const existingForLang = prev[languageId] || {}
         const nextForLang = { ...existingForLang }
         const now = Date.now()
+        let changed = false
         ids.forEach((id) => {
+          if (nextForLang[id]?.firstLearnedAt) return
           nextForLang[id] = createInitialMemory(now)
+          changed = true
         })
-        const next = { ...prev, [languageId]: nextForLang }
-        saveMemory(next)
-        return next
+        if (!changed) return prev
+        return commitPractice(prev, languageId, nextForLang, now)
       })
     },
     [languageId]
   )
+
+  const clearLanguage = useCallback(() => {
+    setMemoryState((prev) => {
+      if (!prev[languageId]) return prev
+      const next = { ...prev }
+      delete next[languageId]
+      saveMemory(next)
+      return next
+    })
+  }, [languageId])
 
   const recordReviewCompletion = useCallback(
     (wordId, { struggled = false } = {}) => {
       setMemoryState((prev) => {
         const existingForLang = prev[languageId] || {}
         const existingEntry = existingForLang[wordId]
-        const updatedEntry = applyReviewCompletion(existingEntry, { struggled, now: Date.now() })
+        const now = Date.now()
+        const updatedEntry = applyReviewCompletion(existingEntry, { struggled, now })
         const nextForLang = { ...existingForLang, [wordId]: updatedEntry }
-        const next = { ...prev, [languageId]: nextForLang }
-        saveMemory(next)
-        return next
+        return commitPractice(prev, languageId, nextForLang, now)
       })
     },
     [languageId]
@@ -171,8 +259,10 @@ export function useWordMemory(languageId, masteredIds) {
       getMemory,
       getAllMemory,
       markFresh,
+      markPermanent,
+      clearLanguage,
       recordReviewCompletion,
     }),
-    [getMemory, getAllMemory, markFresh, recordReviewCompletion]
+    [getMemory, getAllMemory, markFresh, markPermanent, clearLanguage, recordReviewCompletion]
   )
 }

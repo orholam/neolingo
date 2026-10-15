@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom'
+import { formatBrainPowerChange } from '../utils/brainPower'
 
 export default function SessionComplete({
   reviewMode,
   replayMode = false,
   totalWords,
+  brainPowerChange = null,
   onPrimary,
   onReviewAgain,
   onLearnNew,
@@ -18,7 +20,13 @@ export default function SessionComplete({
       <p className="text-sm text-gray-500 dark:text-gray-400">
         You finished all {totalWords} word{totalWords !== 1 ? 's' : ''} in this{' '}
         {reviewMode ? 'review' : 'session'}.
+        {!reviewMode && !replayMode && ' They’re in your mastered list.'}
       </p>
+      {brainPowerChange != null && (
+        <p className="text-xl font-bold tabular-nums text-indigo-600 dark:text-indigo-400">
+          {formatBrainPowerChange(brainPowerChange)}
+        </p>
+      )}
       <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
         {reviewMode ? (
           <>
@@ -51,7 +59,7 @@ export default function SessionComplete({
             onClick={onPrimary}
             className="px-6 py-3 rounded-xl bg-green-600 text-white text-sm font-semibold hover:bg-green-500 transition-colors"
           >
-            Save to mastered &amp; new session
+            Start a new session
           </button>
         )}
       </div>
