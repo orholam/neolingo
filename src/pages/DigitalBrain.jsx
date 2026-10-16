@@ -16,6 +16,8 @@ import {
   computeSphereRadius,
 } from '../utils/brainScene'
 import BrainPowerScore from '../components/BrainPowerScore'
+import BrainPowerChart from '../components/BrainPowerChart'
+import { useBrainPower } from '../hooks/useBrainPower'
 
 const BRAIN_COURSES = Object.fromEntries(
   Object.entries(COURSES).map(([id, course]) => [
@@ -234,6 +236,7 @@ function DigitalBrain() {
     () => getUniversalMasteredWords().map((item) => item.id),
     [getUniversalMasteredWords]
   )
+  const { series: brainPowerSeries } = useBrainPower(languageId, masteredIds)
 
   if (!course) {
     return (
@@ -316,6 +319,11 @@ function DigitalBrain() {
           <BrainViewToggle current="brain" langId={langId} />
         </div>
       </BrainCanvasFrame>
+      <BrainPowerChart
+        series={brainPowerSeries}
+        gradientId={`brain-power-fill-page-${languageId}`}
+        className="bg-white/95 dark:bg-gray-950/90 px-4 py-3 border-t border-gray-200/80 dark:border-gray-800"
+      />
     </div>
   )
 }

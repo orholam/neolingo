@@ -1,4 +1,5 @@
 import { useBrainPower } from '../hooks/useBrainPower'
+import BrainPowerChart from './BrainPowerChart'
 
 function dropLine(drop) {
   if (drop == null) return null
@@ -7,8 +8,12 @@ function dropLine(drop) {
 }
 
 export default function BrainPowerScore({ languageId, masteredIds = null, variant = 'card' }) {
-  const { score, drop } = useBrainPower(languageId, masteredIds)
+  const { score, drop, series } = useBrainPower(languageId, masteredIds)
   const since = dropLine(drop)
+  const chart =
+    variant === 'overlay' ? null : (
+      <BrainPowerChart series={series} gradientId={`brain-power-fill-${languageId || 'lang'}`} />
+    )
 
   if (variant === 'overlay') {
     return (
@@ -35,6 +40,7 @@ export default function BrainPowerScore({ languageId, masteredIds = null, varian
       {since && (
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{since}</p>
       )}
+      {chart}
     </div>
   )
 }
