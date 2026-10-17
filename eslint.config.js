@@ -28,7 +28,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['mcp/**/*.js'],
+    files: ['api/**/*.js', 'mcp/**/*.js'],
     extends: [js.configs.recommended],
     languageOptions: {
       globals: globals.node,

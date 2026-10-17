@@ -1,5 +1,33 @@
 import { createClient } from '@supabase/supabase-js'
+import postgres from 'postgres'
 import { snapshotFromRow } from '../src/lib/learningState.js'
+
+const STATE_COLUMNS = `user_id, language_progress, language_mastered_words, language_word_memory, flashcard_sessions, language_streak, language_gems, language_hearts, language_plan, selected_course, updated_at`
+
+async function fetchFromDatabase() {
+  const userId = process.env.NEOLINGO_USER_ID
+  if (!userId) {
+    throw new Error('Set NEOLINGO_USER_ID to the learner this server should read.')
+  }
+  const sql = postgres(process.env.NEOLINGO_MCP_DATABASE_URL, {
+    ssl: 'require',
+    max: 1,
+    idle_timeout: 5,
+    connect_timeout: 10,
+  })
+  try {
+    const rows = await sql.unsafe(
+      `select ${STATE_COLUMNS} from public.user_learning_state where user_id = $1 limit 1`,
+      [userId],
+    )
+    if (!rows.length) {
+      throw new Error('No learning progress is synced yet. Sign in and practice once so the snapshot uploads.')
+    }
+    return { snapshot: snapshotFromRow(rows[0]), updatedAt: rows[0].updated_at }
+  } finally {
+    await sql.end({ timeout: 2 })
+  }
+}
 
 export function credentialProblem() {
   const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
@@ -12,6 +40,8 @@ export function credentialProblem() {
 }
 
 export async function fetchLearningState() {
+  if (process.env.NEOLINGO_MCP_DATABASE_URL) return fetchFromDatabase()
+
   const problem = credentialProblem()
   if (problem) {
     const error = new Error(problem)

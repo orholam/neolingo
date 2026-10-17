@@ -1,9 +1,8 @@
 import { readFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
 import { LANGUAGES } from './languages.js'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
+const root = process.cwd()
 
 function parseDictionary(raw) {
   return raw
