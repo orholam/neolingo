@@ -18,9 +18,9 @@ export const INITIAL_LONG_TERM_MEMORY = 1
 export const MEMORY_STORAGE_KEY = 'languageWordMemory_v2'
 
 // Tunable: characteristic decay time (in days) contributed by each LTM point.
-// At LTM 1, recall fades to a coin-flip within about a day; at LTM 10, it
-// stays strong for well over a week.
-export const STM_DECAY_DAYS_PER_POINT = 1
+// STM = 1 + 9 * e^(-days / (LTM * this)). At LTM 1 the half-life is about
+// 1.4 days; at LTM 10 it is about two weeks.
+export const STM_DECAY_DAYS_PER_POINT = 2
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
