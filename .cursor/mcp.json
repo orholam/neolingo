@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "neolingo-progress": {
+      "command": "node",
+      "args": ["--env-file=.env", "mcp/server.js"]
+    },
     "supabase-josiahaccess": {
       "type": "http",
       "url": "https://mcp.supabase.com/mcp"

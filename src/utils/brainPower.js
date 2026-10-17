@@ -18,7 +18,7 @@ import {
   createBackfilledMemory,
   createInitialMemory,
   readStoredMemory,
-} from './wordMemory'
+} from './wordMemory.js'
 
 export const BRAIN_POWER_ANCHOR_KEY = 'languageBrainPower_v1'
 export const BRAIN_POWER_HISTORY_KEY = 'languageBrainPowerHistory_v1'
