@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { listSessions, saveSession } from '../../utils/flashcardSessions'
 import { getPrimaryGloss } from '../../utils/dictionaryEntry'
+import { listPractice, seedPracticeFromMemory, summarizePractice } from '../../utils/practiceLog'
+import { readStoredMemory } from '../../utils/wordMemory'
 import SessionBucketChart from '../flashcards/SessionBucketChart'
 
 const PREVIEW_WORDS = 4
@@ -38,15 +40,63 @@ function createDebugSession(languageId, dictionary) {
   })
 }
 
+function formatDelta(delta) {
+  if (delta == null) return null
+  if (delta > 0) return `Brain +${delta}`
+  if (delta < 0) return `Brain −${Math.abs(delta)}`
+  return 'Brain unchanged'
+}
+
 export default function HistoryTab({ languageId, dictionary }) {
   const navigate = useNavigate()
-  const [refreshKey, setRefreshKey] = useState(0)
-  // eslint-disable-next-line no-unused-vars
-  const _key = refreshKey
+  const [, setRefreshKey] = useState(0)
+  seedPracticeFromMemory(languageId, readStoredMemory()[languageId])
+  const practice = listPractice(languageId)
+  const { pastWeek, recentSessions } = summarizePractice(
+    { [languageId]: practice },
+    { recent: 10 },
+  )
   const sessionList = listSessions(languageId)
 
   return (
     <div className="space-y-4">
+      <section className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Past week</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 mb-3">
+          How many words were learned or last reviewed. A finished session also shows the brain-score change.
+        </p>
+        {pastWeek.length === 0 ? (
+          <p className="text-sm text-gray-500 dark:text-gray-400">No practice days yet.</p>
+        ) : (
+          <ul className="space-y-2">
+            {pastWeek.map((day) => (
+              <li key={day.day} className="flex items-baseline justify-between gap-3 text-sm">
+                <span className="font-medium text-gray-800 dark:text-gray-100">{day.day}</span>
+                <span className="text-gray-500 dark:text-gray-400 text-right">
+                  {[
+                    day.reviews ? `${day.reviews} reviewed` : null,
+                    day.newWords ? `${day.newWords} new` : null,
+                    formatDelta(day.brainDelta),
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {recentSessions.length > 0 && (
+          <ul className="mt-4 space-y-1 border-t border-gray-100 dark:border-gray-700 pt-3">
+            {recentSessions.map((session) => (
+              <li key={`${session.at}:${session.kind}`} className="text-xs text-gray-500 dark:text-gray-400">
+                {new Date(session.at).toLocaleString()} · {session.count}{' '}
+                {session.kind === 'review' ? 'reviewed' : 'new'}
+                {formatDelta(session.brainDelta) ? ` · ${formatDelta(session.brainDelta)}` : ''}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
       {import.meta.env.DEV && (
         <button
           type="button"

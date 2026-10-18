@@ -26,7 +26,7 @@ export function createProgressServer() {
     {
       title: 'Learning progress summary',
       description:
-        'Read-only vocabulary progress for every NeoLingo language: brain score, recently learned words, latest reviews, new-word flashcard sessions, and words due for review. Review history keeps only the latest review of each word. Pass dadjo, sumerian, korean, or french to limit to one language.',
+        'Read-only vocabulary progress for every NeoLingo language: brain score, a past-week practice log (counts and brain-score change, not word lists), recently learned words, latest reviews, and words due for review. Pass dadjo, sumerian, korean, or french to limit to one language.',
       inputSchema: {
         language: z
           .string()

@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import postgres from 'postgres'
 import { snapshotFromRow } from '../src/lib/learningState.js'
 
-const STATE_COLUMNS = `user_id, language_progress, language_mastered_words, language_word_memory, flashcard_sessions, language_streak, language_gems, language_hearts, language_plan, selected_course, updated_at`
+const STATE_COLUMNS = `user_id, language_progress, language_mastered_words, language_word_memory, flashcard_sessions, practice_log, language_streak, language_gems, language_hearts, language_plan, selected_course, updated_at`
 
 async function fetchFromDatabase() {
   const userId = process.env.NEOLINGO_USER_ID
@@ -58,7 +58,7 @@ export async function fetchLearningState() {
   let query = supabase
     .from('user_learning_state')
     .select(
-      'user_id, language_progress, language_mastered_words, language_word_memory, flashcard_sessions, language_streak, language_gems, language_hearts, language_plan, selected_course, updated_at',
+      'user_id, language_progress, language_mastered_words, language_word_memory, flashcard_sessions, practice_log, language_streak, language_gems, language_hearts, language_plan, selected_course, updated_at',
     )
     .order('updated_at', { ascending: false })
     .limit(2)

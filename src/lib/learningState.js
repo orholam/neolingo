@@ -3,6 +3,7 @@ export const LEARNING_KEYS = {
   mastered: 'languageMasteredWords',
   memory: 'languageWordMemory_v2',
   sessions: 'flashcardSessions',
+  practice: 'languagePracticeLog',
   streak: 'languageStreak',
   gems: 'languageGems',
   hearts: 'languageHearts',
@@ -51,6 +52,7 @@ export function readLocalSnapshot() {
     language_mastered_words: readJson(LEARNING_KEYS.mastered, {}),
     language_word_memory: readJson(LEARNING_KEYS.memory, {}),
     flashcard_sessions: readJson(LEARNING_KEYS.sessions, {}),
+    practice_log: readJson(LEARNING_KEYS.practice, {}),
     language_streak: readJson(LEARNING_KEYS.streak, null),
     language_gems: Number.isFinite(gems) ? gems : null,
     language_hearts: readJson(LEARNING_KEYS.hearts, null),
@@ -68,6 +70,7 @@ export function writeLocalSnapshot(snapshot) {
   writeJson(LEARNING_KEYS.mastered, snapshot.language_mastered_words ?? {})
   writeJson(LEARNING_KEYS.memory, snapshot.language_word_memory ?? {})
   writeJson(LEARNING_KEYS.sessions, snapshot.flashcard_sessions ?? {})
+  writeJson(LEARNING_KEYS.practice, snapshot.practice_log ?? {})
   if (snapshot.language_streak != null) writeJson(LEARNING_KEYS.streak, snapshot.language_streak)
   if (snapshot.language_hearts != null) writeJson(LEARNING_KEYS.hearts, snapshot.language_hearts)
   if (snapshot.language_plan != null) writeJson(LEARNING_KEYS.plan, snapshot.language_plan)
@@ -84,6 +87,11 @@ export function clearLocalSnapshot() {
   Object.values(LEARNING_KEYS).forEach(removeKey)
 }
 
+function practiceLogHasEvents(log) {
+  if (!log || typeof log !== 'object') return false
+  return Object.values(log).some((list) => Array.isArray(list) && list.length > 0)
+}
+
 function objectHasEntries(value) {
   return Boolean(value && typeof value === 'object' && Object.keys(value).length > 0)
 }
@@ -96,6 +104,7 @@ export function hasMeaningfulProgress(snapshot) {
   if (objectHasEntries(snapshot.language_mastered_words)) return true
   if (objectHasEntries(snapshot.language_word_memory)) return true
   if (objectHasEntries(snapshot.flashcard_sessions)) return true
+  if (practiceLogHasEvents(snapshot.practice_log)) return true
   if (snapshot.language_streak && (snapshot.language_streak.streak || 0) > 0) return true
   return false
 }
@@ -257,6 +266,20 @@ function mergePlan(local, cloud) {
   return localEnabled >= cloudEnabled ? local : cloud
 }
 
+function mergePracticeLog(local = {}, cloud = {}) {
+  const merged = mergeLangIdArrays(local, cloud)
+  for (const key of Object.keys(merged)) {
+    if (!Array.isArray(merged[key])) continue
+    const byId = new Map()
+    for (const event of merged[key]) {
+      if (!event || !event.id) continue
+      byId.set(event.id, event)
+    }
+    merged[key] = [...byId.values()].sort((a, b) => (a.at || 0) - (b.at || 0)).slice(-180)
+  }
+  return merged
+}
+
 /** Union local + cloud so login never clobbers newer device progress. */
 export function mergeSnapshots(local, cloud) {
   const a = local || {}
@@ -269,6 +292,7 @@ export function mergeSnapshots(local, cloud) {
     ),
     language_word_memory: mergeLangIdObjects(a.language_word_memory, b.language_word_memory),
     flashcard_sessions: mergeLangIdObjects(a.flashcard_sessions, b.flashcard_sessions),
+    practice_log: mergePracticeLog(a.practice_log, b.practice_log),
     language_streak: mergeStreak(a.language_streak, b.language_streak),
     language_gems: Math.max(a.language_gems || 0, b.language_gems || 0) || null,
     language_hearts: mergeHearts(a.language_hearts, b.language_hearts),
@@ -292,6 +316,7 @@ export function snapshotFromRow(row) {
     language_mastered_words: row.language_mastered_words || {},
     language_word_memory: row.language_word_memory || {},
     flashcard_sessions: row.flashcard_sessions || {},
+    practice_log: row.practice_log || {},
     language_streak: row.language_streak,
     language_gems: row.language_gems,
     language_hearts: row.language_hearts,
@@ -307,6 +332,7 @@ export function rowFromSnapshot(userId, snapshot, extra = {}) {
     language_mastered_words: snapshot.language_mastered_words || {},
     language_word_memory: snapshot.language_word_memory || {},
     flashcard_sessions: snapshot.flashcard_sessions || {},
+    practice_log: snapshot.practice_log || {},
     language_streak: snapshot.language_streak,
     language_gems: snapshot.language_gems,
     language_hearts: snapshot.language_hearts,

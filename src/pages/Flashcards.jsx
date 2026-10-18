@@ -13,8 +13,10 @@ import {
   clearBrainPowerAnchor,
   computeBrainPower,
   displayDelta,
+  displayScore,
   projectSessionMemory,
 } from '../utils/brainPower'
+import { appendPractice } from '../utils/practiceLog'
 import { readStoredMemory } from '../utils/wordMemory'
 
 function Flashcards() {
@@ -177,6 +179,11 @@ function Flashcards() {
   }
 
   const sessionRecordedRef = useRef(false)
+  const practiceLoggedRef = useRef(false)
+
+  useEffect(() => {
+    practiceLoggedRef.current = false
+  }, [sessionKey])
 
   const recordFinishedSession = () => {
     if (reviewMode || sessionRecordedRef.current || stats.totalActive === 0) return
@@ -196,8 +203,21 @@ function Flashcards() {
   }
 
   useEffect(() => {
-    if (!stats.allSessionMastered) return
+    if (!stats.allSessionMastered || practiceLoggedRef.current) return
+    practiceLoggedRef.current = true
     recordFinishedSession()
+    const active = getActiveWords()
+    const afterRaw = computeBrainPower(
+      projectSessionMemory(readStoredMemory()[languageId], active, { review: reviewMode }),
+    )
+    appendPractice(languageId, {
+      id: `${reviewMode ? 'review' : 'new'}:${sessionId}:${sessionEpoch}`,
+      at: Date.now(),
+      kind: reviewMode ? 'review' : 'new',
+      count: active.length,
+      scoreBefore: brainBaseline == null ? null : displayScore(brainBaseline),
+      scoreAfter: displayScore(afterRaw),
+    })
     // Words are already in the mastered list; this only keeps the history entry
     // if the learner leaves without starting another session.
     // eslint-disable-next-line react-hooks/exhaustive-deps

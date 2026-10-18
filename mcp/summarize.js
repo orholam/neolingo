@@ -8,6 +8,7 @@ import {
 import { computeShortTermMemory, isPermanentMemory } from '../src/utils/wordMemory.js'
 import { lookupWord } from './dictionaries.js'
 import { LANGUAGES } from './languages.js'
+import { combinePractice, summarizePractice } from '../src/utils/practiceLog.js'
 
 const DUE_SHORT_TERM = 5
 const DEFAULT_DUE_LIMIT = 8
@@ -188,11 +189,19 @@ export function summarizeSnapshot(snapshot, options = {}) {
     }
   }
 
+  const practiceLanguages = new Set(languages.map((lang) => lang.name))
+  const combined = combinePractice(snapshot.practice_log, snapshot.language_word_memory, now)
+  const practiceLog = {}
+  for (const [key, events] of Object.entries(combined)) {
+    if (practiceLanguages.has(key)) practiceLog[key] = events
+  }
+
   return {
     updatedAt: options.updatedAt || null,
     selectedCourse: snapshot.selected_course || null,
     plan: planIds,
     brainScore: languages.reduce((sum, lang) => sum + lang.brainScore, 0),
+    practice: summarizePractice(practiceLog, { now }),
     languages,
   }
 }
