@@ -97,7 +97,7 @@ export default function FlashcardDrill({
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
               {reviewMode
-                ? 'Words already at 10/10 stay out of review.'
+                ? 'Words reviewed today come back once they fade. Words at 10/10 stay out.'
                 : 'Start a new session from Vocabulary.'}
             </p>
             {onStartNew && (

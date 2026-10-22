@@ -150,6 +150,62 @@ export function applyReviewCompletion(entry, { struggled = false, now = Date.now
   }
 }
 
+/**
+ * Likelihood weight for drawing a word into a review session.
+ * Short-term memory is 1-10; a word at 1 weighs 100 and a word at 10 weighs 1.
+ */
+export function reviewSelectionWeight(shortTermMemory) {
+  const stm = clampMemory(typeof shortTermMemory === 'number' ? shortTermMemory : MIN_MEMORY)
+  const gap = MAX_MEMORY + 1 - stm
+  return gap * gap
+}
+
+function weightedSampleWithoutReplacement(items, count, random) {
+  const pool = items.slice()
+  const picks = []
+  const limit = Math.max(0, count)
+  while (pool.length > 0 && picks.length < limit) {
+    const total = pool.reduce((sum, item) => sum + item.weight, 0)
+    if (!(total > 0)) {
+      picks.push(pool.shift())
+      continue
+    }
+    let threshold = random() * total
+    let index = pool.length - 1
+    for (let i = 0; i < pool.length; i += 1) {
+      threshold -= pool[i].weight
+      if (threshold <= 0) {
+        index = i
+        break
+      }
+    }
+    picks.push(pool.splice(index, 1)[0])
+  }
+  return picks
+}
+
+/**
+ * Choose up to `count` word ids for a review session.
+ * Permanent words and words already reviewed today (`lastOccasionDate`) are
+ * left out. The rest are drawn without replacement, weighted by
+ * `reviewSelectionWeight`. A missing memory entry is treated as faded
+ * (short-term memory 1) and still due. When the due pool is smaller than
+ * `count`, every due word is returned.
+ */
+export function pickReviewWordIds(wordIds, memoryById, count, { now = Date.now(), random = Math.random } = {}) {
+  const today = todayKey(new Date(now))
+  const pool = []
+  for (const id of wordIds) {
+    const entry = memoryById?.[id]
+    if (entry && isPermanentMemory(entry)) continue
+    if (entry?.lastOccasionDate === today) continue
+    pool.push({ id, weight: reviewSelectionWeight(computeShortTermMemory(entry, now)) })
+  }
+  const limit = Math.max(0, count)
+  if (pool.length <= limit) return pool.map((item) => item.id)
+  return weightedSampleWithoutReplacement(pool, limit, random).map((item) => item.id)
+}
+
 /** Human-friendly "Nd ago" / "just now" string for a lastReviewedAt timestamp. */
 export function formatTimeSince(lastReviewedAt, now = Date.now()) {
   if (!lastReviewedAt) return 'never reviewed'

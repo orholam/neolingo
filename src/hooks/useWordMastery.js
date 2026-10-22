@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
-import { permanentWordIds } from '../utils/wordMemory'
+import { pickReviewWordIds, readStoredMemory } from '../utils/wordMemory'
 
 const MASTERED_KEY = 'languageMasteredWords'
 const SESSION_SIZE = 20
@@ -289,18 +289,19 @@ export function useWordMastery(languageId, dictionaryEntries, options = {}) {
     const latestIds = new Set(latestMastered[languageId] || [])
     if (latestIds.size === 0) return
 
-    const permanentIds = permanentWordIds(languageId)
-    const candidates = []
+    const memoryForLang = readStoredMemory()[languageId] || {}
+    const indexById = new Map()
+    const candidateIds = []
     dictionaryEntries.forEach((entry, index) => {
       const id = getWordId(entry, index)
-      if (!latestIds.has(id) || permanentIds.has(id)) return
-      candidates.push({ id, entry, index })
+      if (!latestIds.has(id)) return
+      candidateIds.push(id)
+      indexById.set(id, index)
     })
-    const shuffled = shuffleArray(candidates)
-    const picks = shuffled.slice(0, reviewSessionSize)
+    const pickedIds = pickReviewWordIds(candidateIds, memoryForLang, reviewSessionSize)
     const words = {}
-    picks.forEach((p) => {
-      words[p.id] = { mastery: 0, correctCount: 0, incorrectCount: 0, index: p.index }
+    pickedIds.forEach((id) => {
+      words[id] = { mastery: 0, correctCount: 0, incorrectCount: 0, index: indexById.get(id) }
     })
     setSessionWords(words)
     setLastWordId(null)

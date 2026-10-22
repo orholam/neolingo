@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import FocusHeader from '../components/FocusHeader'
 import FocusPageContent from '../components/FocusPageContent'
@@ -112,7 +112,7 @@ function Flashcards() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewSessionSize])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!initialized || currentCard || stats.totalActive === 0) return
     const next = getNextWord()
     if (next) {
@@ -246,8 +246,6 @@ function Flashcards() {
     setShowAnswer(false)
     setSessionEpoch((epoch) => epoch + 1)
     startReviewSession()
-    const next = getNextWord()
-    if (next) setCurrentCard(next)
   }
 
   const handleLearnNew = () => {
