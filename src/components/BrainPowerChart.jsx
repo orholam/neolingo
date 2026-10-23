@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const RISE_PX = 18
+
 function formatTick(ts, span) {
   const date = new Date(ts)
   if (span < 2 * 24 * 60 * 60 * 1000) {
@@ -26,7 +28,7 @@ function axisRange(series) {
   }
   const span = Math.max(1, maxScore - minScore)
   const low = minScore <= span * 0.5 ? 0 : Math.max(0, minScore - span * 0.25)
-  const high = Math.max(low + 1, maxScore + span * 0.15)
+  const high = Math.max(low + 1, maxScore + span * 0.2)
   return { low, high, maxScore }
 }
 
@@ -37,6 +39,41 @@ function eventToSvg(svg, event) {
   const matrix = svg.getScreenCTM()
   if (!matrix) return null
   return point.matrixTransform(matrix.inverse())
+}
+
+function spreadRises(coords) {
+  for (let i = 1; i < coords.length; i++) {
+    const prev = coords[i - 1]
+    const point = coords[i]
+    if (point.score <= prev.score + 0.5) continue
+    if (point.x - prev.x >= RISE_PX) continue
+    const floor = i >= 2 ? coords[i - 2].x + 8 : point.x - RISE_PX
+    prev.x = Math.min(point.x - 3, Math.max(floor, point.x - RISE_PX))
+  }
+}
+
+function alongLine(drawn, x) {
+  if (x <= drawn[0].x) return { ...drawn[0], change: null }
+  for (let i = 1; i < drawn.length; i++) {
+    const right = drawn[i]
+    const left = drawn[i - 1]
+    if (x > right.x && i < drawn.length - 1) continue
+    const width = right.x - left.x
+    const t = width <= 0 ? 1 : Math.min(1, Math.max(0, (x - left.x) / width))
+    const score = left.score + (right.score - left.score) * t
+    const at = left.at + (right.at - left.at) * t
+    const y = left.y + (right.y - left.y) * t
+    const rising = right.score > left.score + 0.5 && width <= RISE_PX + 4
+    return {
+      x: left.x + width * t,
+      y,
+      at,
+      score,
+      change: rising ? `${Math.round(left.score)} → ${Math.round(right.score)}` : null,
+    }
+  }
+  const last = drawn[drawn.length - 1]
+  return { ...last, change: null }
 }
 
 export default function BrainPowerChart({
@@ -55,11 +92,11 @@ export default function BrainPowerChart({
   const { low, high, maxScore } = axisRange(series)
   const maxLabel = String(Math.round(maxScore))
   const padL = Math.max(28, 10 + maxLabel.length * 6)
-  const padR = 8
-  const padT = 16
+  const padR = 12
+  const padT = 18
   const padB = 18
   const plotW = 320
-  const plotH = 96
+  const plotH = 88
   const svgW = padL + plotW + padR
   const svgH = padT + plotH + padB
 
@@ -73,21 +110,24 @@ export default function BrainPowerChart({
     score: point.score,
     recorded: Boolean(point.recorded),
   }))
-  const linePoints = coords.map((c) => `${c.x},${c.y}`).join(' ')
+  const recorded = coords.filter((point) => point.recorded)
+  const drawn = recorded.length >= 2 ? recorded.map((point) => ({ ...point })) : coords.map((point) => ({ ...point }))
+  spreadRises(drawn)
+
+  const linePoints = drawn.map((point) => `${point.x},${point.y}`).join(' ')
   const baseline = padT + plotH
-  const fillPoints = `${coords[0].x},${baseline} ${linePoints} ${coords[coords.length - 1].x},${baseline}`
-  const last = coords[coords.length - 1]
-  const lastScore = Math.round(series[series.length - 1].score)
+  const fillPoints = `${drawn[0].x},${baseline} ${linePoints} ${drawn[drawn.length - 1].x},${baseline}`
+  const last = drawn[drawn.length - 1]
+  const lastScore = Math.round(last.score)
   const mid = series[Math.floor(series.length / 2)]
 
-  let peak = coords[0]
-  for (const point of coords) {
+  let peak = drawn[0]
+  for (const point of drawn) {
     if (point.score > peak.score) peak = point
   }
   const showPeak = Math.round(peak.score) > lastScore
-  const peakX = Math.min(padL + plotW - 12, Math.max(padL + 12, peak.x))
-  const lastLabelX = Math.min(last.x, padL + plotW - 8)
-  const labelsClose = showPeak && Math.abs(peakX - lastLabelX) < 28
+  const peakX = Math.min(padL + plotW - 14, Math.max(padL + 14, peak.x))
+  const lastOnEdge = last.x > padL + plotW - 22
 
   function updateHover(event) {
     const svg = event.currentTarget
@@ -96,33 +136,16 @@ export default function BrainPowerChart({
       setHover(null)
       return
     }
-    let best = coords[0]
-    let bestDx = Math.abs(best.x - cursor.x)
-    let bestDy = Math.abs(best.y - cursor.y)
-    for (const point of coords) {
-      const dx = Math.abs(point.x - cursor.x)
-      const dy = Math.abs(point.y - cursor.y)
-      if (dx < bestDx - 0.5 || (Math.abs(dx - bestDx) <= 0.5 && dy < bestDy)) {
-        best = point
-        bestDx = dx
-        bestDy = dy
-      }
-    }
-    const jump = []
-    for (const point of coords) {
-      if (!point.recorded || Math.abs(point.x - best.x) > 1.5) continue
-      const rounded = Math.round(point.score)
-      if (!jump.includes(rounded)) jump.push(rounded)
-    }
+    const point = alongLine(drawn, cursor.x)
     const bounds = svg.parentElement.getBoundingClientRect()
     setHover({
       left: Math.min(bounds.width - 8, Math.max(8, event.clientX - bounds.left)),
       top: Math.max(8, event.clientY - bounds.top),
-      score: Math.round(best.score),
-      label: formatHover(best.at),
-      change: jump.length > 1 ? `${jump[0]} → ${jump[jump.length - 1]}` : null,
-      x: best.x,
-      y: best.y,
+      score: Math.round(point.score),
+      label: formatHover(point.at),
+      change: point.change,
+      x: point.x,
+      y: point.y,
     })
   }
 
@@ -143,7 +166,7 @@ export default function BrainPowerChart({
       >
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.35" />
+            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.18" />
             <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
           </linearGradient>
         </defs>
@@ -153,13 +176,18 @@ export default function BrainPowerChart({
           y1={baseline}
           x2={padL + plotW}
           y2={baseline}
-          stroke="#9ca3af"
-          strokeWidth="0.5"
+          stroke="currentColor"
+          className="text-gray-200 dark:text-gray-800"
+          strokeWidth="1"
         />
-        <text x={padL - 4} y={toY(maxScore) + 3} textAnchor="end" fontSize="8" fill="#9ca3af">
-          {maxLabel}
-        </text>
-        <text x={padL - 4} y={baseline} textAnchor="end" dominantBaseline="middle" fontSize="8" fill="#9ca3af">
+        <text
+          x={padL - 6}
+          y={baseline}
+          textAnchor="end"
+          dominantBaseline="middle"
+          fontSize="9"
+          className="fill-gray-400 dark:fill-gray-500"
+        >
           {Math.round(low)}
         </text>
         <polygon points={fillPoints} fill={`url(#${gradientId})`} />
@@ -171,74 +199,73 @@ export default function BrainPowerChart({
           strokeLinejoin="round"
           strokeLinecap="round"
         />
-        {coords.map((point, index) =>
-          point.recorded ? (
-            <circle
-              key={`${point.at}-${index}`}
-              cx={point.x}
-              cy={point.y}
-              r="2.2"
-              className="fill-white stroke-indigo-500 dark:fill-gray-900"
-              strokeWidth="1.5"
-            />
-          ) : null
-        )}
-        {showPeak && <circle cx={peak.x} cy={peak.y} r="3.5" fill="#6366f1" />}
-        <circle cx={last.x} cy={last.y} r="3" fill="#6366f1" />
         {showPeak && (
           <text
             x={peakX}
-            y={Math.max(peak.y - (labelsClose ? 14 : 7), 10)}
+            y={Math.max(peak.y - 8, 11)}
             textAnchor="middle"
-            fontSize="9"
+            fontSize="11"
             fontWeight="700"
             fill="#6366f1"
           >
             {Math.round(peak.score)}
           </text>
         )}
+        <circle cx={last.x} cy={last.y} r="3.5" fill="#6366f1" />
         <text
-          x={lastLabelX}
-          y={Math.max(last.y - 6, 10)}
-          textAnchor="middle"
-          fontSize="9"
+          x={lastOnEdge ? last.x - 8 : last.x}
+          y={Math.max(last.y - 8, 11)}
+          textAnchor={lastOnEdge ? 'end' : 'middle'}
+          fontSize="11"
           fontWeight="700"
           fill="#6366f1"
         >
           {lastScore}
         </text>
-        <text x={padL} y={svgH - 2} fontSize="8" fill="#9ca3af">
+        <text x={padL} y={svgH - 2} fontSize="9" className="fill-gray-400 dark:fill-gray-500">
           {formatTick(start, span)}
         </text>
-        <text x={padL + plotW / 2} y={svgH - 2} textAnchor="middle" fontSize="8" fill="#9ca3af">
+        <text
+          x={padL + plotW / 2}
+          y={svgH - 2}
+          textAnchor="middle"
+          fontSize="9"
+          className="fill-gray-400 dark:fill-gray-500"
+        >
           {formatTick(mid.at, span)}
         </text>
-        <text x={padL + plotW} y={svgH - 2} textAnchor="end" fontSize="8" fill="#9ca3af">
+        <text
+          x={padL + plotW}
+          y={svgH - 2}
+          textAnchor="end"
+          fontSize="9"
+          className="fill-gray-400 dark:fill-gray-500"
+        >
           {formatTick(end, span)}
         </text>
         {hover && (
-          <line
-            x1={hover.x}
-            y1={padT}
-            x2={hover.x}
-            y2={baseline}
-            stroke="#6366f1"
-            strokeWidth="1"
-            strokeDasharray="2 2"
-            pointerEvents="none"
-          />
+          <g pointerEvents="none">
+            <line
+              x1={hover.x}
+              y1={padT}
+              x2={hover.x}
+              y2={baseline}
+              stroke="#6366f1"
+              strokeWidth="1"
+              strokeDasharray="2 3"
+              opacity="0.45"
+            />
+            <circle cx={hover.x} cy={hover.y} r="3.5" fill="#ffffff" stroke="#6366f1" strokeWidth="2" />
+          </g>
         )}
       </svg>
       {hover && (
         <div
-          className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-full rounded-md bg-gray-900 px-2 py-1 text-white shadow-md dark:bg-gray-100 dark:text-gray-900"
-          style={{ left: hover.left, top: Math.max(0, hover.top - 12) }}
+          className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-full rounded-lg bg-gray-900 px-2.5 py-1.5 text-white shadow-lg dark:bg-white dark:text-gray-900"
+          style={{ left: hover.left, top: Math.max(0, hover.top - 10) }}
         >
-          <div className="text-sm font-bold tabular-nums leading-none">{hover.score}</div>
-          {hover.change && (
-            <div className="mt-0.5 whitespace-nowrap text-[10px] font-semibold tabular-nums">{hover.change}</div>
-          )}
-          <div className="mt-0.5 whitespace-nowrap text-[10px] opacity-80">{hover.label}</div>
+          <div className="text-sm font-bold tabular-nums leading-none">{hover.change || hover.score}</div>
+          <div className="mt-1 whitespace-nowrap text-[10px] text-white/70 dark:text-gray-500">{hover.label}</div>
         </div>
       )}
     </div>

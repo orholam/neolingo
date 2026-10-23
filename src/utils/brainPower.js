@@ -352,23 +352,42 @@ export function seriesFromPracticeLog(events, liveScore, now = Date.now()) {
     .sort((a, b) => a.at - b.at || String(a.id).localeCompare(String(b.id)))
   if (!sessions.length) return null
 
+  // Several sessions in one sitting would stack into vertical bars. Keep the
+  // score at the start of the sitting and the score at the end.
+  const BURST_MS = 3 * 60 * 60 * 1000
+  const bursts = []
+  for (const session of sessions) {
+    const burst = bursts[bursts.length - 1]
+    if (burst && session.at - burst.endAt <= BURST_MS) {
+      burst.endAt = session.at
+      burst.scoreAfter = session.scoreAfter
+    } else {
+      bursts.push({
+        startAt: session.at,
+        endAt: session.at,
+        scoreBefore: session.scoreBefore,
+        scoreAfter: session.scoreAfter,
+      })
+    }
+  }
+
   const points = []
-  for (let i = 0; i < sessions.length; i++) {
-    const session = sessions[i]
+  for (let i = 0; i < bursts.length; i++) {
+    const burst = bursts[i]
     if (i > 0) {
-      const prev = sessions[i - 1]
-      for (const point of interpolateScores(prev.at, prev.scoreAfter, session.at, session.scoreBefore)) {
+      const prev = bursts[i - 1]
+      for (const point of interpolateScores(prev.endAt, prev.scoreAfter, burst.startAt, burst.scoreBefore)) {
         pushSeriesPoint(points, point)
       }
     }
-    pushSeriesPoint(points, { at: session.at, score: session.scoreBefore, recorded: true })
-    pushSeriesPoint(points, { at: session.at, score: session.scoreAfter, recorded: true })
+    pushSeriesPoint(points, { at: burst.startAt, score: burst.scoreBefore, recorded: true })
+    pushSeriesPoint(points, { at: burst.endAt, score: burst.scoreAfter, recorded: true })
   }
 
-  const last = sessions[sessions.length - 1]
+  const last = bursts[bursts.length - 1]
   const live = Number(liveScore)
-  if (Number.isFinite(live) && now > last.at + 1000) {
-    for (const point of interpolateScores(last.at, last.scoreAfter, now, live)) {
+  if (Number.isFinite(live) && now > last.endAt + 1000) {
+    for (const point of interpolateScores(last.endAt, last.scoreAfter, now, live)) {
       pushSeriesPoint(points, point)
     }
     pushSeriesPoint(points, { at: now, score: live, recorded: true })

@@ -17,6 +17,15 @@ const dadjoSessions = [
   { at: 1792772136078, scoreBefore: 110, scoreAfter: 117 },
 ]
 
+test('a sitting with several sessions is one rise, not a stack of jumps', () => {
+  const after = seriesFromPracticeLog(dadjoSessions, 117, dadjoSessions.at(-1).at + 5000)
+  const firstSitting = after.filter((point) => point.recorded && point.at <= dadjoSessions[2].at)
+  assert.deepEqual(
+    firstSitting.map((point) => point.score),
+    [89, 107]
+  )
+})
+
 test('practice log keeps an earlier peak above today', () => {
   const after = seriesFromPracticeLog(dadjoSessions, 117, dadjoSessions.at(-1).at + 5000)
   assert.equal(Math.round(Math.max(...after.map((point) => point.score))), 126)
