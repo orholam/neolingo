@@ -4,6 +4,7 @@ import {
   displayScore,
   reconstructBrainPowerHistory,
   scoreEntries,
+  seriesFromPracticeLog,
 } from '../src/utils/brainPower.js'
 import { computeShortTermMemory, isPermanentMemory } from '../src/utils/wordMemory.js'
 import { lookupWord } from './dictionaries.js'
@@ -60,9 +61,11 @@ function memoryRows(memoryForLang, dictionary, now) {
   return rows
 }
 
-function recentBrain(entries, now) {
-  const history = reconstructBrainPowerHistory(entries, now)
-  const series = brainPowerSeries(history, now).map((point) => ({
+function recentBrain(entries, now, practiceEvents) {
+  const live = displayScore(computeBrainPower(entries, now))
+  const logged = seriesFromPracticeLog(practiceEvents, live, now)
+  const history = logged ? null : reconstructBrainPowerHistory(entries, now)
+  const series = (logged || brainPowerSeries(history, now)).map((point) => ({
     at: iso(point.at),
     score: displayScore(point.score),
   }))
@@ -139,7 +142,7 @@ function languageSummary(lang, snapshot, dictionaries, now, limits) {
     id: lang.id,
     name: lang.name,
     brainScore: displayScore(raw),
-    brainScoreRecent: recentBrain(scored, now),
+    brainScoreRecent: recentBrain(scored, now, snapshot.practice_log?.[lang.memoryKey]),
     mastered: masteredIds.length,
     alreadyKnown: rows.filter((row) => row.alreadyKnown).length,
     trackedWords: rows.length,

@@ -14,6 +14,7 @@ import {
   computeBrainPower,
   displayDelta,
   displayScore,
+  invalidateBrainPowerCache,
   projectSessionMemory,
 } from '../utils/brainPower'
 import { appendPractice } from '../utils/practiceLog'
@@ -218,6 +219,7 @@ function Flashcards() {
       scoreBefore: brainBaseline == null ? null : displayScore(brainBaseline),
       scoreAfter: displayScore(afterRaw),
     })
+    invalidateBrainPowerCache()
     // Words are already in the mastered list; this only keeps the history entry
     // if the learner leaves without starting another session.
     // eslint-disable-next-line react-hooks/exhaustive-deps

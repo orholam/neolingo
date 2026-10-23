@@ -9,6 +9,7 @@
 // or "already knew" mark is what the score page compares against, so the
 // drop is "since you last practiced," not since the page happened to render.
 
+import { listPractice } from './practiceLog.js'
 import {
   MAX_MEMORY,
   MIN_MEMORY,
@@ -304,6 +305,80 @@ function ensureHistory(languageId, entries, now) {
   return built
 }
 
+function pushSeriesPoint(points, point) {
+  const prev = points[points.length - 1]
+  if (prev && prev.at === point.at && Math.round(prev.score) === Math.round(point.score)) {
+    if (point.recorded) prev.recorded = true
+    prev.score = point.score
+    return
+  }
+  points.push(point)
+}
+
+function interpolateScores(startAt, startScore, endAt, endScore) {
+  const span = endAt - startAt
+  if (!(span > 60 * 1000)) return []
+  const day = 24 * 60 * 60 * 1000
+  const steps = span < day ? 4 : span < 7 * day ? 8 : 12
+  const points = []
+  for (let i = 1; i < steps; i++) {
+    const portion = i / steps
+    points.push({
+      at: Math.round(startAt + span * portion),
+      score: startScore + (endScore - startScore) * portion,
+      recorded: false,
+    })
+  }
+  return points
+}
+
+/**
+ * Scores actually saved at each practice session.
+ * Word memory only keeps the latest review, so a curve rebuilt from it
+ * drops a word out of every earlier day once it is practiced again and the
+ * newest score becomes a false all-time high. The practice log still has
+ * the score before and after each session.
+ */
+export function seriesFromPracticeLog(events, liveScore, now = Date.now()) {
+  const sessions = (events || [])
+    .filter(
+      (event) =>
+        event &&
+        Number.isFinite(event.at) &&
+        Number.isFinite(event.scoreBefore) &&
+        Number.isFinite(event.scoreAfter)
+    )
+    .slice()
+    .sort((a, b) => a.at - b.at || String(a.id).localeCompare(String(b.id)))
+  if (!sessions.length) return null
+
+  const points = []
+  for (let i = 0; i < sessions.length; i++) {
+    const session = sessions[i]
+    if (i > 0) {
+      const prev = sessions[i - 1]
+      for (const point of interpolateScores(prev.at, prev.scoreAfter, session.at, session.scoreBefore)) {
+        pushSeriesPoint(points, point)
+      }
+    }
+    pushSeriesPoint(points, { at: session.at, score: session.scoreBefore, recorded: true })
+    pushSeriesPoint(points, { at: session.at, score: session.scoreAfter, recorded: true })
+  }
+
+  const last = sessions[sessions.length - 1]
+  const live = Number(liveScore)
+  if (Number.isFinite(live) && now > last.at + 1000) {
+    for (const point of interpolateScores(last.at, last.scoreAfter, now, live)) {
+      pushSeriesPoint(points, point)
+    }
+    pushSeriesPoint(points, { at: now, score: live, recorded: true })
+  } else if (Number.isFinite(live) && points.length) {
+    points[points.length - 1].score = live
+  }
+
+  return points.length >= 2 ? points : null
+}
+
 /** Points from the first remembered word through now, including fades between jumps. */
 export function brainPowerSeries(history, now = Date.now()) {
   if (!history) return []
@@ -378,7 +453,8 @@ export function readBrainPowerDisplay(languageId, now = Date.now(), masteredIds 
     drop = fallen > 0 ? fallen : 0
   }
   const history = ensureHistory(languageId, entries, now)
-  const series = brainPowerSeries(history, now)
+  const series =
+    seriesFromPracticeLog(listPractice(languageId), score, now) || brainPowerSeries(history, now)
   return { score, drop, raw, series }
 }
 
