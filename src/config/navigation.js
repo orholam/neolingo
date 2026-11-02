@@ -20,6 +20,12 @@ export const SECONDARY_NAV = [
     icon: '📖',
     pathFn: (courseId) => getDictionaryPath(courseId),
   },
+  {
+    id: 'grammar',
+    label: 'Grammar',
+    icon: '📝',
+    path: '/grammar',
+  },
   { id: 'languages', label: 'Languages', icon: '🌐', path: '/languages' },
 ]
 
@@ -43,6 +49,7 @@ export const PAGE_TITLES = {
   '/sumerian-dictionary': 'Dictionary',
   '/korean-dictionary': 'Dictionary',
   '/french-dictionary': 'Dictionary',
+  '/grammar': 'Grammar',
 }
 
 export const ROUTES_WITH_SIDEBAR_PANEL = new Set(['/practice', '/flashcards'])
@@ -76,6 +83,7 @@ export function getActiveNavId(pathname) {
     return 'brain'
   }
   if (pathname.includes('dictionary')) return 'dictionary'
+  if (pathname.startsWith('/grammar')) return 'grammar'
   if (pathname.startsWith('/languages')) return 'languages'
   return null
 }

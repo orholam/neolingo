@@ -9,6 +9,7 @@ import Dictionary from './pages/Dictionary'
 import SumerianDictionary from './pages/SumerianDictionary'
 import KoreanDictionary from './pages/KoreanDictionary'
 import FrenchDictionary from './pages/FrenchDictionary'
+import GrammarReference from './pages/GrammarReference'
 import FlashcardSessions from './pages/FlashcardSessions'
 import Flashcards from './pages/Flashcards'
 import FlashcardSessionPractice from './pages/FlashcardSessionPractice'
@@ -39,6 +40,7 @@ function App() {
           <Route path="/sumerian-dictionary" element={<SumerianDictionary />} />
           <Route path="/korean-dictionary" element={<KoreanDictionary />} />
           <Route path="/french-dictionary" element={<FrenchDictionary />} />
+          <Route path="/grammar" element={<GrammarReference />} />
           <Route path="/brain/:langId" element={<DigitalBrain />} />
           <Route path="/brain-map/:langId" element={<SemanticBrainMap />} />
           <Route path="/memory-map/:langId" element={<MemoryMap />} />

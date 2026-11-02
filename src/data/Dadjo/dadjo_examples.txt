@@ -1,0 +1,1872 @@
+# Dadjo example sentences extracted from dadjo_dictionary.jsonl
+# Source: DJC Dadjo–English Dictionary (2011)
+# Count: 469 example strings
+# Bilingual split: 460 split, 9 raw-only (mostly Dadjo-only / truncated / OCR junk)
+
+[way] (like)
+  Dadjo:   Issa way me-adalge. Bane way agice.
+  English: Issa is like a repairman. The house is like the small cabin.
+
+[wedke] (to walk)
+  Dadjo:   Na wede ki soge
+  English: I walk on the road.
+
+[welkeyge] (to turn, turn upside down)
+  Dadjo:   Na welkiye watiraŋga.
+  English: I turn my car.
+
+[wiidine] (evening, night)
+  Dadjo:   Wiidine aani, am werwa ki helne.
+  English: That night, he came back to the village.
+
+[wala] (neither, nor, either,or)
+  Dadjo:   Na ayi ki ori kan ƴuge me na idaŋi jirre wala karra.
+  English: I came to see if what I heard was true or false.
+
+[waske] (to dump)
+  Dadjo:   Na wase uske ɓiji sim agice.
+  English: I dump the dirt from the interior of the house.
+
+[akheri] (better)
+  Dadjo:   Ani akheri.
+  English: It is better.
+
+[alle] (river allo pro rel. [allo], which (one), who)
+  Dadjo:   Ni win̰e allo?
+  English: You want which one?.
+
+[aman̰ge] (to knead)
+  Dadjo:   Amn̰ina! Knead! (1P pl.
+  English: inclusive).
+
+[wadan̰ce] (guest, stranger)
+  Dadjo:   Na ki yagi wadaŋge.
+  English: I am going to have visitors.
+
+[wadke] (to swim)
+  Dadjo:   Na wade ki alle.
+  English: I swim in the river.
+
+[waɗke] (to swallow)
+  Dadjo:   Na waɗe.
+  English: I swallow.
+
+[waktine] (time)
+  Dadjo:   Na sogo tiro cenne Ameriki.
+  English: I come from near America.
+
+[undu] (nothing, zero)
+  Dadjo:   Am unduma.
+  English: He is not here.
+
+[uŋge] (water)
+  Dadjo:   Na wine ̰ki uri unge.
+  English: I need to drink water.
+
+[wa] (and -wa marker. [wa] stative marker)
+  Dadjo:   Na ndugwa.
+  English: I am sitting.
+
+[urke] (to drink)
+  Dadjo:   Na uro unge.
+  English: I am drinking water.
+
+[ursike] (to understand)
+  Dadjo:   Na urso ŋgake Dajiŋge.
+  English: I understand the Dadjo language.
+
+[aŋgala] (who)
+  Dadjo:   Angala isi tuma?
+  English: Who gave it to him?.
+
+[aŋge] (name)
+  Dadjo:   Aŋgi aŋgala?
+  English: What is your name?.
+
+[ucjaŋge] (to stay)
+  Dadjo:   Ni ucani ki warre.
+  English: You stayed in the forrest.
+
+[ucke-toce] (across from)
+  Dadjo:   Izzo uco tocanga. Izzo
+  English: is accross from me.
+
+[udayge] (to transplant)
+  Dadjo:   Am idayi murmuruske ki jinene.
+  English: He planted wild grapes in his garden.
+
+[ugde] (thirst)
+  Dadjo:   Na ugde tanga.
+  English: I’m thirsty.
+
+[uldiŋge] (to detach by itself)
+  Dadjo:   Sitte ulwa.
+  English: The cord loosened itself.
+
+[undiŋge] (to come)
+  Raw:     Na undini ɓiji.
+
+[tomborto] (a naked person)
+  Dadjo:   Na ori tomborto.
+  English: I saw the naked person.
+
+[tomborto] (naked, nude)
+  Dadjo:   Am tomborto.
+  English: He is naked. tona [tona] to us (inclusive).
+
+[tukke] (cows, cattle)
+  Dadjo:   Na ori tukke agi.
+  English: I saw the cattle there.
+
+[turdiŋge] (to love each other)
+  Dadjo:   Cokke turdini.
+  English: The children love each other.
+
+[turke] (to love, like)
+  Dadjo:   Na turo niŋga. I love
+  English: you.
+
+[awille] (before, first)
+  Dadjo:   Awille na sogi ma wa koroni na sogo tiro.
+  English: Before I had it, but now I don’t.
+
+[awine] (noise)
+  Dadjo:   Sogo awine itira ki sugne.
+  English: There is a lot of noise in the market.
+
+[awkice] (next to)
+  Dadjo:   Kiŋge ucca awkice na hitbine.
+  English: The people are next to the flock.
+
+[aydin̰ce] (year)
+  Dadjo:   Am sogi aydin̰ce asin̰i karini tespedi.
+  English: He is fourteen years old.
+
+[badalge] (to change, to exchange)
+  Dadjo:   Na badile gursinaŋga.
+  English: I exchange my money.
+
+[ayse] (goat aŋasi [aŋasi] how)
+  Dadjo:   Na urso aŋasi ki sogi labine.
+  English: I know how to do the work. - b.
+
+[tindi] (last tiŋga [tiŋga] to you)
+  Dadjo:   Ce legeyi taŋga.
+  English: She spoke to me.
+
+[tira] (place)
+  Dadjo:   Watiri uco tira?
+  English: The car is at what place?.
+
+[tiraŋi] (far)
+  Dadjo:   Helne na ɓonno tiraŋi. The chief’s village is far. tisa [tisa]
+  English: to them.
+
+[todke] (to stop)
+  Dadjo:   Na too.
+  English: I stopped. toka [toka] to us (dual).
+
+[teŋge] (to cry)
+  Dadjo:   Teŋgina.
+  English: Cry.
+
+[teŋe] (a cow)
+  Dadjo:   Teŋe ani si ŋgarce.
+  English: This cow here is eating grass.
+
+[ti] (to)
+  Dadjo:   Am legeyi taŋga.
+  English: He spoke to me.
+
+[tibe] (hot)
+  Dadjo:   roŋ tibe The sun is hot. tice [tice]
+  English: to her.
+
+[tidi] (over (something))
+  Dadjo:   ki tidi tabuli
+  English: over the table -tige affix. [tige] derivational affix that changes verb into a noun i. e. (v) ogorge, (n ) ogortige.
+
+[batalge] (to be tired)
+  Dadjo:   Na batali.
+  English: I am tired.
+
+[beddeyge] (to start)
+  Dadjo:   Am beddeyi labiŋga na gosgode itira.
+  English: He started his work early in the morning.
+
+[biliskicane] (sand)
+  Dadjo:   Am abi ma ki biliskicane.
+  English: He buried it in the sand.
+
+[bisi] (cat)
+  Dadjo:   Gosgode ani, bisaŋga pa ŋgiinse ki banaŋga. This morning, my cat killed a mouse in
+  English: my house.
+
+[biske] (to fill)
+  Dadjo:   Ac osi bisi bodine sa uŋge.
+  English: She went and filled her jug with water.
+
+[bogirge] (rooster)
+  Dadjo:   Angala isi tiŋga bogirge?
+  English: Who gave you the rooster?.
+
+[bogke] (to meet, to welcome)
+  Dadjo:   Am bogosi urma ki helne.
+  English: He met his wife in the field.
+
+[taŋke] (to lay an egg)
+  Dadjo:   Kugurge taŋgi walge wayi.
+  English: The hen layed a lot of eggs.
+
+[suŋgike] (to sleep)
+  Dadjo:   Am suŋgo.
+  English: He is sleeping.
+
+[t-] (towards, to)
+  Dadjo:   tuma
+  English: to him.
+
+[tabuli] (table)
+  Dadjo:   Am uco ki tabuli.
+  English: It is on the table.
+
+[tamanne] (negotiation)
+  Dadjo:   ɗa bonniŋge!
+  English: Wash the clothes!.
+
+[bore] (mare (female horse))
+  Dadjo:   Bore murtine urene.
+  English: A mare is a female horse.
+
+[bugdaŋge] (to go down)
+  Dadjo:   Moussa bugdane ɓii ise ŋgan̰je.
+  English: Mouusa comes down from the mountain.
+
+[buwake] (to jump, to fly)
+  Dadjo:   Na bu.
+  English: I jumped. - ɓ.
+
+[ɓade] (hard)
+  Dadjo:   Ɓaddaskiŋga ɓade!
+  English: You hit me hard!.
+
+[ɓake] (to fear)
+  Dadjo:   Na ɓaye k’am pa nanga.
+  English: I am afraid he’s going to kill me.
+
+[ɓakkike] (to take)
+  Dadjo:   Ɓaga ma!
+  English: Take it!.
+
+[ɓanke] (to suck, to kiss)
+  Dadjo:   Am ɓani uke na penuma.
+  English: He kissed his child.
+
+[ɓaŋke] (to call)
+  Dadjo:   Am ɓaŋgi ɓonjiŋko a legeyi tisa kamaji ŋgake me laysa.
+  English: He called the leaders and told them all that had happened.
+
+[sogke] (to have, to do, to render)
+  Dadjo:   Na sogo minke. I have a question. sogo [sɔgo]
+  English: there is.
+
+[sordodoyge] (to slide)
+  Dadjo:   Na sordidiyo.
+  English: I slide.
+
+[sugne] (market)
+  Dadjo:   Na win̰e ki osi ki sugne.
+  English: I want to go to the market.
+
+[serrane] (today)
+  Dadjo:   Serrane ani, am sogo labine waya.
+  English: Today, he has lots of work.
+
+[sim] (in)
+  Dadjo:   Na uco ki sim bane.
+  English: I am in the house.
+
+[ɓiji] (since)
+  Dadjo:   Ɓiji kacini, wanaŋga ɓaade naŋga.
+  English: I have been sick since yesterday.
+
+[ɓiji] (via, by way of or from ex. Na coroyi ɓiji uke-soge. I left via the door. ɓiji [ɓiji] more compared to)
+  Dadjo:   Na siye ɓiji Musa.
+  English: I eat more than Moussa.
+
+[ɓildike] (to learn)
+  Dadjo:   Na ɓildadi ŋgake sawaŋge.
+  English: I learned Arabic.
+
+[ɓin̰jiŋge] (to swell up)
+  Dadjo:   Koŋgosaŋga ɓin̰wa.
+  English: My heart is enlarged.
+
+[ɓurke] (alcohol, alcoholic beverage)
+  Dadjo:   Am uri ɓurke wa mirasi.
+  English: He drank alchohol and got drunk.
+
+[ɓuwake] (to bark - c)
+  Dadjo:   Kiŋge ɗubdase canculge ki yuwisi cablaŋge.
+  English: The people burn sesame stalks to add to the taste of the water used in sauces (cablaŋge is water that has been filtered to change the taste of a sauce).
+
+[caŋgine] (scorpion)
+  Dadjo:   Caŋgine sogo ibe wa am dun̰ca way cileluwe.
+  English: The scorpion has a tail and stings like a centipede.
+
+[samayge] (to ask for forgiveness, to excuse oneself)
+  Dadjo:   Samaya taŋga.
+  English: Forgive me.
+
+[sayge] (to shepherd, to guide the animals)
+  Dadjo:   Na saye.
+  English: I shephard the animals.
+
+[sa-ane] (hour, time)
+  Dadjo:   Sa-ane ŋgern̰i?
+  English: What time is it?.
+
+[saayike] (to refuse)
+  Dadjo:   Na saaye.
+  English: I refuse.
+
+[sajke] (to peel)
+  Dadjo:   Na saje baŋgawa.
+  English: I peel the potatoes.
+
+[cawardige] (cleanliness, hygiene)
+  Dadjo:   Cawardige wane kondini samadige ki leduma.
+  English: The cleanliness of the body leads to the beauty of its owner.
+
+[cawari] (clear, light in color)
+  Dadjo:   Uŋge morre cawari.
+  English: The well water is clear.
+
+[cenne] (half)
+  Dadjo:   Siya sere wa aba taŋga cenne!
+  English: Eat the boule (millet paste) and leave me half!.
+
+[cenne] (near, towards, next to, side)
+  Dadjo:   Am wadandi sa cenne sabane.
+  English: He traveled towards the east.
+
+[cibelle] (fish hook)
+  Dadjo:   Cokke pide aske ɓiji sim tace sa cibelle.
+  English: The children get fish from the pond using a fish hook.
+
+[cicce] (child)
+  Dadjo:   Sara, ure na Ibrahimi, iyi cicce ki jamidtigice.
+  English: Sarah, Abraham’s wife, gave birth during her old age.
+
+[ciladge] (to sharpen)
+  Dadjo:   Meŋ dabsayge cilide pugidtigisa ayi suŋde goskode.
+  English: The butchers sharpen their knives every morning.
+
+[cileluwe] (centipede)
+  Dadjo:   Cileluwe sogo erreŋge wayi wa dun̰ca way caŋgine.
+  English: The centipede has many legs and stings like a scorpion.
+
+[cirke] (to have diarrhea)
+  Dadjo:   Cicce ani, awkuma ɓaade ma. Am cire. This child’s stomach hurts.
+  English: He is having diarrhea.
+
+[ciŋayge] (to hear, to listen)
+  Dadjo:   Kiŋge gakke ungisa ki ciŋayge.
+  English: People use their ears to hear.
+
+[colke] (to pour (from one container into another))
+  Dadjo:   Cola taŋga uŋge.
+  English: Pour me some water.
+
+[colkomne] (chin)
+  Dadjo:   Kine ɓadi yewe ani ki colkomnuma wa ɗiŋgi ngirkuma.
+  English: Someone hit the man on the chin and he lost some teeth.
+
+[core] (elbow)
+  Dadjo:   Core yumo ki ande tidi.
+  English: The.
+
+[poske] (to add)
+  Dadjo:   Na poso unge.
+  English: I'm adding water.
+
+[risi] (rice)
+  Dadjo:   Si risi.
+  English: Eat rice.
+
+[poske] (help)
+  Dadjo:   Na wiŋe poskiŋga.
+  English: I need your help.
+
+[poske] (to help)
+  Dadjo:   Na ki posi ninga.
+  English: I'm going to help you. elbow connects the two parts of the arm.
+
+[coroyge] (to exit)
+  Dadjo:   Na coroyi ɓiji uke-soge
+  English: I exited by way of the door.
+
+[dabino] (red millet)
+  Dadjo:   Dabino kun̰je piri. Dabino
+  English: is red millet.
+
+[dabne] (gold)
+  Dadjo:   Urge dulo uŋgisa ki norke damne.
+  English: The women pierce their ears so they can wear gold.
+
+[dabsayge] (to butcher, to slaughter)
+  Dadjo:   Me-sayge dabsayi ayse.
+  English: The shepherd slaughtered a goat.
+
+[culce] (wood charcoal)
+  Dadjo:   Ma yebi culce ki gagke scay. He gathered the charcoal to make tea. - d Caŋgine dun̰i ma ki dadin̰cuma.
+  English: The scorpion bit him in the buttock.
+
+[daggine] (shape)
+  Dadjo:   Ure ani sogo daggine samane.
+  English: This woman has a nice figure.
+
+[dagiga] (minute)
+  Dadjo:   Sa-ane raki sogo dagayiŋge asin̰i arani (60).
+  English: One hour has sixty (60) minutes.
+
+[Dajin̰ce] (Dadjo (the person))
+  Dadjo:   Dajinge parhiŋge ɓiji kiŋge waadge.
+  English: The Dadjo are more proud than the other ethnicities.
+
+[daldiŋge] (to miss one another (i e to not see one another))
+  Dadjo:   Goskode ani kona daldinina.
+  English: This morning we missed each other.
+
+[dalke] (to miss)
+  Dadjo:   Goskode ani, na dali sere.
+  English: This morning I missed the boule (millet paste).
+
+[damdamge] (to feel (with hands for example))
+  Dadjo:   Na damdime sa asaŋgaŋga.
+  English: I feel with my hands.
+
+[danni] (maybe)
+  Dadjo:   Ma m’erge : «Na ki wadandi danni.»
+  English: He said "I am going to take a trip, maybe.".
+
+[darane] (species, category)
+  Dadjo:   Sedine kamaji sogo darane.
+  English: All the animals have their species.
+
+[dardiŋge] (to separate from each other, to spread out one thing from another)
+  Dadjo:   As darni ki wan̰ke.
+  English: They spread out to dance.
+
+[dargine] (shield)
+  Dadjo:   Yuge ɓagi dargingisa ki osi ɗiske.
+  English: The men take their shields to go out to fight.
+
+[darke] (to spread out, to separate, to divorce, to disperse)
+  Dadjo:   Jamaniŋge yumni ki rakumne wa dara.
+  English: The people.
+
+[pa] (even, self)
+  Dadjo:   Na oso ki sugne wa na pa ki ayi.
+  English: I am going to the market, and will myself come back.
+
+[pakarge] (to think, to remember)
+  Dadjo:   Na pakari.
+  English: I thought.
+
+[pake] (to kill, to cut (a tree or plant), to extinguish)
+  Dadjo:   Na ɓake me k’am pa nanga.
+  English: I am afraid he’s going to kill me.
+
+[dawane] (medicine)
+  Dadjo:   Na uri dawane, ascan wanaŋga ɓaade naŋga.
+  English: I drank the medicin, because I was sick.
+
+[dawayge] (to treat)
+  Dadjo:   Yewe ani dawayi naŋga ki laptani.
+  English: This man treated me at the hospital.
+
+[dawline] (country)
+  Dadjo:   Dawlinona Chadi wera wa sogo diyarge wa helelige wayi.
+  English: Our country Chad is large and has many cities and towns.
+
+[daŋayne] (building)
+  Dadjo:   Daŋayne way agice, lakin ɗawalwali tiro wa am ɓona ɓiji agice.
+  English: A building is like a hut, but it is not round ,and it is larger than a hut.
+
+[debbeyge] (to start)
+  Dadjo:   Na debbeyi labinaŋga kacini goskode.
+  English: I started my work yesterday morning.
+
+[debine] (beginning, start)
+  Dadjo:   Ki debine Korre deyi dunune.
+  English: In the beginning God created the world.
+
+[debke] (to arrive ahead, to pass in front of)
+  Dadjo:   Am debisi tona.
+  English: He passed us.
+
+[debke] (in front of)
+  Dadjo:   Am wiydadi debke.
+  English: He ran ahead.
+
+[degdeske] (to decompose)
+  Dadjo:   Am irsi wa wanuma degesi.
+  English: He is dead and his body is decomposing.
+
+[degke] (movement of the wind)
+  Dadjo:   Megne dege.
+  English: The wind blows.
+
+[degke] (to kick)
+  Dadjo:   Murtine degi cicce.
+  English: The kicked the child.
+
+[dekelkelge] (to tickle)
+  Dadjo:   Na dekilkile penaŋga.
+  English: I tickle my child.
+
+[dekine] (narrow)
+  Dadjo:   Agice dekine wa ɓakke tiro kona.
+  English: The hut is too narrow and does not suffice for us.
+
+[delke] (to fall, set a trap)
+  Dadjo:   Kan ni ɗekke ki ise-ŋgan̰je, dege balle ɓiji delke.
+  English: If you climb to the summit of the mountain, be careful not to fall.
+
+[dembeli] (soft)
+  Dadjo:   Maŋga layi dembeli.
+  English: The mango has become soft.
+
+[denke] (to cover, to close)
+  Dadjo:   Kurkurge dene cokkice sa kuɓuttice.
+  English: The hen covers her young with her wings.
+
+[dendeske] (to close)
+  Dadjo:   Ma dendese uke-soge ki waya.
+  English: He closes the door several times.
+
+[dendiŋge] (to close by itself)
+  Dadjo:   Uke soge denwa.
+  English: The door closes by itself.
+
+[deyake] (to design, to fabricate)
+  Raw:     Ure jamne deyi bardila.
+
+[oosine] (rainy season)
+  Dadjo:   Oosine undini.
+  English: Rainy season is coming.
+
+[oska] (we (exclusive))
+  Dadjo:   Oska osiga ki sugne.
+  English: We went to the market.
+
+[ososke] (to go)
+  Dadjo:   Na oso ki sugne.
+  English: I am going to the market.
+
+[oyke] (to stoop, to bend oŋa pron. [ɔŋ] you (pl) (subject))
+  Dadjo:   Oŋa oscinda!
+  English: You are leaving already!.
+
+[n̰jagke] (to split (in two))
+  Dadjo:   Na n̰jage.
+  English: I split in two.
+
+[ode-ani] (somewhere, here)
+  Dadjo:   Na wine ̰ki osi ode-ani.
+  English: I need to go over there.
+
+[ode-ɗaydiŋge] (shower ode-me [od me], when, at that moment)
+  Raw:     Ode-me na ayi, am.
+
+[deyake] (creation)
+  Dadjo:   Ode me yewe timayi bana am m'erge: «Orna deyakaŋga!»
+  English: When the man finished his house he said "Look at my creation!".
+
+[deyine] (light)
+  Dadjo:   Na win̰e deyine ki wiidine ki sogi labine.
+  English: I need light at night to work. -dige affix. [dige] Derivational suffix used to change an adverb into a noun i. e. loya (profond), loydige (la profondeur)-pelpila (rapid), pelpeldige (la rapiditée).
+
+[dimke] (to circumcise)
+  Dadjo:   Ma dimi ciccuma na aydin̰ce kosonda (8).
+  English: He circumcised the child at the age of eight (8).
+
+[dimke] (circumcision)
+  Dadjo:   Cicce timmayi na dimke.
+  English: The child is now of age (has become a man) (Literally: The child has been circumcised.).
+
+[dindile] (stick)
+  Dadjo:   Na oso kurkurre sa dindile.
+  English: I go to the hunt with a stick.
+
+[diŋgilce] (branch)
+  Dadjo:   Na deresi diŋgilce na ette.
+  English: I cut a tree branch.
+
+[direŋgeli] (brick)
+  Dadjo:   Ma deyi bacaŋge sa diriŋgeli pirro.
+  English: He made the houses with red brick.
+
+[diwge] (to snip)
+  Dadjo:   Kona diwcina ewge.
+  English: We are cutting the wood into small pieces.
+
+[diyake] (to prohibit)
+  Dadjo:   Na di tisa ososke.
+  English: I prohibited him from going.
+
+[dobke] (to attach, to tie)
+  Dadjo:   Sa dobpi askisa.
+  English: They tied up their goats.
+
+[dodane] (heel)
+  Dadjo:   Ma duli dodana sa kiwiŋgice.
+  English: He pricked his heel with a thorn.
+
+[dogke] (to sculpt)
+  Dadjo:   Na dogo kotille ki uraŋga.
+  English: I sculpted a mortar for my wife.
+
+[dokkike] (to peck)
+  Dadjo:   Bogirge dokke kun̰je. The rooster pecks
+  English: the millet.
+
+[dorne] (week)
+  Dadjo:   Dorne me undinge na ki osi ki sugne. Next week
+  English: I am going to the market.
+
+[dorre] (snail)
+  Dadjo:   Nasariŋge siye dorre.
+  English: Westerners eat snails.
+
+[doske] (to bend)
+  Dadjo:   Sa dosi kosomce.
+  English: They bent the metal.
+
+[dosziŋge] (to twist oneself)
+  Dadjo:   Erraŋga doswa.
+  English: I twisted my leg.
+
+[dugke] (come to an end, to terminate, to finish)
+  Dadjo:   Gursinaŋga dugi.
+  English: My money is finished.
+
+[duldaske] (to pierce)
+  Dadjo:   Urge duldi ungisa.
+  English: The women pierced their ears.
+
+[ŋgice] (manure)
+  Dadjo:   Am yebe ŋgice tukke ki darti ki ndabina. He gathers cow manure
+  English: to use it in his fields.
+
+[ŋgitagi] (near)
+  Dadjo:   Helne uranga nitagi.
+  English: My wife’s village is close.
+
+[ŋgarce] (hay)
+  Dadjo:   Ŋgarce siyake ka tukke.
+  English: Hay is the food for cattle.
+
+[ŋgarin̰ce] (necklace)
+  Dadjo:   Urge noro ŋgariŋge ki ŋgasingisa.
+  English: Women wear necklaces on their necks.
+
+[ŋgarke] (to insult)
+  Dadjo:   Kan kinge peje, sa ŋgardini wa ɗisca.
+  English: If people are in conflict, they insult each other and fight with one another.
+
+[ŋgayge] (research)
+  Dadjo:   Am coroyi ŋgayge ursike ki dawane na wakke mocoŋge.
+  English: He left to do the research on a medicine to fight against malaria.
+
+[ŋgayge] (to look for, to research)
+  Dadjo:   Ma ŋgaye aysuma me meesi ki kalane.
+  English: He is looking for his goat that is lost in the bush.
+
+[ŋgemke] (to weigh, to measure)
+  Dadjo:   Ma ŋgeme kun̰juma.
+  English: He is measuring out his millet. ŋgern̰i [ŋgɛrɲi] how many.
+
+[ŋgemke] (to weigh, to measure)
+  Dadjo:   Aydin̰ce ani, am ŋgandi kugruŋge ŋgerni am sogo. This year, he counted how many chickens
+  English: he had.
+
+[ŋgeske] (to pull, to stretch)
+  Dadjo:   Sa ŋgesi dupane ɓiji morre.
+  English: They pulled out the bucket from the well.
+
+[dulke] (to pierce)
+  Dadjo:   Na duli korkorcaŋga sa ibirre.
+  English: I pierced my finger with a needle.
+
+[dulke] (to pass)
+  Dadjo:   Na dulo cenne sugne.
+  English: I am passing near the market.
+
+[dulle] (a support piece for the roof of a hut)
+  Dadjo:   Agicaŋga win̰e dulle.
+  English: My hut needs a support.
+
+[dumayge] (to keep)
+  Dadjo:   Ma dumayi kun̰juma ki urde.
+  English: He kept his millet in the grainary.
+
+[dumbine] (cave)
+  Dadjo:   Borne lisi ki dumbine ŋgan̰je. The hyena entered the cave of
+  English: the mountain.
+
+[dumburre] (trunk (bottom part of an object, i.e. a stalk))
+  Dadjo:   Na pakki dumburre digdigno (sukar).
+  English: I broke the base of the cone of sugar.
+
+[dunune] (life)
+  Dadjo:   Dunune si ma.
+  English: He is dead.
+
+[dun̰ke] (to sting)
+  Dadjo:   Caŋgine dun̰i boska.
+  English: The scorpion stung my mother.
+
+[durdurre] (wall)
+  Dadjo:   Na ɗegi ise durdurre.
+  English: I climbed on top of the wall.
+
+[durrine] (on purpose)
+  Dadjo:   Ediska sogi taŋga durrine.
+  English: My brother did it on purpose.
+
+[duruwe] (hair)
+  Raw:     Ɗ.
+
+[ɗaadke] (to win, to pass)
+  Dadjo:   Cicce ani ɗaadi edisa sa wiyake.
+  English: This child passed his brother in the race.
+
+[ɗabin̰e] (mat)
+  Dadjo:   Ndugnina ki ɗabin̰e.
+  English: Let's sit down on the mat.
+
+[ɗake] (to wash)
+  Dadjo:   Na ɗa asaŋgaŋga.
+  English: I washed my hands.
+
+[ɗamali] (entire)
+  Dadjo:   Na ɓagi iyye Issa ɗerti duruwe na ciccuma.
+  English: Issa cut his son's hair.
+
+[duske] (to pour)
+  Dadjo:   Uraŋga dusi uŋge ki satte.
+  English: My wife poured water into the container for making boule. - ɗ aysaŋga ɗamali. I took all of the meat from goat.
+
+[ɗan̰ke] (construction)
+  Dadjo:   Sa yagi ɗan̰ke bansa layi tisa ɗeba.
+  English: They realized that the construction of their house was difficult.
+
+[ɗan̰ke] (to build)
+  Dadjo:   Sa ɗan̰i agicsa!
+  English: They built their hut.
+
+[ɗan̰n̰e] (debt)
+  Dadjo:   Na ɓagi gursine waya wa koroni ɗan̰n̰e waya.
+  English: I borrowed a lot of money, and now I have a lot of debt. Ŋg.
+
+[ŋgake] (speech, language, a word or voice)
+  Dadjo:   Ŋgake sultani ani samage.
+  English: The words of this sultan are good (wise).
+
+[ŋgake] (problem)
+  Dadjo:   Kiŋge ayisa ode sultani, ascan as sogo ŋgake.
+  English: The people came to the sultan, because they had problems.
+
+[ŋganke] (to count)
+  Dadjo:   Yewe ŋgane askuma ki liske ɓiji sayge.
+  English: The man counts his goats at the moment they return from grazing.
+
+[ŋgan̰ce] (bone)
+  Dadjo:   Kukniska me urene ursike kurke loge ŋgan̰ce.
+  English: My grandmother knows how to cook sauce - ŋg with bones in it. (The bones are for flavor).
+
+[ŋgan̰ke] (to buy)
+  Dadjo:   Na ŋgan̰e unge ki gazazne.
+  English: I am buying water.
+
+[ŋgan̰je] (mountain, rock)
+  Dadjo:   Kan ki win̰i bane n̰arn̰a, am dan̰e ma sa ŋgan̰ge ɓiji ŋgan̰je.
+  English: If someone wants a solid house, he should build it with rocks from the mountain.
+
+[ŋgarayge] (to beg)
+  Dadjo:   Kiŋge ŋgarayca gursine kan sa sogo tiro ƴuge na siyake. People beg for man leans his hoe against
+  English: the house.
+
+[ndiwdiŋge] (to wet oneself)
+  Dadjo:   Kona ndiwdinina sa uŋge kirkirko.
+  English: The people wet themselves with cool water.
+
+[ndiwge] (to wet)
+  Dadjo:   Uŋge ndiwi bonniŋgaŋga ode-me as ɓadti naŋga.
+  English: The water wet my clothes when it hit me. ndobke v. ì[ndɔpke] 1. to choose 2. prefer.
+
+[ndiwge] (to wet)
+  Dadjo:   Na ndobi ayse ani ɓiji sim aske wayiko.
+  English: I chose this goat here from all the other goats.
+
+[ndubke] (to knock)
+  Dadjo:   Ure ani, pirce ciŋiye tiro ŋgake. Way ani, ac ndubpi ma ki isuma.
+  English: This woman, her son did not listen. Because of that, she hit him on the head several times.
+
+[ndukarge] (to kneel)
+  Dadjo:   Yewe jamne ndukari ki wayge.
+  English: The man kneeled to cultivate.
+
+[ndumke] (to not see in during the night (myopic))
+  Dadjo:   Cicce yewene, am ndumca.
+  English: This child has difficulty seeing at night (myopic).
+
+[ɗaske] (to sprout, to ferment)
+  Dadjo:   Kun̰jaŋga na sibisa kaccine an ɗasca.
+  English: My millet that I planted yesterday is beginning to germinate.
+
+[ɗaske] (fermented grain)
+  Dadjo:   Kiŋge ayi ɓurke sa ɗaske.
+  English: The people make drinks with fermented grain.
+
+[ɗassidiŋge] (to resemble one another)
+  Dadjo:   Cokke agi ɗassidini.
+  English: The children there resemble each other.
+
+[ɗassike] (to resemble)
+  Dadjo:   Cicce ɗasse mesa.
+  English: The child resembles his father.
+
+[ɗawalwalge] (to make round)
+  Dadjo:   Ma ɗawalwaldi ɗurce.
+  English: He made little balls with the clay.
+
+[ɗawalwali] (round)
+  Dadjo:   Doma emgice ɗawalwali.
+  English: The fruit from the palm oil tree is round.
+
+[ɗaydiŋge] (to wash oneself)
+  Dadjo:   Na ɗaywa.
+  English: I washed myself.
+
+[ɗaŋkaldiŋge] (to somersault, to tumble)
+  Dadjo:   Cicce ɗaŋkalkalduwa.
+  English: The child did a sommersault.
+
+[ɗaŋkalge] (to roll, to tumble)
+  Dadjo:   Yuge agi ɗaŋkile urde.
+  English: The men are rolling the granaries.
+
+[ɗeba] (difficult, expensive)
+  Dadjo:   Ŋgake Dajiŋge ɗebi. The Dadjo language
+  English: is difficult.
+
+[ɗebitige] (difficulty)
+  Dadjo:   Wadandige sogo ɗebitige.
+  English: The trip has difficulties.
+
+[ɗedke] (to share, to divide)
+  Dadjo:   Cokke agi ɗedi tukkisa.
+  English: The children divided up their cattle.
+
+[ɗeedike] (to drink breast milk)
+  Dadjo:   Cicce ani ɗeedi ɓosa.
+  English: The child is drinking his mother’s breast milk.
+
+[ɗekkike] (to climb)
+  Dadjo:   Kiŋge ɗekkica ki ise ŋgan̰je. The men are climbing
+  English: the mountain.
+
+[ɗerke] (to slice, separate)
+  Dadjo:   Ure ɗeri iiye.
+  English: The woman sliced the meat.
+
+[ɗerteske] (to block off, cut off the route)
+  Dadjo:   Meŋ-ɗiske tawre ɗerese soge. The soldiers blocked
+  English: the road.
+
+[ɗerteske] (to slice)
+  Dadjo:   Ure ani ɗertese sittice.
+  English: This woman is cutting her rope into several pieces.
+
+[ɗeweyge] (to sell)
+  Dadjo:   Yewe ɗeweyi bonniŋge ki sugne.
+  English: The man sold boubous (type of outfit) in the market.
+
+[ɗewre] (inection)
+  Dadjo:   Kine ani erruma sogo ɗewre.
+  English: This person has an inection in his leg.
+
+[ɗidaske] (to forget)
+  Dadjo:   Na ɗiyasi.
+  English: I forgot.
+
+[ndaadike] (to heat (up))
+  Dadjo:   Na daade kambinaŋga, wa na siye ma.
+  English: I heat the leftover boule (millet paste), and I eat it.
+
+[ndaadiŋge] (to heat by itself)
+  Dadjo:   Uŋge ndaadini ki maase.
+  English: The water was heated in the fire.
+
+[ndirke] (to lean against)
+  Dadjo:   Yewe ndire jarrina ki agice.
+  English: The.
+
+[ɗigɗiga] (sweet)
+  Dadjo:   Ɗoŋgice ɓorbire ɗigɗiga.
+  English: The stalks of berbere (white millet) are sweet.
+
+[ɗigin̰ce] (blacksmith)
+  Dadjo:   Ɗigiŋge deye tona wakke wayge, pugittige wa malasge.
+  English: Blacksmiths make things for working in the field, knives and spears.
+
+[ɗigne] (axe)
+  Dadjo:   Meŋ-wayge osca kalane sa ɗigiŋge ki gan̰igsa.
+  English: The laborers go into the bush with their axes on their shoulders.
+
+[ɗimke] (to throw)
+  Dadjo:   Jale sogo gudurruma. Am ɗime malasce tiraŋi.
+  English: The young man is strong. He throws the spear far.
+
+[ɗiŋgike] (to lick)
+  Dadjo:   Cokke ɗiŋge loge.
+  English: The children lick the sauce.
+
+[ɗiske] (to fight)
+  Dadjo:   Ure ɗisi sa majice.
+  English: The woman fought her husband’s other wife.
+
+[ɗissice] (shard)
+  Dadjo:   Ode me kudge pakwa sogo ɗissigma.
+  English: When a jar breaks there are shards.
+
+[ɗiyake] (to miss, be short of)
+  Dadjo:   Gursine ɗi tanga.
+  English: I was short of money.
+
+[ɗiŋdaske] (to break)
+  Dadjo:   Am ɗiŋdase ɗoŋge ndabina.
+  English: He is breaking the stalks of his field.
+
+[ɗiŋke] (to snap in half)
+  Dadjo:   Kona ŋgisnina ɗiŋke kun̰je ɓorbire.
+  English: They got up to snap the berbere stalks in half.
+
+[ɗokine] (skin)
+  Dadjo:   Kiŋge sogo kadapke sa ɗokinge ka tukke.
+  English: People make shoes with cow skin (leather).
+
+[ɗoŋgice] (sugar cane, millet stalk, stalk of straw)
+  Dadjo:   Ɗongice na ɓorbire ɗegdiga.
+  English: The berber (white millet) stalk is sweet.
+
+[ɗoyge] (to draw out (liquid))
+  Dadjo:   Ure ɗoyi uŋge ɓiji morre.
+  English: The woman drew out water from the well.
+
+[ɗoŋke] (to grow)
+  Dadjo:   Cicce ɗoŋi korgi.
+  English: The child grew quickly.
+
+[ɗubke] (to burn)
+  Dadjo:   Yewe ani ɗubpi kiwiŋge ndabina.
+  English: This man bruned the thorns in his field.
+
+[ɗurce] (clay)
+  Dadjo:   Ure jamne koni ɗurce ki deyi urde.
+  English: The woman brought clay to make a granary.
+
+[ɗuwake] (to whistle, to hiss)
+  Dadjo:   Kinge meŋ kukurre ɗuwca ki iisgisa.
+  English: People who are hunting whistle for their dogs. - e.
+
+[ebdeyge] (to gallop)
+  Dadjo:   Murtine ebdeyi wanuma.
+  English: The.
+
+[na] (for, of (belonging to, where the item is singular))
+  Dadjo:   Na ɓakke kacinne na bane. I am taking the donkey of
+  English: the house.
+
+[mbayne] (a cold)
+  Dadjo:   Na mbayne taŋga.
+  English: I have a cold.
+
+[mbigke] (to lift)
+  Dadjo:   Na mbigi ŋgan̰je.
+  English: I lifted the rock.
+
+[mbugke] (to water, overflow)
+  Dadjo:   Alle coroyi ɓiji uske ka Eden, wa am mbugi jinene.
+  English: A river flowed from the land of Eden and watered the garden. horse is gallopping on its own.
+
+[ebke] (to pick, to pluck (fruit))
+  Dadjo:   Sagle ani osca ebke abakke tawkice.
+  English: The young girl leaves to pick leaves from a type of thorny tree.
+
+[ebne] (shame)
+  Dadjo:   Ogorte urse tiro ebne.
+  English: A thief does not have shame.
+
+[ede] (brother)
+  Dadjo:   Na sogo ede ki Banda.
+  English: I have a brother in Banda.
+
+[eebike] (to stamp one’s foot)
+  Dadjo:   Cicce ani eebi kalasce.
+  English: This child stomped on the ember.
+
+[ege] (giraffe)
+  Dadjo:   Ege sogo ŋgase loya wa ac uco ki sim warre.
+  English: The giraffe has a long neck and lives in the woods.
+
+[ejke] (to rain)
+  Dadjo:   Am eje.
+  English: It's raining.
+
+[eleyge] (to despise)
+  Dadjo:   Ure ani eleye yewice.
+  English: This woman despises her husband.
+
+[elleyge] (to look up)
+  Dadjo:   Am elleyi tidi ki ori awdiŋge ise ette.
+  English: He lloked up to see the birds in the tree.
+
+[emecce] (flea)
+  Dadjo:   Iisuma sogo emekke. As ure tamkuma wa am sebi.
+  English: My dog has fleas. They suck his blood and he has become thin.
+
+[emsire] (month, moon)
+  Dadjo:   Aydin̰ce sogi emsire asin̰i karin pida.
+  English: One year has twelve (12) months.
+
+[erge] (said (only in past tense))
+  Dadjo:   Am m’erge k’am ayi mugne.
+  English: He said he is coming tomorrow.
+
+[erre] (leg)
+  Dadjo:   Kokine kasi naŋga ki eraŋga na siyako.
+  English: The snake bit my right leg. erre.
+
+[esckeyge] (to taste)
+  Dadjo:   Ure an esckiye logice.
+  English: This woman tasted her sauce.
+
+[esine] (basket)
+  Dadjo:   Am ɓagi esine ki koo siyake ki mesa ki kalane.
+  English: He took a basket to carry food to his father in the field.
+
+[ette] (tree)
+  Raw:     Bisiŋge gerderica.
+
+[mulke] (to ferment)
+  Dadjo:   Urge muli kun̰jisa. The women ferment
+  English: the millet.
+
+[muŋsike] (to caress)
+  Dadjo:   Ure muŋsi ciccice.
+  English: The woman caresses her child. - mb.
+
+[monsono] (peanuts)
+  Dadjo:   Am misceyi monsono.
+  English: He ate peanuts.
+
+[morke] (to go beyond, leave)
+  Dadjo:   Na mori ce.
+  English: I passed her up.
+
+[mudune] (town, city)
+  Dadjo:   Oscik ki gegeri Mongo.
+  English: Lets go to the city of Mongo.
+
+[mugne] (tomorrow)
+  Dadjo:   Mugne, na ki osi ki sugne. Tomorrow,
+  English: I will go to the market.
+
+[ewge] (fetish)
+  Dadjo:   Ure ani majice coli tice ewge ki page uŋgice.
+  English: This woman put a fetish in the water pot of.
+
+[gabbine] (marking on the neck of an amimal gadar [gadar], while waiting for, understanding that)
+  Dadjo:   Na urso gadar wakaŋga uco ki sim maktamne.
+  English: I understand that my things are inside the desk.
+
+[gage] (crow)
+  Dadjo:   Gage awdin̰ce ƴila wa paysa. Am orgoro kambige ki ndabaŋge. The crow is a black and white bird. He steals the her her husband’s co-wife (to harm
+  English: her).
+
+[eŋke] (to separate dust from millet)
+  Dadjo:   Urge oso ki eŋgi kun̰je ɓorbire.
+  English: The women are going in order to separate the chaffe from the white millet. - g leftover boule (millet paste) that people bring to eat after they are done working in the fields.
+
+[gagke] (to put, to place)
+  Dadjo:   Gagina waadine ki yumnina bane na Issa.
+  English: Give us an appointment to get together at Issa’s place.
+
+[gaguwe] (bat)
+  Dadjo:   Gaguwe ɗasse ŋginse wa sogo kuɓukke way awdin̰ce wa am sogo ŋgirke.
+  English: The bat resembles a mouse and it has wings like a bird and it has teeth.
+
+[galadne] (lie)
+  Dadjo:   Na usro yewe raki ki helnaŋga me turo galadne.
+  English: I know a man in my village who likes telling lies.
+
+[galayge] (to spin, whirl, twirl)
+  Dadjo:   Ode-me cokke wan̰ca, as galaydi erreŋgisa sa sitte.
+  English: When the children played, they twirled the rope around their legs.
+
+[galdiŋge] (to make love)
+  Dadjo:   Yewe sa uruma galdini.
+  English: The man and his wife made love.
+
+[galgajayge] (to lie)
+  Dadjo:   Ma legeyi tiro me jirre, am galgajayi.
+  English: He did not tell the truth, he lied.
+
+[galgajitige] (deception)
+  Dadjo:   Na usro yewe raki ki helnaŋga me turo galgajitige.
+  English: I know a man in my village who likes lying.
+
+[galke] (to make love)
+  Dadjo:   Jale ani galdi urma ki nuŋke.
+  English: The young man made love with his wife in the place where they rest.
+
+[gampalgampalle] (wave)
+  Dadjo:   Serrane alle bisi wa sogo gampalgampalle waya.
+  English: Today the river is flooded and there are waves.
+
+[gana] (bambou)
+  Dadjo:   Ma oso ki sugne ki ŋgan̰i akine na gana.
+  English: I am going to the market to buy a hoe with a bambou handle.
+
+[minke] (question)
+  Dadjo:   Na sogo minke.
+  English: I have a question.
+
+[minke] (to ask)
+  Dadjo:   Na mine niŋga ƴuge. I'm asking
+  English: you something.
+
+[mirdiŋge] (to trap each other)
+  Dadjo:   Coke mirdini.
+  English: The children catch each other.
+
+[meŋge] (milk)
+  Dadjo:   Cokke uro meŋge aske.
+  English: The children drink goat’s milk.
+
+[meske] (to have sexual intercourse)
+  Dadjo:   Ni mese.
+  English: You make love.
+
+[meskike] (to guard, protect)
+  Dadjo:   Na meske aske.
+  English: I guard the goats.
+
+[ganune] (law)
+  Dadjo:   Kan ni win̰e apiyiŋga, rubo ganune na meŋ hokomne.
+  English: If you want peace, you need to submit to the authority’s laws.
+
+[gan̰n̰e] (shoulder)
+  Dadjo:   Ande yumini sa gan̰n̰e.
+  English: The arm and the shoulder are connected.
+
+[gaŋgine] (drum)
+  Dadjo:   Ode-me as pidi gaŋgine jaliŋge sa saglaŋge corisi wan̰ke.
+  English: At the moment the drums came out the young men and young women came out to the danse.
+
+[garayge] (to distrust)
+  Dadjo:   Na garayi ɓiji niŋga. I distrusted
+  English: you.
+
+[garayne] (reading)
+  Dadjo:   Am garkayi garayne sa ŋgake Dajiŋge.
+  English: He did the reading in the Dadjo language.
+
+[garkayge] (to read)
+  Dadjo:   Wajibne Dajiŋge kamaji ki garkayi.
+  English: All of the Dadjo need to read.
+
+[gazazne] (bottle)
+  Dadjo:   Cola taŋga uŋge ki gazazne. Na ki uri.
+  English: Pour me some water in the bottle. I am going to drink it. -ge affix. [ge] plural marker placed on root of noun.
+
+[gederge] (to be able)
+  Dadjo:   Ce gedere ake sere.
+  English: She can prepare boule (millet paste).
+
+[gedke] (to crawl)
+  Dadjo:   Cicce sogo emsire tespedi. Am gede.
+  English: The child is four months old. He crawls.
+
+[gegeri] (town)
+  Dadjo:   Gegeri ɓona ɓiji helne tardi.
+  English: A city is bigger than a village.
+
+[geleyge] (to chew cud)
+  Dadjo:   Teŋe geliyca.
+  English: The cow is chewing his cud.
+
+[geserge] (to lack)
+  Dadjo:   Aydin̰ce ani kun̰je gesere tona.
+  English: This year there is a lack of millet.
+
+[geyake] (to separate)
+  Dadjo:   Kiŋge ɗisca, oscina geyina sa.
+  English: The people are fighting, let’s go separate them.
+
+[gibke] (tear out or away)
+  Dadjo:   Ogortiŋge gibi tukke ɓiji me-sayge.
+  English: The thieves took the cows by force from the people protecting them.
+
+[gigimi] (owl)
+  Dadjo:   Gigimi awdin̰ce me buwo wiidine.
+  English: The owl is a bird that flies at night.
+
+[gilke] (to dodge, slip away)
+  Dadjo:   Cokke ɗime gelgelle ŋgan̰ge, wa am gile as yakke ma tiro.
+  English: The children chase the baboon with rocks but miss him because he dodges away.
+
+[gimke] (to mark out limits, to enclose)
+  Dadjo:   Kinge gimbi ndabaŋgisa.
+  English: The people enclosed their fields.
+
+[meeske] (to lose, disappear)
+  Dadjo:   Ce irsi ascan ac meesi ki sarine.
+  English: She died because she got lost in the desert.
+
+[me-iyake] (midwife, one who gives life, one who is fertile)
+  Dadjo:   Meŋ-iyake poso urge ki iyake.
+  English: The midwives help women give birth.
+
+[mawla] (god me pron. [me], who, that, the one, the ones)
+  Dadjo:   Na legeyi ki yewe me ayi.
+  English: I spoke to the man that came.
+
+[me-dawayge] (healer, big, fat)
+  Dadjo:   Lan̰jinaŋga girgine, wa am gedere tiro wedke.
+  English: My friend is overweight, and he does not want to walk.
+
+[girke] (to trace, outline)
+  Dadjo:   Na giri agicaŋga.
+  English: I outlined my hut (i. e. on paper).
+
+[giske] (to light a fire)
+  Dadjo:   Maase ani gise ɓiji kogo.
+  English: This fire has been burning for a while.
+
+[gissaske] (to light a fire)
+  Dadjo:   Helne ani gissase maase.
+  English: This village is on fire.
+
+[gitene] (cloth)
+  Dadjo:   Kan ki win̰i ki arti bonne, am win̰i gitene.
+  English: If someone want to make a boubou (type of outfit for a man), he needs to buy fabric.
+
+[gomgomne] (edge, bank (of river))
+  Dadjo:   Gomgomne alle ani loya.
+  English: The river bank is long.
+
+[gone] (eagle)
+  Dadjo:   Gone adwin̰ce ɗisca kan kine win̰e ki ɓagi puduskuma.
+  English: The eagle is a bird that will attack if you touch his nest.
+
+[gormine] (type of cry (of a man))
+  Dadjo:   Jale teŋe gormine.
+  English: The young man cried the cry of joy.
+
+[gorzo] (gecko, lizard)
+  Dadjo:   Gorzo sogo samine, kan ce kasi kine, kine ki irsi.
+  English: The gecko has venom, and if he bites someone they will die.
+
+[goskode] (morning)
+  Dadjo:   Na ŋgisani gosgode.
+  English: I wake up in the morning.
+
+[gudardarge] (to coagulate)
+  Dadjo:   Iise ani, as ussima sa malasce wa tamke gudardari tiro. Way ani, am irsi.
+  English: This dog, they pierced him with a lance. Because of that he died.
+
+[gudayge] (to lead, guide)
+  Dadjo:   Sawan̰ce gudayi murtina. The Arab guided
+  English: his horse.
+
+[gudgudne] (stump)
+  Dadjo:   Kine ani ndagi ette wa abasi gudgudnuma ki soge.
+  English: The person cut the tree and left the stump in the road.
+
+[gudumne] (potluck)
+  Dadjo:   Emge cokke yumi gudumne wa sa si raki.
+  English: The young children gather their leftover foods and eat them together.
+
+[gudurre] (strength)
+  Dadjo:   Ure jamne sogo tiro gudurre na labine.
+  English: The old woman does not have the strength to work. goods of Jacob belong to us and to our children.".
+
+[magdiŋge] (to exchange)
+  Dadjo:   Na oro magdiŋge wakke.
+  English: I see exchanges of things.
+
+[magjine] (a rich person)
+  Dadjo:   Ibrahimi layi magjine itira, wa am sogi hitbaniŋge wayi.
+  English: Abraham became very rich, and he had many flocks.
+
+[logke] (to encourage, applaud, to bless, appreciate, praise)
+  Dadjo:   Na logo Korre.
+  English: I praise God.
+
+[luŋke] (to taste a sauce or liquid by hand)
+  Dadjo:   Na luŋo loge.
+  English: I taste the sauce. - m.
+
+[magajiye] (riches)
+  Dadjo:   Urge ka Yakubi s’erge: «Kamaji magajiye me coroyi ɓiji baboka, ma nanoka wa na cokkoka.» The wives of Jacob said "All
+  English: the.
+
+[guldiŋge] (to gather into a group, form circles)
+  Dadjo:   Urge gulinini ode raki.
+  English: The women gathered together in one place.
+
+[gulke] (to form balls)
+  Dadjo:   Am gulo sere, wa am siye ma.
+  English: He makes balls out of the boule (millet paste), and then he eats them.
+
+[gumke] (incubate)
+  Raw:     Kurguge gumi walgice.
+
+[hakimne] (governor, authority)
+  Dadjo:   Hakimne na Mongo suŋdiŋgice asin̰i karini mudugi.
+  English: The hen sat on her eggs for fifteen days.
+
+[gursine] (money)
+  Dadjo:   Bala gursine, jale ani mirtase tiro ure. Without money, a young man cannot find
+  English: a wife.
+
+[gusgusne] (fog, flying dust)
+  Dadjo:   Serrane gusgusne waya cokke ucca tisne.
+  English: The children are staying inside today because there is too much fog (dust in the air).
+
+[halpayge] (to swear (an oath))
+  Dadjo:   Jale ani ogori, wa sa miri ma. Am halpayi m’erge: « Na ogori tiro ».
+  English: The young man stole and they caught him. He swore to them saying "I did not steal.".
+
+[hamne] (yawn)
+  Dadjo:   Ode-me na waye sa na batali wa na sogo hamne waya.
+  English: When I work a lot a get fatigued and I yawn a lot.
+
+[hanayge] (to wish, to hope)
+  Dadjo:   Na hanayi ki oosine ani ki ayi tona titiri.
+  English: I hope that the rainy season will have lots of water.
+
+[harakayge] (to act (in reponse to something))
+  Dadjo:   Wajibne harikina ki pakki maase.
+  English: It is necessary to act to put out the fire.
+
+[harigne] (fire, blaze)
+  Dadjo:   Harigne si ndabaŋge.
+  English: The fired consumed the field.
+
+[hasudne] (jealousy)
+  Dadjo:   Maccige hasudge piide sa.
+  English: The co-wives who are rivals are jealous of one another.
+
+[hawgayge] (to go around, to surround)
+  Dadjo:   Kiŋge ki helne hawgayi Sawaŋge ki ɗiske.
+  English: The people of the village surrounded the Arabs in order to fight them.
+
+[hayane] (vegetation)
+  Dadjo:   Tace ani sogo hayane, wa tukke undinica siye.
+  English: The pond has vegetation, and the cows come and eat it.
+
+[liske] (to enter)
+  Dadjo:   Lisa sa soge. Enter via
+  English: the door.
+
+[kurtaske] (to stir)
+  Dadjo:   Ure kurtase kordine.
+  English: The woman is stirring the fermented drink. kurtine n. ì[kurtine]  stomach (inernal).
+
+[kuskundu] (ant eater)
+  Dadjo:   Kuskundu siyakuma miine.
+  English: The food of the anteater is ants.
+
+[kuukke] (to laugh)
+  Dadjo:   Ode-me yewe legeyi ŋgake idi, uruma kuukadi.
+  English: When the man said something funny, his wife laughed.
+
+[helne] (village, neighborhood)
+  Dadjo:   Kiŋge ɓadini ki sim helne.
+  English: The people fought in the village.
+
+[hessine] (voice)
+  Dadjo:   Na idaŋi hessine ciccaŋga tiraŋi.
+  English: I heard the voice of my child far away.
+
+[hijbayge] (to protect with a fetish)
+  Dadjo:   Ma hijbayi aksuma ɓiji borne.
+  English: He protected his goats with fetishes.
+
+[hinayge] (to pity)
+  Dadjo:   Na hinayi ma, ascan am layi taŋga ɗida itira.
+  English: I pitied him because he was too small for me.
+
+[hinnine] (pity, compassion)
+  Dadjo:   Hinnine ani ki layi waya, kondini ŋgake.
+  English: Too much pity brings problems.
+
+[hirbe] (chameleon)
+  Dadjo:   Hirbe wede tiro korgi wa ac welkiye lonice.
+  English: The chameleon does not walk fast and changes colors.
+
+[hitbine] (flock)
+  Dadjo:   Borne yagi hitbine akse wa pa aske wayi .
+  English: The hyene found the flock and killed a lot of goats.
+
+[hizinne] (mourning)
+  Dadjo:   Serrane helnona kamaji hizinne.
+  English: Today all of our village is mourning.
+
+[hokmoyge] (to govern)
+  Dadjo:   Ɓonno hokmoyi aydin̰ce waya.
+  English: The chief governed for many years.
+
+[hokomne] (a fine)
+  Dadjo:   Yewe pa kine, wa gadine gagi tuma hokomne waya.
+  English: The.
+
+[ibe] (tail, stinger)
+  Dadjo:   Murtine an ibma loya mbaduwa.
+  English: This horse has a long tail and it drags on the ground.
+
+[ibirre] (needle)
+  Dadjo:   Na are bonnaŋga partowa sa ibirre ande.
+  English: I sew my boubou (type of outfit) with a regular needle.
+
+[horkoyge] (to grunt)
+  Dadjo:   Iise ani horkoydi oska.
+  English: This dog is grunting at us. - i joyous.
+
+[horkoyge] (to grunt)
+  Dadjo:   Ode serrane idiya. Oscina wedtadina. It is nice out. Let’s go out for
+  English: a walk.
+
+[idine] (holiday, festival)
+  Dadjo:   Idine emsire ki Mongo, kona wan̰cina waya.
+  English: The month of the celebration, in Mongo we dance a lot.
+
+[idiya] (content, good, good tasting)
+  Dadjo:   Na idiya tanga. Ƴuge ani idiya.
+  English: I am content. This thing is good.
+
+[iise] (dog)
+  Raw:     Iisge meske akse ki.
+
+[kuccice] (millet grain)
+  Dadjo:   Urge ayi sere sa nduce kun̰je.
+  English: The women make boule (millet paste) with millet flour.
+
+[kugurge] (hen)
+  Dadjo:   Na miʃiye kukuriŋge.
+  English: I eat chicken.
+
+[kurase] (hunger, famine, drought)
+  Dadjo:   Na kurase taŋga.
+  English: I’m hungry.
+
+[kor] (interogative (at beginning of sentence))
+  Dadjo:   Kor ni ki ayi?
+  English: Are you going to come? kor qmrk. [kɔr].
+
+[kor] (interogative (at beginning of sentence))
+  Dadjo:   Kor ni win̰e ki legeyi tanga?
+  English: Do you want to talk to me?.
+
+[koron̰jge] (to scratch)
+  Dadjo:   Na korin̰e.
+  English: I scratch.
+
+[koron̰jiŋge] (to scratch oneself)
+  Dadjo:   Na korin̰wa.
+  English: I scratch myself.
+
+[koroydiŋge] (to scrape oneself)
+  Dadjo:   Na koriwa.
+  English: I scrape myself.
+
+[koroyge] (to scrape)
+  Dadjo:   Na koriyo.
+  English: I scratch.
+
+[iiye] (meat)
+  Dadjo:   Ni mesciye iiye
+  English: You eat meat.
+
+[ijille] (calf)
+  Dadjo:   Teŋe ani sogo ijille kiyarro.
+  English: That cow has a beautiful calf. ila [ila] except.
+
+[iriske] (to die)
+  Dadjo:   Yewe na ure ani unduma. Ma irsi wali.
+  English: The woman’s husband is not here. He died last year.
+
+[iriske] (death)
+  Dadjo:   Orke iriske k’am ɓake.
+  English: Seeing death brings fear.
+
+[irke] (to shave)
+  Dadjo:   Yewe jamne iri ise penuma.
+  English: The old man shaved his son’s head.
+
+[isaske] (to give, to serve)
+  Dadjo:   Ediska isi taŋga bonne.
+  English: My brother gave me a boubou (type of outfit).
+
+[ise] (head)
+  Dadjo:   Ise, ce kulla ɓiji wane.
+  English: The head is part of the body.
+
+[ise-ŋgan̰je] (summit (of mountain))
+  Dadjo:   Ma ɗegi ise-ŋgan̰je.
+  English: He climbed the summit of the mountain.
+
+[itira] (enough, too much)
+  Dadjo:   Ni legiyca itira.
+  English: You talk too much.
+
+[iwge] (to contradict)
+  Dadjo:   Na iwe.
+  English: I contradict.
+
+[iyadiŋge] (to be born)
+  Dadjo:   Na iywa oosine.
+  English: I was born during rainy season.
+
+[iyake] (to give birth, to produce)
+  Dadjo:   Ure ani iyi cicce urene.
+  English: The woman gave birth to a girl.
+
+[iyake] (birth, production)
+  Dadjo:   Ure ani iyake laysi ce ɗebi.
+  English: This.
+
+[jabeli] (bleach)
+  Dadjo:   Uŋgisa sa colti sa jabeli. They put javel into their water. jabi [jabi]
+  English: a little.
+
+[jabeli] (bleach)
+  Dadjo:   Kona taŋga jabi kun̰je.
+  English: Bring me a little millet.
+
+[jale] (a young man)
+  Dadjo:   Ma sogo
+  English: woman had a difficult time giving birth.
+
+[izabne] (curse)
+  Dadjo:   Ogorte ɓaye ɓiji izabne sultani.
+  English: The thief was afraid of the curses (scare techniques) of the chief.
+
+[izurumi] (to be hollow)
+  Dadjo:   Satte ani izurumi.
+  English: The wooden bowl is hollow.
+
+[jamadge] (to age, get older)
+  Dadjo:   Ure jamadi itira.
+  English: The woman got much older.
+
+[koɗokke] (pus)
+  Dadjo:   Pendaŋga sage koɗokke. Pus
+  English: is coming from my wound.
+
+[kogo] (since, beforehand)
+  Dadjo:   Na uco ɓiji kogo.
+  English: I have been here since.
+
+[koka] (we (dual))
+  Dadjo:   Koka wiŋcik ki osik ki sugne.
+  English: We want to go to the market.
+
+[kokine] (snake)
+  Dadjo:   Kokine kasi naŋga, wa naŋga goborbordi.
+  English: The snake bit me, and my skin came off (The cells of the skin died).
+
+[kona] (we (inclusive))
+  Dadjo:   Kon wiŋcina ki osina ki sugne.
+  English: We (all) want to go to the market.
+
+[kondiŋge] (to carry ( an inanimate object))
+  Dadjo:   Kon ta so!
+  English: Apportes moi le seau!.
+
+[kin̰ke] (to open)
+  Dadjo:   Kin̰a ma. Open
+  English: it.
+
+[kin̰jaske] (to open)
+  Dadjo:   Na kin̰ase uke soge.
+  English: I open the door (One time only).
+
+[kin̰jiŋge] (to open by itself)
+  Dadjo:   Sugne kin̰wa.
+  English: The market opened.
+
+[kirin̰ce] (bell)
+  Dadjo:   Sawaŋge dobo kirin̰ge ki ŋgasiŋge kamalgiŋgisa.
+  English: The Arabs attach bells on the necks of their camels.
+
+[kirriŋe] (seiko (fence covering made of hay))
+  Dadjo:   Ma ŋgan̰i kirraŋge ki awdi bana.
+  English: He bought seiko to fence in his home.
+
+[kitpayge] (to write)
+  Dadjo:   Na kitpayi kitabne kacini.
+  English: I read the book yesterday.
+
+[kiwin̰ce] (thorn)
+  Dadjo:   Kiwin̰ce dulasi erre bisikledaŋga.
+  English: The thorn popped my bike tire.
+
+[kiyardige] (goodness, kindness)
+  Dadjo:   Kiyardiguma more isuma.
+  English: His gentleness is unsurpassed.
+
+[jamayge] (a break)
+  Dadjo:   Ayi suŋde am jamiye tiro.
+  English: He does not take a daily break.
+
+[jamne] (elder)
+  Dadjo:   Yewe jale tiro. Aa jamne.
+  English: The man is not young. He is old.
+
+[jamni] (together)
+  Dadjo:   Oscina ki ndabne jamini.
+  English: Let’s go to the field together.
+
+[jambine] (the side (of something))
+  Dadjo:   Cicce uco ki jambine ɓosa.
+  English: The child is at his mother’s side.
+
+[jambiye] (machete)
+  Dadjo:   Jaliŋge ɓagkadi jambiyiŋgisa, wa sa osi ki ndabaŋge.
+  English: The young men took their machetes, and they went to the fields.
+
+[jarine] (hoe)
+  Dadjo:   Waktine ayi na labine, ɓagina jarigona oscina ki kalane.
+  English: When the time for work has come, let’s grab our hoes and go to the field.
+
+[jerbeyge] (to try)
+  Dadjo:   Ma jerbeyi labina, lakin am gederi tuma tiro.
+  English: He tried to do the work, but he couldn’t.
+
+[jeyne] (ladle)
+  Dadjo:   Uraŋga ɓagi jeyne ki ɗoyi loge.
+  English: My wife uses a ladle to draw out the sauce.
+
+[jinene] (garden)
+  Dadjo:   Na win̰e ki sogi tomatimi ki jinene.
+  English: I need to plant tomatoes in the garden.
+
+[jirre] (real, really, true, truth)
+  Dadjo:   Ni legeyi jirre.
+  English: You say the truth.
+
+[jobjobge] (to re-dig)
+  Dadjo:   Morre ani win̰e jobjobge. Uŋgice kapagi.
+  English: The well needs to be redug. It does not have enough water.
+
+[joŋgote] (toad)
+  Dadjo:   Joŋgote teŋe ki sim
+  English: are. The toad cries in the hole.
+
+[jopkoyge] (to reattach, to multiply, to connect)
+  Dadjo:   Na jopkoyi sittaŋga.
+  English: I.
+
+[ka] (of, for (belonging to, plural items))
+  Dadjo:   Tukke ka Ali.
+  English: Ali’s cows.
+
+[kabange] (to become angry)
+  Dadjo:   Yewe kabandi sa urma.
+  English: The reattached my corde several times.
+
+[jurrine] (crest)
+  Dadjo:   Bogirge sogo jurrine ki isma.
+  English: The rooster has a crest on his head.
+
+[juwine] (bile)
+  Dadjo:   Kamalgine sogo tiro juwine.
+  English: A camel does not have bile. - k man gets angry with his wife.
+
+[kabarre] (information)
+  Dadjo:   Sa yagi kabarre na edisa irsi.
+  English: They received information about their dead brother. keremce ki dobpi kirriŋma. He uses coconut palm to attach his seiko.
+
+[keykeyne] (armpit)
+  Dadjo:   Keykeynuma ɓin̰i.
+  English: His armpit swelled.
+
+[keyne] (small house)
+  Dadjo:   Ure sogo piliyice ki keyne.
+  English: The woman does her cooking in the small house.
+
+[ki] (at/in)
+  Dadjo:   Na oso ki sugne
+  English: I am going to the market. ki part. [ki] grammatical particle irrealis In front of a past participle it indicates future In front of a present participle it indicates conditional.
+
+[ki] (at/in)
+  Dadjo:   Na ki win̰e ki osi ki sugne.
+  English: I would like to go to the market.
+
+[ki] (for)
+  Dadjo:   Watiri ani ki naŋga.
+  English: That car there is for me.
+
+[kicerre] (frog)
+  Dadjo:   Oosine kicerge coroyca wayi.
+  English: During rainy season lots of frogs come out.
+
+[ki-ise] (on)
+  Dadjo:   Na wede ki-ise durdurre.
+  English: I am climbing on the wall.
+
+[kiliwi] (forever)
+  Dadjo:   Am mori kiliwi.
+  English: He left difinitively.
+
+[kimziri] (pig)
+  Dadjo:   Ma si tiro iiye kimziri.
+  English: He does not eat pork.
+
+[kine] (someone, person)
+  Dadjo:   Kine ayi ki ori naŋga. The person came to see me. kasalaŋge. The girl is preparing
+  English: the rice.
+
+[kaske] (to bite)
+  Dadjo:   Kemse kasi ayse.
+  English: The panther bit the goat.
+
+[kasziŋge] (to bite oneself)
+  Dadjo:   Isge kasini.
+  English: The dogs bit each other.
+
+[kayamce] (jaw)
+  Dadjo:   Kayamcuma ɓaade ma, ki anda ŋgaye tuma tiro mesceyge ƴuge.
+  English: His mouth is hurting, and he is finding it difficult to eat.
+
+[kayge] (to defacate)
+  Dadjo:   Kan ma win̰e ki kaydi, am oso oŋe bane.
+  English: If he wants to defacte, he needs to use the bathroom (go behind the house). -ke affix. [ke] Verb marker Suffix placed on words to indicate they are verbs.
+
+[keleyge] (to remove weeds)
+  Dadjo:   Ure ani keliye ndabne monsonice.
+  English: This woman is weeding her peanut field.
+
+[kemse] (panther)
+  Dadjo:   Kemse iyi ki dumbine.
+  English: The panther gaveeee bbbbiiiirrrrtttthhhh iiiinnnn tttthhhheeee ccccaaaavvvveeee.
+
+[kerde] (border)
+  Dadjo:   Kerde helnaŋga ŋgitagi.
+  English: The border of my village is close by.
+
+[keremce] (coconut palm)
+  Raw:     Ma ɓagi.
+
+[kaccine] (donkey)
+  Dadjo:   Kaccige kondini uŋge.
+  English: The donkeys brought water.
+
+[kadapce] (shoe)
+  Dadjo:   Yewe ani ɓase kadapke amcaŋi.
+  English: This man makes leather shoes.
+
+[kakawce] (shell, fingernail)
+  Dadjo:   Kugurge pagi kakawge walgice.
+  English: The hen broke the shells of her eggs.
+
+[kakayge] (cackle, cry of a hen)
+  Dadjo:   Kugurge kakiyca waya. The hen cackles
+  English: a lot.
+
+[kakayge] (The cry of a hen)
+  Dadjo:   Bogirge idaŋi kakayge kugurge ɓiji tiraŋi.
+  English: The rooster heard the cry of the hen from afar.
+
+[kaladne] ((to be) wrong)
+  Dadjo:   Am sogi kaladne.
+  English: He made a mistake.
+
+[kalane] (bush (i.e. in the bush, rustic))
+  Dadjo:   Oscina kalane.
+  English: Let’s go to the bush.
+
+[kalayge] (to take charge of a sick person)
+  Dadjo:   Ure ani kaliye pirce.
+  English: This woman is helping her sick son.
+
+[kaltayge] (to discuss)
+  Dadjo:   Kona kalticina waya itira.
+  English: We are (spending too much time) discussing too much.
+
+[kal-wadayge] (to give condolences kamaji kamaji all)
+  Dadjo:   Kamaji samane. Everything
+  English: is good.
+
+[kamdiŋge] (to lead oneself)
+  Dadjo:   Kona kamdinina sime helne.
+  English: We (ourselves) are heading to the village.
+
+[kamke] (to flow, to lead)
+  Dadjo:   Uŋge kamca ki alle.
+  English: Water is flowing down the river.
+
+[kan] (if)
+  Dadjo:   Kan na uco ki tardi sugne, nNa gerdire tiro ki ŋgan̰i wakke meŋ na win̰e.
+  English: If I am outside of the market, I cannot buy the things I need.
+
+[kanuni] (recipient for catching cinders)
+  Dadjo:   Am coli maase ki kanuni.
+  English: He poured the embers into the recipient made for catching cinders.
+
+[kan̰ani] (the day before yesterday kapagi [kapagi] a little)
+  Dadjo:   kapagi kapagi.
+  English: a little bit.
+
+[kapalayge] (to surprise)
+  Dadjo:   Ma kapalayi ce. He surprised
+  English: her.
+
+[kapalle] (a surprise)
+  Dadjo:   Sa kapalle, uruma ayi yagi ma ki bane.
+  English: With great surprise, his wife came and found him at the house.
+
+[kapanne] (clothes worn by a deceased person)
+  Dadjo:   Ma ŋgan̰e kapanne ki edisa irsi.
+  English: He is buying clothes for his deceased brother.
+
+[kapayge] (to pay)
+  Dadjo:   Ma kapiye ɗan̰n̰uma.
+  English: He is paying his debt. karani [karani] if not.
+
+[karibne] (west)
+  Dadjo:   Na welkeyi watiraŋga sa cenne karibne.
+  English: I turned my car toward the west.
+
+[kariibne] (a peron isolated from his family (possibly an outcast))
+  Dadjo:   Kariibne werwa tiro ki helnuma.
+  English: An outcast cannot return to his own village.
+
+[karmayge] (to respect)
+  Dadjo:   Na karmiye me iyakaŋga. I respect my parents. (Literally: I respect
+  English: the one who gave birth to me.).
+
+[karra] (available, nothing)
+  Dadjo:   Na uco turo karra.
+  English: I am not available.
+
+[kasalaŋge] (rice)
+  Raw:     Cicce urene aye.
+
