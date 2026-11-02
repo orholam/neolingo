@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { usePostAuthRedirect } from './contexts/AuthContext'
 import Landing from './pages/Landing'
 import Home from './pages/Home'
@@ -24,31 +25,34 @@ function App() {
   usePostAuthRedirect()
 
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
+    <>
+      <Routes>
+        <Route path="/" element={<Landing />} />
 
-      <Route element={<AppShell />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/practice" element={<Practice />} />
-        <Route path="/flashcards" element={<FlashcardSessions />} />
-        <Route path="/mastered" element={<MasteredWords />} />
-        <Route path="/languages" element={<Languages />} />
-        <Route path="/dictionary" element={<Dictionary />} />
-        <Route path="/sumerian-dictionary" element={<SumerianDictionary />} />
-        <Route path="/korean-dictionary" element={<KoreanDictionary />} />
-        <Route path="/french-dictionary" element={<FrenchDictionary />} />
-        <Route path="/brain/:langId" element={<DigitalBrain />} />
-        <Route path="/brain-map/:langId" element={<SemanticBrainMap />} />
-        <Route path="/memory-map/:langId" element={<MemoryMap />} />
-      </Route>
+        <Route element={<AppShell />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/practice" element={<Practice />} />
+          <Route path="/flashcards" element={<FlashcardSessions />} />
+          <Route path="/mastered" element={<MasteredWords />} />
+          <Route path="/languages" element={<Languages />} />
+          <Route path="/dictionary" element={<Dictionary />} />
+          <Route path="/sumerian-dictionary" element={<SumerianDictionary />} />
+          <Route path="/korean-dictionary" element={<KoreanDictionary />} />
+          <Route path="/french-dictionary" element={<FrenchDictionary />} />
+          <Route path="/brain/:langId" element={<DigitalBrain />} />
+          <Route path="/brain-map/:langId" element={<SemanticBrainMap />} />
+          <Route path="/memory-map/:langId" element={<MemoryMap />} />
+        </Route>
 
-      <Route element={<FocusLayout />}>
-        <Route path="/lesson" element={<Lesson />} />
-        <Route path="/flashcards/new" element={<Flashcards />} />
-        <Route path="/placement" element={<PlacementTest />} />
-        <Route path="/flashcards/:sessionId" element={<FlashcardSessionPractice />} />
-      </Route>
-    </Routes>
+        <Route element={<FocusLayout />}>
+          <Route path="/lesson" element={<Lesson />} />
+          <Route path="/flashcards/new" element={<Flashcards />} />
+          <Route path="/placement" element={<PlacementTest />} />
+          <Route path="/flashcards/:sessionId" element={<FlashcardSessionPractice />} />
+        </Route>
+      </Routes>
+      <Analytics />
+    </>
   )
 }
 
