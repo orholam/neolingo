@@ -9,6 +9,7 @@ export const dadjoGrammarReference = {
   title: 'Dadjo grammar',
   subtitle: 'Cheat sheet for conjugations, pronouns, tense, and the multipurpose particle ki.',
   note: 'Living draft — Mongo/DJC-oriented. Some plural forms still conflict across sources.',
+  accent: 'amber',
 
   sections: [
     {
@@ -70,9 +71,9 @@ export const dadjoGrammarReference = {
         ['3rd', '-uma (m) · -ice (f)', '-isa (their)'],
       ],
       examples: [
-        { dadjo: 'watiraŋga', english: 'my car' },
-        { dadjo: 'yewice', english: 'her husband' },
-        { dadjo: 'labinaŋga', english: 'my work' },
+        { text: 'watiraŋga', english: 'my car' },
+        { text: 'yewice', english: 'her husband' },
+        { text: 'labinaŋga', english: 'my work' },
       ],
       tip: 'Linkers: na = of/for (singular possessum); ka = of/for (plural), e.g. Tukke ka Ali.',
     },
@@ -122,42 +123,42 @@ export const dadjoGrammarReference = {
       title: 'Useful phrases',
       phrases: [
         {
-          dadjo: 'Awille na sogi ma, wa koroni na sogo tiro',
+          text: 'Awille na sogi ma, wa koroni na sogo tiro',
           english: 'I had it before, but now I don’t',
           literal: 'Previously I had it, and presently I have nothing',
         },
         {
-          dadjo: 'Aŋgi aŋgala?',
+          text: 'Aŋgi aŋgala?',
           english: 'What’s your name?',
           literal: 'Name who/what?',
         },
         {
-          dadjo: 'Am legeyi taŋga',
+          text: 'Am legeyi taŋga',
           english: 'He spoke to me',
           literal: 'He spoke to-me',
         },
         {
-          dadjo: 'Na ori yewe me ayi',
+          text: 'Na ori yewe me ayi',
           english: 'I saw the man who came',
         },
         {
-          dadjo: 'Ni ori ure me na ori',
+          text: 'Ni ori ure me na ori',
           english: 'You saw the woman that I saw',
         },
         {
-          dadjo: 'Na ki yagi wadaŋge',
+          text: 'Na ki yagi wadaŋge',
           english: 'I am going to have visitors',
         },
         {
-          dadjo: 'Kine ayi ki ori naŋga',
+          text: 'Kine ayi ki ori naŋga',
           english: 'Someone came to see me',
         },
         {
-          dadjo: 'Na turo niŋga',
+          text: 'Na turo niŋga',
           english: 'I love you',
         },
         {
-          dadjo: 'Na ki win̰e ki osi ki sugne',
+          text: 'Na ki win̰e ki osi ki sugne',
           english: 'I would like to go to the market',
         },
       ],
@@ -181,6 +182,3 @@ export const dadjoGrammarReference = {
   ],
 }
 
-export const GRAMMAR_BY_COURSE = {
-  dadjo: dadjoGrammarReference,
-}

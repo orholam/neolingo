@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom'
 import { useSelectedLanguage } from '../contexts/LanguageContext'
 import { useLanguageSwitch } from '../hooks/useLanguageSwitch'
 import { getCourse } from '../data/courses'
-import { GRAMMAR_BY_COURSE } from '../data/dadjoGrammarReference'
+import { GRAMMAR_BY_COURSE, listGrammarCourses } from '../data/grammarReferences'
+
+const ACCENT_HEADER = {
+  amber: 'bg-amber-100 dark:bg-amber-900/40',
+  rose: 'bg-rose-100 dark:bg-rose-900/40',
+  indigo: 'bg-indigo-100 dark:bg-indigo-900/40',
+}
 
 function GrammarTable({ columns, rows }) {
   if (!columns?.length || !rows?.length) return null
@@ -92,11 +98,11 @@ function SectionCard({ section, open, onToggle }) {
             <ul className="space-y-3">
               {section.phrases.map((p) => (
                 <li
-                  key={p.dadjo}
+                  key={p.text}
                   className="rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/40 px-3 py-2.5"
                 >
                   <p className="font-mono text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {p.dadjo}
+                    {p.text}
                   </p>
                   <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{p.english}</p>
                   {p.literal && (
@@ -113,11 +119,11 @@ function SectionCard({ section, open, onToggle }) {
             <ul className="flex flex-wrap gap-2">
               {section.examples.map((ex) => (
                 <li
-                  key={ex.dadjo}
+                  key={ex.text}
                   className="inline-flex items-baseline gap-1.5 px-2.5 py-1 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-sm"
                 >
                   <span className="font-mono font-semibold text-gray-900 dark:text-gray-100">
-                    {ex.dadjo}
+                    {ex.text}
                   </span>
                   <span className="text-gray-500 dark:text-gray-400 text-xs">{ex.english}</span>
                 </li>
@@ -136,7 +142,7 @@ function SectionCard({ section, open, onToggle }) {
   )
 }
 
-function EmptyGrammar({ course, onOpenDadjo }) {
+function EmptyGrammar({ course, availableIds, onOpenCourse }) {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 text-center">
@@ -145,15 +151,24 @@ function EmptyGrammar({ course, onOpenDadjo }) {
           Grammar reference
         </h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          A cheat sheet for {course.label} isn’t in the app yet. Dadjo already has one.
+          A cheat sheet for {course.label} isn’t in the app yet.
         </p>
-        <button
-          type="button"
-          onClick={onOpenDadjo}
-          className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500"
-        >
-          Switch to Dadjo grammar
-        </button>
+        <div className="flex flex-wrap justify-center gap-2">
+          {availableIds.map((id) => {
+            const available = getCourse(id)
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => onOpenCourse(id)}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500"
+              >
+                <span>{available.emoji}</span>
+                Open {available.label}
+              </button>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
@@ -164,6 +179,7 @@ export default function GrammarReference() {
   const { switchLanguage } = useLanguageSwitch()
   const course = getCourse(selectedCourseId)
   const grammar = GRAMMAR_BY_COURSE[selectedCourseId] || null
+  const availableIds = listGrammarCourses()
 
   const sectionIds = useMemo(
     () => (grammar ? grammar.sections.map((s) => s.id) : []),
@@ -176,7 +192,13 @@ export default function GrammarReference() {
   }, [sectionIds])
 
   if (!grammar) {
-    return <EmptyGrammar course={course} onOpenDadjo={() => switchLanguage('dadjo')} />
+    return (
+      <EmptyGrammar
+        course={course}
+        availableIds={availableIds}
+        onOpenCourse={(id) => switchLanguage(id)}
+      />
+    )
   }
 
   const allOpen = openIds.size === grammar.sections.length
@@ -198,7 +220,11 @@ export default function GrammarReference() {
     <div className="max-w-3xl mx-auto pb-10">
       <header className="mb-5 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-4 sm:p-5 border border-gray-100 dark:border-gray-700/80">
         <div className="flex items-start gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-2xl shrink-0">
+          <div
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${
+              ACCENT_HEADER[grammar.accent] || ACCENT_HEADER.amber
+            }`}
+          >
             📝
           </div>
           <div className="min-w-0 flex-1">

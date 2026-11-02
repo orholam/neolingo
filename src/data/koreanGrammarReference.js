@@ -1,0 +1,200 @@
+/**
+ * Korean grammar cheat-sheet for the in-app reference page.
+ * Standard learner-oriented Korean (polite 요 form focus).
+ */
+
+export const koreanGrammarReference = {
+  id: 'korean',
+  title: 'Korean grammar',
+  subtitle: 'Cheat sheet for particles, conjugations, tense, and everyday polite speech.',
+  note: 'Focuses on the polite informal 요 style most learners start with. Formal 습니다 and casual 반말 are noted where useful.',
+  accent: 'rose',
+
+  sections: [
+    {
+      id: 'basics',
+      title: 'Quick rules',
+      items: [
+        { label: 'Word order', value: 'Subject – Object – Verb (SOV). The verb almost always comes last.' },
+        { label: 'Particles', value: 'Mark roles (topic/subject/object) instead of free word-order case endings like Latin' },
+        { label: 'Dropping pronouns', value: 'Subjects/objects are often omitted when clear from context' },
+        { label: 'Dictionary form', value: 'Verbs/adjectives cited as …다 (하다, 가다, 먹다, 있다)' },
+        { label: 'Politeness', value: 'Same meaning changes with speech level: 해 / 해요 / 합니다' },
+        { label: 'Spaces', value: 'Hangul spaces separate words/phrases; particles attach to the noun' },
+      ],
+    },
+    {
+      id: 'pronouns',
+      title: 'Pronouns',
+      columns: ['', 'Plain / intimate', 'Polite', 'Notes'],
+      rows: [
+        ['I', '나', '저', '저 is humbler; use with 요/습니다'],
+        ['You', '너', '당신 (rare)', 'Often avoid “you” — use a name + 씨'],
+        ['He / she', '그 / 그녀', '그 분', '그 is common for “he/that person”'],
+        ['We', '우리', '저희', '저희 is humble'],
+        ['They', '그들', '그분들', 'Often just repeat the noun'],
+        ['This / that', '이것 / 저것 / 그것', '이거 / 저거 / 그거', 'Spoken shortenings are normal'],
+      ],
+      tip: 'Korean uses pronouns less than English. Prefer names, titles, or dropping the subject.',
+    },
+    {
+      id: 'particles',
+      title: 'Core particles',
+      blurb: 'Particles are the main “connecting tissue.” They attach to nouns.',
+      columns: ['Particle', 'Job', 'Example'],
+      rows: [
+        ['은 / 는', 'Topic (contrast / about)', '저는 학생이에요 — As for me, I’m a student'],
+        ['이 / 가', 'Subject (new / focus)', '비가 와요 — Rain is coming'],
+        ['을 / 를', 'Object', '밥을 먹어요 — I eat rice/a meal'],
+        ['에', 'Time / static place / to', '학교에 있어요 · 3시에'],
+        ['에서', 'Action location / from', '카페에서 만나요'],
+        ['도', 'Also / even', '저도요 — Me too'],
+        ['만', 'Only', '물만 주세요'],
+        ['와 / 과 · 하고 · (이)랑', 'And / with', '친구하고 가요'],
+        ['의', 'Possessive “of / ’s”', '친구의 책 (spoken often just 친구 책)'],
+        ['(으)로', 'By means / toward', '버스로 · 왼쪽으로'],
+        ['부터 / 까지', 'From / until', '아침부터 밤까지'],
+      ],
+      tip: '은/을/과 after a consonant; 는/를/와 after a vowel. 이/가 same rule (이 after consonant).',
+    },
+    {
+      id: 'possessives',
+      title: 'Possession',
+      columns: ['Form', 'Meaning', 'Example'],
+      rows: [
+        ['나의 / 내', 'my', '내 이름'],
+        ['저의 / 제', 'my (humble)', '제 이름이에요'],
+        ['너의 / 네', 'your (intimate)', '네 가방'],
+        ['우리', 'our / my (in-group)', '우리 집 — my/our house'],
+        ['N의 N', 'N’s N', '한국의 수도'],
+        ['N 것 / 거', 'N’s thing', '제 거예요 — It’s mine'],
+      ],
+      tip: '우리 often means “my” for family/home/school (우리 엄마, 우리 학교).',
+    },
+    {
+      id: 'tense',
+      title: 'Tense & polite 요 form',
+      blurb: 'From dictionary …다, make a verb stem, then add endings. Polite present is the default classroom style.',
+      columns: ['Form', 'Pattern', 'Examples'],
+      rows: [
+        ['Stem', 'drop 다', '하다→하 · 가다→가 · 먹다→먹 · 쓰다→쓰'],
+        ['Polite present', 'stem + 아요/어요/여요', '해요 · 가요 · 먹어요 · 써요'],
+        ['Past', 'stem + 았/었/였 + 어요', '했어요 · 갔어요 · 먹었어요 · 썼어요'],
+        ['Future / probable', 'stem + (으)ㄹ 거예요', '할 거예요 · 갈 거예요 · 먹을 거예요'],
+        ['Want', 'stem + 고 싶어요', '가고 싶어요 — I want to go'],
+        ['Progressive', 'stem + 고 있어요', '먹고 있어요 — I am eating'],
+        ['Negative', '안 + verb · or stem + 지 않아요', '안 가요 · 가지 않아요'],
+        ['Cannot / don’t know how', '못 + verb · stem + 지 못해요', '못 먹어요'],
+      ],
+      tip: '아요 after ㅏ/ㅗ stems; 어요 otherwise; 하다 → 해요 / 했어요 (irregular contraction).',
+    },
+    {
+      id: 'conjugations',
+      title: 'Present conjugations (해요체)',
+      blurb: 'Person is usually shown by the pronoun (often dropped), not by a verb ending change.',
+      columns: ['Gloss', 'Dictionary', 'Polite present', 'Past', 'Future'],
+      rows: [
+        ['do / be (aux)', '하다', '해요', '했어요', '할 거예요'],
+        ['go', '가다', '가요', '갔어요', '갈 거예요'],
+        ['come', '오다', '와요', '왔어요', '올 거예요'],
+        ['eat', '먹다', '먹어요', '먹었어요', '먹을 거예요'],
+        ['drink', '마시다', '마셔요', '마셨어요', '마실 거예요'],
+        ['see / meet', '보다', '봐요', '봤어요', '볼 거예요'],
+        ['exist / have', '있다', '있어요', '있었어요', '있을 거예요'],
+        ['not exist', '없다', '없어요', '없었어요', '없을 거예요'],
+        ['read', '읽다', '읽어요', '읽었어요', '읽을 거예요'],
+        ['write', '쓰다', '써요', '썼어요', '쓸 거예요'],
+        ['be (identity)', '이다', '이에요/예요', '이었어요/였어요', '일 거예요'],
+      ],
+      tip: '이다 → 예요 after a vowel noun (사과예요), 이에요 after a consonant (학생이에요).',
+    },
+    {
+      id: 'irregulars',
+      title: 'Handy irregulars',
+      columns: ['Type', 'Rule', 'Example'],
+      rows: [
+        ['ㄷ → ㄹ', 'before a vowel ending, ㄷ becomes ㄹ', '듣다 → 들어요 (listen)'],
+        ['ㅂ → 우', 'before a vowel ending, ㅂ → 우', '춥다 → 추워요 (cold)'],
+        ['ㅅ drops', 'ㅅ disappears before a vowel', '낫다 → 나아요 (get better)'],
+        ['르', '르 → ㄹ라/ㄹ러', '모르다 → 몰라요 (don’t know)'],
+        ['하다', '하 + 여 → 해', '공부하다 → 공부해요'],
+      ],
+    },
+    {
+      id: 'speech-levels',
+      title: 'Speech levels',
+      columns: ['Level', 'Present “go”', 'When to use'],
+      rows: [
+        ['Casual 반말', '가', 'Close friends, younger people, family (careful)'],
+        ['Polite 요', '가요', 'Default safe polite speech'],
+        ['Formal 습니다', '갑니다', 'Presentations, customers, very formal'],
+        ['Formal past', '갔습니다', 'Same formal register, past'],
+      ],
+      tip: 'When unsure, use 요 form. Switching to 반말 is a social decision, not just a grammar one.',
+    },
+    {
+      id: 'phrases',
+      title: 'Useful phrases',
+      phrases: [
+        {
+          text: '안녕하세요',
+          english: 'Hello (polite)',
+          literal: 'Be at peace',
+        },
+        {
+          text: '저는 [이름]이에요/예요',
+          english: 'I’m [name]',
+        },
+        {
+          text: '이름이 뭐예요?',
+          english: 'What’s your name?',
+          literal: 'Name-subject what-be?',
+        },
+        {
+          text: '만나서 반가워요',
+          english: 'Nice to meet you',
+        },
+        {
+          text: '감사합니다 / 고맙습니다',
+          english: 'Thank you',
+        },
+        {
+          text: '미안해요 / 죄송해요',
+          english: 'Sorry (polite / more formal)',
+        },
+        {
+          text: '이거 얼마예요?',
+          english: 'How much is this?',
+        },
+        {
+          text: '어디 가요?',
+          english: 'Where are you going?',
+        },
+        {
+          text: '한국어를 공부하고 있어요',
+          english: 'I’m studying Korean',
+        },
+        {
+          text: '물을 마시고 싶어요',
+          english: 'I want to drink water',
+        },
+      ],
+    },
+    {
+      id: 'connectors',
+      title: 'Connectors & sentence endings',
+      items: [
+        { label: '그리고', value: 'and / and then (sentence connector)' },
+        { label: '하지만 / 그런데', value: 'but / however (그런데 also “by the way”)' },
+        { label: '그래서', value: 'so / therefore' },
+        { label: 'because', value: '…(아/어)서 · …니까 — 피곤해서 자요' },
+        { label: 'if / when', value: '…(으)면 — 시간 있으면 만나요' },
+        { label: 'while', value: '…(으)면서' },
+        { label: 'question', value: 'rising intonation; written often with ? and same 요 form' },
+        { label: 'let’s', value: 'stem + 아요/어요 → 가요! can mean “let’s go” in context; also …ㅂ/읍시다' },
+        { label: 'please do', value: 'stem + (으)세요 — 앉으세요' },
+        { label: 'because I want', value: '고 싶어서…' },
+      ],
+    },
+  ],
+}
