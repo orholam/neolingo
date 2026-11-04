@@ -77,6 +77,22 @@ export const dadjoGrammarReference = {
       tip: 'Linkers: na = of/for (singular possessum); ka = of/for (plural), e.g. Tukke ka Ali.',
     },
     {
+      id: 'nouns',
+      title: 'Why nouns end in -ne / -ce / -re / …',
+      blurb: 'Common nouns carry a singular “classificatory” suffix (Aviles Cs1–Cs4). This is not Bantu-style gender agreement — the ending is lexically chosen for each noun. Plural endings are a separate lexical choice.',
+      columns: ['Surface', 'Underlying', 'Notes / examples'],
+      rows: [
+        ['-ne (most common)', 'Cs1 /-ne/', 'jamne elder · sugne market · kokine snake (often with epenthetic i)'],
+        ['-ce', 'Cs2 /-ce/', 'culce charcoal · walce egg · abacce leaf'],
+        ['-e', 'Cs3 /-e/', 'uke mouth · ure woman · soge road'],
+        ['-i', 'Cs4 /-i/', 'Mostly Arabic loans: watiri car'],
+        ['-re / -le / -ɲe', 'Usually still /-ne/', 'Assimilation: ber-ne → bere (slave), bel-ne → belle (razor), gaɲ-ne → gaɲɲe'],
+        ['-ine / -ane…', 'Often root + -ne', 'Looks longer because of stem vowels / epenthesis, not a fifth class'],
+        ['Plural -ge / -iŋge / -tige / -tiŋge', 'Cp1–Cp4', 'Independent of singular class: urge (women), abbiŋge (fathers), mortige (wells)'],
+      ],
+      tip: 'You cannot reliably predict -ne vs -ce from meaning. Memorize with the noun. DJC dictionary notes that label -ce/-e/-ne as “noun class markers” match these classificatory suffixes.',
+    },
+    {
       id: 'infinitives',
       title: 'Why -ke / -ge / -diŋge / -aske',
       blurb: 'Dictionary spellings look like many infinitive endings. Morphologically, the basic infinitive is -ke; other shapes are -ke plus sound change or a verb extension.',

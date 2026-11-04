@@ -276,7 +276,24 @@ Kin citation paradigms (`ɓo-` mother, `me-` father) use the same person categor
 
 ---
 
-## 6. Vocabulary checkpoints (your list vs dict)
+## 6. Noun endings (**high** — Aviles)
+
+Common nouns take a singular **classificatory suffix**. This is **not** Bantu-style gender with agreement — each noun lexically picks an ending.
+
+| Label | Suffix | Notes |
+|-------|--------|------|
+| Cs1 | `-ne` | Most common (`jamne`, `sugne`) |
+| Cs2 | `-ce` | (`culce`, `walce`) |
+| Cs3 | `-e` | (`uke`, `ure`) |
+| Cs4 | `-i` | Mostly Arabic loans (`watiri`) |
+
+**`-re` / `-le` / `-ɲe` / `-ine`:** usually still underlying `-ne` after assimilation or epenthesis (`ber-ne` → `bere`, `bel-ne` → `belle`, `kokine`).
+
+**Plurals** are a separate lexical choice among `-ge`, `-iŋge`, `-tige`, `-tiŋge` (no fixed map from singular class).
+
+---
+
+## 7. Vocabulary checkpoints (your list vs dict)
 
 | Your form | Dict / corpus | Notes |
 |-----------|---------------|-------|
@@ -299,7 +316,7 @@ Kin citation paradigms (`ɓo-` mother, `me-` father) use the same person categor
 
 ---
 
-## 7. Phonology crumbs
+## 8. Phonology crumbs
 
 - **Hooked y `ƴ`:** glottal stop (your note; Myers cites Palayer/`ʔ`, also Annie Myers Mongo data).
 - **Vowel length:** phonemic; can be lexical (verb pairs) and, per Aviles, grammatical (spatial/temporal distance) — needs more controlled data.
@@ -308,7 +325,7 @@ Kin citation paradigms (`ɓo-` mother, `me-` father) use the same person categor
 
 ---
 
-## 8. Practical generation rules (updated)
+## 9. Practical generation rules (updated)
 
 1. `SUBJ + Vpresent/past + (DO) + (IO)`
 2. Present: stem + `-e` (→ `-o` after stem `o/u`)
@@ -324,19 +341,17 @@ Kin citation paradigms (`ɓo-` mother, `me-` father) use the same person categor
 
 ---
 
-## 9. Still open
+## 10. Still open
 
-1. Exact conditioning of present `-e` vs `-o`
-2. Full inclusive/dual/3pl grids for many verbs
-3. Resolve `toŋa` vs `tiŋa`, `oŋa` vs `niŋa` DO
-4. When speakers choose `ma` vs `am`, `ce` vs `ac`, `sa` vs `as`
-5. Whether `sogi` is past of `sogo` (your phrase `na sogi ma` “I had it” vs `na sogo tiro` “I don’t have” — **looks like yes**, and matches past `-i`)
-6. Audio-driven cleanup of length/tone (your Drive recordings)
-7. Eref vs Mongo grammatical differences (`ro` vs `tiro`, question particle `wa` in some notes)
+1. Full inclusive/dual/3pl grids for many verbs
+2. Resolve `toŋa` vs `tiŋa`, `oŋa` vs `niŋa` DO
+3. 3pl `sa` vs `as` distribution
+4. Audio-driven cleanup of length/tone (your Drive recordings)
+5. Eref vs Mongo grammatical differences (`ro` vs `tiro`, question particle `wa` in some notes)
 
 ---
 
-## 10. Source links
+## 11. Source links
 
 - Myers site: https://rmyers754.wixsite.com/website/daju-linguistics
 - OLAC DJC: http://www.language-archives.org/language/djc
