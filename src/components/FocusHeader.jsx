@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import HeartsDisplay from './HeartsDisplay'
 import ThemeToggle from './ThemeToggle'
-import { useGems } from '../hooks/useGems'
+import BrainPowerBadge from './BrainPowerBadge'
 
 export default function FocusHeader({
   title,
@@ -12,7 +12,6 @@ export default function FocusHeader({
   maxHearts = 5,
 }) {
   const navigate = useNavigate()
-  const { gems } = useGems()
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-950/90 backdrop-blur-md">
@@ -36,10 +35,7 @@ export default function FocusHeader({
             <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
           )}
           <ThemeToggle />
-          <div className="flex items-center gap-1">
-            <span className="text-lg">💎</span>
-            <span className="font-bold text-gray-800 dark:text-gray-200 text-sm">{gems}</span>
-          </div>
+          <BrainPowerBadge />
         </div>
       </div>
     </header>

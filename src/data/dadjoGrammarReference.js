@@ -1,14 +1,13 @@
 /**
  * Dadjo grammar cheat-sheet data for the in-app reference page.
- * Working model from DJC dictionary, example sentences, and learner notes.
- * Flagged uncertainties stay visible on the page.
+ * DJC dictionary + examples + learner notes + Aviles (2008) morphology.
  */
 
 export const dadjoGrammarReference = {
   id: 'dadjo',
   title: 'Dadjo grammar',
-  subtitle: 'Cheat sheet for conjugations, pronouns, tense, and the multipurpose particle ki.',
-  note: 'Living draft — Mongo/DJC-oriented. Some plural forms still conflict across sources.',
+  subtitle: 'Cheat sheet for conjugations, pronouns, tense, verb endings, and the particle ki.',
+  note: 'Living draft — Mongo/DJC-oriented. Verb morphology draws on Aviles (2008). Some plural pronoun forms still conflict across sources.',
   accent: 'amber',
 
   sections: [
@@ -17,9 +16,9 @@ export const dadjoGrammarReference = {
       title: 'Quick rules',
       items: [
         { label: 'Word order', value: 'Subject – Verb – Object (SVO)' },
-        { label: 'Infinitive', value: 'Most verbs end in -ke (also -ayge, -diŋge, …)' },
-        { label: 'Present', value: 'Replace -ke with -e or -o (lexical choice)' },
-        { label: 'Past', value: 'Replace -ke with -i' },
+        { label: 'Infinitive', value: 'Underlyingly -ke for basically all verbs (surface -ge is often just voiced -ke)' },
+        { label: 'Present', value: 'Stem + -e; becomes -o after stem vowels o/u (urke → uro, wedke → wede)' },
+        { label: 'Non-present', value: 'Stem + -i (often past in free English: uri, isi, legeyi)' },
         { label: 'Negation', value: 'tiro after the predicate (na sogo tiro)' },
         { label: 'Have / there is', value: 'sogo / sogi (from sogke — have or do)' },
       ],
@@ -33,7 +32,7 @@ export const dadjoGrammarReference = {
         ['2nd', 'ni', '—', 'oŋa'],
         ['3rd', 'ma ~ am (m) · ce ~ ac (f)', '—', 'sa (~ as)'],
       ],
-      tip: 'ma/am and ce/ac are alternants; exact distribution still open.',
+      tip: 'ma~am and ce~ac are the same pronouns with consonant/vowel order swapped (metathesis). Aviles: no clear grammatical meaning — varies by speaker. Example: Am legeyi taŋga / Ma dumayi…',
     },
     {
       id: 'objects',
@@ -45,7 +44,7 @@ export const dadjoGrammarReference = {
         ['2nd', 'niŋga', 'oŋa (notes) · niŋa (dict)'],
         ['3rd', 'ma ~ am (m) · ce ~ ac (f)', 'sa'],
       ],
-      tip: '2pl form conflicts across sources — both listed for now.',
+      tip: '2pl form conflicts across sources — both listed for now. 3sg object uses the same ma~am / ce~ac pair.',
     },
     {
       id: 'indirect',
@@ -78,15 +77,46 @@ export const dadjoGrammarReference = {
       tip: 'Linkers: na = of/for (singular possessum); ka = of/for (plural), e.g. Tukke ka Ali.',
     },
     {
+      id: 'infinitives',
+      title: 'Why -ke / -ge / -diŋge / -aske',
+      blurb: 'Dictionary spellings look like many infinitive endings. Morphologically, the basic infinitive is -ke; other shapes are -ke plus sound change or a verb extension.',
+      columns: ['Surface', 'What’s going on', 'Examples'],
+      rows: [
+        ['-ke', 'Basic infinitive', 'urke drink · wedke walk · sogke have'],
+        ['-ge', 'Often still -ke, voiced after a voiced environment', 'damdamge · loan/reduplicated stems'],
+        ['-diŋge', 'Reflexive/reciprocal extension -din + -ke (→ voiced)', 'ɗaydiŋge wash oneself · turdiŋge love each other'],
+        ['-ziŋge', 'Related middle/reflexive family', 'wan̰jasziŋge turn oneself away'],
+        ['-aske', 'Punctual extension -as + -ke (“once”)', 'kin̰jaske open once · isaske give'],
+        ['-…daske / -tas-', 'Iterative / “repeatedly” extension family', 'aldaske throw repeatedly'],
+        ['-ayge / -eyge', 'Often derived or loan-class morphology (+ voicing)', 'hanayge hope · ɗeweyge sell'],
+      ],
+      tip: 'Aviles: when -ke is separated from the root by an extension (e.g. -din), it is especially likely to voice to -ge. Finite reflexives often use -wa instead (ɗaywa, ndugwa).',
+    },
+    {
       id: 'tense',
-      title: 'Tense (-ke verbs)',
+      title: 'Tense & present -e/-o',
       columns: ['Form', 'Shape', 'Examples'],
       rows: [
-        ['Citation', '…ke', 'urke drink · turke love · ososke go · sogke have/do · isaske give'],
-        ['Present', '…e / …o', 'na uro · na turo · na oso · na sogo · na sie · na ŋgan̰e'],
-        ['Past', '…i', 'na uri · isi (gave) · ayi (came) · legeyi (spoke) · sogi (had)'],
+        ['Citation', 'stem + -ke (≈ infinitive)', 'urke · turke · ososke · sogke · wedke'],
+        ['Present', 'stem + -e, or -o after o/u in the stem', 'na wede · na uro · na turo · na oso · na sogo'],
+        ['Non-present', 'stem + -i (often “past” in English glosses)', 'na uri · isi (gave) · ayi (came) · legeyi · sogi (had)'],
       ],
-      tip: 'Present vowel (-e vs -o) is lexical, not person agreement. Dictionary English tense labels are often sloppy — prefer this morphology.',
+      tip: 'Aviles labels these present vs non-present (not strictly past). The -e→-o change is vowel harmony after stem /o,u/ — not person agreement and not random lexical choice.',
+    },
+    {
+      id: 'classes',
+      title: 'Verb classes (Aviles)',
+      blurb: 'Six conjugation classes differ mainly in which tense/aspect/reflexive endings they take — not in having unrelated infinitive suffixes.',
+      columns: ['Class sketch', 'Behavior', 'Sample'],
+      rows: [
+        ['Class 1 (majority)', 'Present -e/-o · non-present -i; takes most aspects', 'urke → uro / uri'],
+        ['Class 2', 'Own present/non-present pattern (e.g. walk-type)', 'wedke → wede'],
+        ['Class 3', 'Search-type conjugations', 'ŋgayge / ŋgan̰ke family'],
+        ['Class 4', 'Short vowel-final roots (kill-type)', 'pake'],
+        ['Class 5', 'Reflexive -din; finite often -wa', 'noldiŋge → nolwa; ɗaywa'],
+        ['Class 6', 'Reflexive “kill oneself”-type; -wa throughout key forms', 'paydiŋge'],
+      ],
+      tip: 'Pedagogically: learn -ke infinitives + -e/-o present + -i non-present first; treat -diŋge/-wa as the reflexive track.',
     },
     {
       id: 'conjugations',
@@ -96,13 +126,13 @@ export const dadjoGrammarReference = {
       rows: [
         ['I (na)', 'ŋgan̰e', 'sogo', 'sie', 'oso', 'uro'],
         ['You (ni)', 'ŋgan̰e', 'sogo', 'sie', 'oso', 'uro'],
-        ['He (ma)', 'ŋgan̰e', 'sogo', 'sie', 'oso', 'uro'],
-        ['She (ce)', 'ŋgan̰e', 'sogo', 'sie', 'oso', 'uro'],
+        ['He (ma/am)', 'ŋgan̰e', 'sogo', 'sie', 'oso', 'uro'],
+        ['She (ce/ac)', 'ŋgan̰e', 'sogo', 'sie', 'oso', 'uro'],
         ['We excl. (oska)', 'ŋganciga', 'sokciga', 'siciga', 'osiga', 'urciga'],
         ['You pl (oŋa)', 'ŋgancini', 'sokcini', 'sicini', 'osini', 'urcini'],
         ['They (sa/as)', 'ŋgan̰e / ŋganca', 'sogo', 'sie / siaca', 'oso / osa', 'urca?'],
       ],
-      tip: 'Lemmas: ŋgan̰ke buy · sogke have · ososke go · urke drink. Sell (ɗeweyge) follows a similar plural pattern in notes.',
+      tip: 'Lemmas: ŋgan̰ke buy · sogke have · ososke go · urke drink. Singular persons share the same verb ending; person is in the pronoun.',
     },
     {
       id: 'ki',
@@ -112,7 +142,7 @@ export const dadjoGrammarReference = {
       rows: [
         ['at / in / to', 'before a noun phrase', 'Na oso ki sugne — I go to the market'],
         ['for', 'before NP (esp. pronoun)', 'Watiri ani ki naŋga — that car is for me'],
-        ['Future', 'before past-shaped verb', 'Na ki osi… — I will go'],
+        ['Future', 'before non-present-shaped verb', 'Na ki osi… — I will go'],
         ['Wish / would', 'before present-shaped verb', 'Na ki oso… — I would like to go'],
         ['Stacks with want', 'ki + win̰e + ki + V', 'Na ki win̰e ki osi ki sugne'],
       ],
@@ -161,6 +191,11 @@ export const dadjoGrammarReference = {
           text: 'Na ki win̰e ki osi ki sugne',
           english: 'I would like to go to the market',
         },
+        {
+          text: 'Na ɗaywa',
+          english: 'I washed myself',
+          literal: 'Reflexive finite -wa from ɗaydiŋge',
+        },
       ],
     },
     {
@@ -176,9 +211,8 @@ export const dadjoGrammarReference = {
         { label: 'koroni', value: 'now / presently' },
         { label: 'kor … ?', value: 'yes/no question starter (Kor ni ki ayi?)' },
         { label: 'aŋgala', value: 'who' },
-        { label: '-diŋge verbs', value: 'reflexive/reciprocal; finite often -wa (ɗaywa)' },
+        { label: '-din / -diŋge', value: 'reflexive/reciprocal extension; finite often -wa (ɗaywa, nolwa)' },
       ],
     },
   ],
 }
-

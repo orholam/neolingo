@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useStreak } from '../hooks/useStreak'
-import { useGems } from '../hooks/useGems'
 import { useLanguagePlan } from '../hooks/useLanguagePlan'
 import { useLanguageSwitch } from '../hooks/useLanguageSwitch'
 import HeartsDisplay from './HeartsDisplay'
 import ThemeToggle from './ThemeToggle'
+import BrainPowerBadge from './BrainPowerBadge'
 
 function Header({ 
   variant = 'main', // 'main' | 'simple'
@@ -19,7 +19,6 @@ function Header({
   const navigate = useNavigate()
   const location = useLocation()
   const { streak } = useStreak()
-  const { gems } = useGems()
   const { enabledLanguages } = useLanguagePlan()
   const { selectedCourseId, switchLanguage, setSelectedCourseId } = useLanguageSwitch()
   const [hoveredLangId, setHoveredLangId] = useState(null)
@@ -157,10 +156,7 @@ function Header({
                   <span className="font-bold text-gray-800 dark:text-gray-200">{streak}</span>
                 </div>
               )}
-              <div className="flex items-center space-x-1">
-                <span className="text-2xl">🐏</span>
-                <span className="font-bold text-gray-800 dark:text-gray-200">{gems}</span>
-              </div>
+              <BrainPowerBadge />
             </div>
           </div>
         </div>
@@ -189,10 +185,7 @@ function Header({
               <HeartsDisplay hearts={hearts} maxHearts={maxHearts} />
             )}
             <ThemeToggle />
-            <div className="flex items-center space-x-1">
-              <span className="text-xl">🐏</span>
-              <span className="font-bold text-gray-800 dark:text-gray-200">{gems}</span>
-            </div>
+            <BrainPowerBadge />
           </div>
         </div>
       </div>

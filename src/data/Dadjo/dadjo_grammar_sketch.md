@@ -58,7 +58,7 @@ Confidence: **high** / **medium** / **low** / **conflict** (sources disagree or 
 6. **Husband/wife compounds:** you `yewe-ure` = husband; dict `ure-yewe` = wife. Likely complementary compounds, not a outright error — record both.
 7. **`ayke`:** dict “to reach”; you also hear “come”. Finite `ayi` is glossed “came” all over the corpus. **Working stance:** lemma gloss “reach”; discourse function often “arrive/come.”
 8. **Dictionary free English tense** is sloppy (`Na uro` “I am drinking”, `Na too` “I stopped”). Prefer your morphological tense rule over DJC example tense labels when they clash.
-9. **3sg `ma` vs `am`, `ce` vs `ac`:** your notes treat as alternants — adopted. Distribution still unexplained (phonology, focus, dialect, orthography).
+9. **3sg `ma` vs `am`, `ce` vs `ac`:** same pronouns via **metathesis** (CV ↔ VC). Aviles: no particular grammatical function; varies by speaker.
 
 ---
 
@@ -86,7 +86,7 @@ Dadjo is **SVO**, with:
 | 2 | `ni` | | `oŋa` |
 | 3 | `ma` ~ `am` (masc) · `ce` ~ `ac` (fem) | | `sa` (~ `as`) |
 
-Corpus also uses `am` very often as 3sg masc subject; `ac` appears as fem subject/continuing reference.
+**`ma`~`am` / `ce`~`ac`:** same pronouns via metathesis (CV ↔ VC). Aviles: no particular grammatical function; varies by speaker.
 
 ### 2.2 Direct object (**high** sg; **medium/conflict** pl)
 
@@ -165,19 +165,29 @@ Dialect note: Palayer’s Eref materials reportedly use final `ro`; don’t assu
 
 ## 4. Verbs
 
-### 4.1 Citation classes (**high**)
+### 4.1 Citation shapes (**high** — Aviles)
 
-Still dominated by `-ke`, then `-ayge`, `-ge`, `-diŋge`, `-aske`, etc. (see earlier counts). Your pedagogical rule focuses on the big `-ke` class — correct as a teaching default; other classes need their own maps (`-ayge` → `-ayi/-aye`, `-diŋge` → often `-wa`, …).
+Underlying infinitive is **`-ke`**. Surface dictionary endings are mostly `-ke` plus voicing and/or extensions:
 
-### 4.2 Tense for main `-ke` class (**high** as working rule from your notes)
+| Surface | Analysis |
+|---------|----------|
+| `-ke` | basic infinitive |
+| `-ge` | often voiced `-ke` |
+| `-diŋge` | reflexive/reciprocal `-din` + `-ke` |
+| `-aske` | punctual `-as` + `-ke` |
+| `-ayge` etc. | derived / loan-class morphology (+ voicing) |
+
+Aviles’s six **verb classes** are about conjugation/aspect/reflexive allomorphs (e.g. class 5/6 finite `-wa`), not six unrelated infinitive suffixes.
+
+### 4.2 Tense for main class (**high**)
 
 | Form | Morphology | Example |
 |------|------------|---------|
-| Infinitive / citation | `…ke` | `urke` to drink · `turke` to love · `isaske` to give · `ososke` to go · `sogke` to have/do |
-| Present | replace with `-e` or `-o` | `na uro` · `na turo` · `na oso` · `na sogo` · `na sie` · `na ŋgan̰e` |
-| Past | replace with `-i` | `na uri` · `isi` (gave) · `ayi` (came/reached) · `legeyi` (spoke) |
+| Infinitive / citation | stem + `-ke` | `urke` drink · `wedke` walk · `sogke` have/do |
+| Present | stem + `-e`, or **`-o` after stem `/o,u/`** | `na wede` · `na uro` · `na oso` · `na sogo` |
+| Non-present | stem + `-i` (often “past” in English) | `na uri` · `isi` · `ayi` · `legeyi` · `sogi` |
 
-Which present vowel (`-e` vs `-o`) is **lexical**, not person agreement (`na uro` / `ni uro` / `ma uro` share the vowel in your grid).
+Present `-e` vs `-o` is **vowel harmony**, not person agreement (`na uro` / `ni uro` / `ma uro` share the vowel).
 
 **Vowel length** is contrastive and can distinguish verbs (and interacts with tone in Aviles’s pairs):
 
@@ -301,8 +311,8 @@ Kin citation paradigms (`ɓo-` mother, `me-` father) use the same person categor
 ## 8. Practical generation rules (updated)
 
 1. `SUBJ + Vpresent/past + (DO) + (IO)`
-2. Present: `-ke` → `-e/-o` (lexically chosen vowel)
-3. Past: `-ke` → `-i`
+2. Present: stem + `-e` (→ `-o` after stem `o/u`)
+3. Non-present: stem + `-i`
 4. Love you: `Na turo niŋga`
 5. Spoke to me: `Am legeyi taŋga` (past `-i` on a non-`ke`-only stem family)
 6. Relative: `N me VP`

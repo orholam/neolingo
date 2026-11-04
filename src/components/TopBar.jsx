@@ -1,11 +1,10 @@
 import { useStreak } from '../hooks/useStreak'
-import { useGems } from '../hooks/useGems'
 import ThemeToggle from './ThemeToggle'
 import AccountMenu from './AccountMenu'
+import BrainPowerBadge from './BrainPowerBadge'
 
 export default function TopBar({ title }) {
   const { streak } = useStreak()
-  const { gems } = useGems()
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-950/90 backdrop-blur-md">
@@ -23,10 +22,7 @@ export default function TopBar({ title }) {
               <span className="font-bold text-gray-800 dark:text-gray-200 text-sm">{streak}</span>
             </div>
           )}
-          <div className="flex items-center gap-1">
-            <span className="text-xl">💎</span>
-            <span className="font-bold text-gray-800 dark:text-gray-200 text-sm">{gems}</span>
-          </div>
+          <BrainPowerBadge />
           <AccountMenu />
         </div>
       </div>
